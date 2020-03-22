@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on Documentation</title>
+    <link>http://10.20.222.175/</link>
+    <description>Recent content in Home on Documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 Dec 2019 16:51:53 +0545</lastBuildDate>
+    
+	<atom:link href="http://10.20.222.175/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Glassfish Tunning</title>
+      <link>http://10.20.222.175/glassfish/tunning/</link>
+      <pubDate>Mon, 09 Dec 2019 03:51:55 +0545</pubDate>
+      
+      <guid>http://10.20.222.175/glassfish/tunning/</guid>
+      <description>While Installing Glassfish server may seems easy, sometimes you may face lots of issue due to glassfish server not being finely tunned. By default configuration, glassfish server comes with the minimal optipons configured. Here let&#39;s discuss about tunning the glassfish server for your environment. Let&#39;s first disscuss about the JVM options. bin/asadmin &amp;ndash;port list-jvm-options
+a. List all the JVM Options configured for domain
+bin/asadmin --port &amp;lt;admin-port&amp;gt; list-jvm-options  b. From above command you will get a list of JVM options.</description>
+    </item>
+    
+    <item>
+      <title>Kaspersky for linux</title>
+      <link>http://10.20.222.175/kaspersky/kaspersky_linux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://10.20.222.175/kaspersky/kaspersky_linux/</guid>
+      <description>In this tutorial, you will learn how to install Kaspersky in Centos Server and connect to Kaspersky Server. Kaspersky Server is installed in 10.13.212.50.
+Note : First telnet to the Kaspersky server port 13000, It should success.
+telnet 10.13.212.50 13000
+Step 1 : Install Required Dependencies:- yum install &#39;perl(Data::Dumper)&#39; -y yum install perl-Digest-MD5 -y yum install glibc -y yum install kernel-devel -y  Step 2: Install Kaspersky Network Agent from our local repository rpm -ivh http://space.</description>
+    </item>
+    
+    <item>
+      <title>Firewalld &amp; Keepalived</title>
+      <link>http://10.20.222.175/firewall/firewall_keepalive/</link>
+      <pubDate>Sun, 08 Dec 2019 16:42:04 +0545</pubDate>
+      
+      <guid>http://10.20.222.175/firewall/firewall_keepalive/</guid>
+      <description>Firewalld and keepalived Keepalived provides simple and robust facilities for load-balancing and high-availability. The load-balancing framework relies on the well-known and widely used Linux Virtual Server (IPVS) kernel module providing Layer4 load-balancing.
+Keepalived implements a set of checkers to dynamically and adaptively maintain and manage a load-balanced server pool according to their health. Keepalived also implements the VRRPv2 and VRRPv3 protocols to achieve high-availability with director failover.
+You can allow firewall to accept vrrp protocol, which will allow you keepalive work accurately</description>
+    </item>
+    
+    <item>
+      <title>Rich Rule</title>
+      <link>http://10.20.222.175/firewall/firewall_richrule/</link>
+      <pubDate>Sun, 08 Dec 2019 16:41:40 +0545</pubDate>
+      
+      <guid>http://10.20.222.175/firewall/firewall_richrule/</guid>
+      <description>Rich Rule With the rich language more complex firewall rules can be created in an easy to understand way. The language uses keywords with values and is an abstract representation of ip*tables rules.
+The rich language extends the current zone elements (service, port, icmp-block, icmp-type, masquerade, forward-port and source-port) with additional source and destination addresses, logging, actions and limits for logs and actions.
+To accept ssh connection form a network only</description>
+    </item>
+    
+  </channel>
+</rss>

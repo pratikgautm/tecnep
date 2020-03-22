@@ -1,0 +1,116 @@
++++
+title = "Glassfish"
+date = 2019-12-09T03:51:55+05:45
+weight = 5
++++
+
+GlassFish Server is a production ready Java EE 6 compliant application server developed under an open source license. Benefits include a modular, runtime that minimizes resource consumption, an easy-to-use administration console, a feature-rich command line tool,centralized administration and high-availability clustering.
+
+
+a. Create a user to own Glassfish and java  software
+ 
+	[root@tecnep ~]#useradd client
+
+
+b. Switch  to the client user:
+
+	[root@tecnep ~]#su - client
+
+
+c. Download or copy tar file of java in client user and extract it
+
+	[client@tecnep ~]$cd /home/client
+	[client@tecnep ~]$tar -xzvf jdk-8u211-linux-x64.tar.gz
+	[client@tecnep ~]$mv java8 .java8
+
+d. Set java's home environmet by editing .bash_profile
+
+	[client@tecnep ~]$vi .bash_profile
+
+Add following line and replave java folder with your own
+	
+	export PATH
+	JAVA_HOME=/home/client/.java8; export JAVA_HOME
+	PATH=$JAVA_HOME/bin:$PATH; export PATH
+
+e. Update bash profile.
+
+	[client@tecnep ~]$source .bash_profile
+
+f. Check if JAVA has been properly installed.
+
+	[client@tecnep ~]$java -version
+
+If java is correctly installed it should show like:-
+
+	java version "1.8.0_211"
+	Java(TM) SE Runtime Environment (build 1.8.0_211-b12)
+	Java HotSpot(TM) 64-Bit Server VM (build 25.211-b12, mixed mode)
+
+g. Download and extract the latest GlassFish archive again in client user
+
+	[root@tecnep ~]# unzip glassfish-4.1.zip
+
+h. If unzip is not avaialable in your system install unzip
+
+	[root@tecnep ~]#yum -y install unzip
+
+i. Change the ownership of /home/client/glassfish
+
+	[client@tecnep ~]$chown -R client:client glassfish
+
+j. Check the available domains (domain1 is installed by default)
+
+	[client@tecnep glassfish4]$ bin/asadmin list-domains
+	domain1 not running
+	Command list-domains executed successfully.
+
+k. Delete default domain [Optional]
+
+	[client@tecnep glassfish4]$ bin/asadmin delete-domain domain1
+
+l. Add new domain as per your requirement. We are going to create portbase domain
+
+	[client@tecnep glassfish4]$bin/asadmin create-domain --portbase 5000 client
+
+m. Start the domain
+
+	[client@tecnep glassfish4]$ bin/asadmin start-domain client
+	Waiting for client to start .......
+	Successfully started the domain : client
+	domain  Location: /home/client/glassfish4/glassfish/domains/client
+	Log File: /home/client/glassfish4/glassfish/domains/client/logs/server.log
+	Admin Port: 5048
+	Command start-domain executed successfully.
+
+
+n. After domain has started, you can now access through web interface also. Make sure firewall has allowed its http port 5048
+	
+	[root@tecnep ~]#firewall-cmd --add-port=5048/tcp --permanent
+	[root@tecnep ~]#firewall-cmd --reload
+
+o. Secure the glassfish admin console
+
+	[client@tecnep glassfish4]$bin/asadmin --host localhost --port 5048 enable-secure-admin
+
+	[client@tecnep glassfish4]$bin/asadmin restart-domain client
+
+You can now access the default page https://yourIP:5048
+
+p. Deploy a sample .ear file 
+
+	[client@tecnep glassfish4]$ bin/asadmin deploy --port 5048 /home/client/glassfish4/EnterpriseHelloWorld.ear
+	Enter admin user name>  admin
+	Enter admin password for user "admin">
+	Application deployed with name EnterpriseHelloWorld.
+	Command deploy executed successfully.
+
+r. To undeploy use following command with your installed path 
+
+	[client@tecnep glassfish4]$ bin/asadmin undeploy --port 5048 /home/client/glassfish4/glassfish/domains/client/applications/EnterpriseHelloWorld
+	Enter admin user name>  admin
+	Enter admin password for user "admin">
+	Command undeploy executed successfully.
+
+
+Written By : Ritu Singh
