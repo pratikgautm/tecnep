@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Zimbra Tips &amp; Tricks - Tecnep.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.6aa5eecd4ca7c47fb2ca9b0775a7bd787e3e64a2eadf0fef8c9f924498f49127.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-docs">
+      <a href="/docs/">
+        <span>Docs</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="/"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="/"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-docs">
+      <a href="/docs/">
+        <span>Docs</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Docs</h4>
+  <ul>
+    
+    <li class="">
+      <a href="/docs/mailcleaner/">Mail Cleaner</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/hardening/">System Hardening</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/glassfish/">Glassfish</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/chrony/">NTP</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/redis/">Redis</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/system_resources/">Increase hard disk</a>
+    </li>
+    
+    <li class="active ">
+      <a href="/docs/zimbra-tips-tricks/">Zimbra Tips &amp; Tricks</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/kaspersky/">Kaspersky for linux</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/snmp/">SNMP</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/firewall/">Firewall</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Zimbra Tips &amp; Tricks</h1>
+<div class="content ">
+  <h4 id="zimbra-mail-server-memory-tuning">Zimbra Mail server Memory Tuning</h4>
+<p>This utility will detect the amount of RAM in this system and make suggestions on the size of your java heap as well as the size of your innodb buffer pool.
+If you choose, it will also make these changes to your zimbra install. NOTE: For the changes to be effective, a mailboxd restart is required.</p>
+<p>Copy the following script to any file memorytuning.sh</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="k">function</span> ask_yes_or_no<span class="o">()</span> <span class="o">{</span>
+	<span class="nb">read</span> -p <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2"> ([y]es or [N]o): &#34;</span>
+	<span class="k">case</span> <span class="k">$(</span><span class="nb">echo</span> <span class="nv">$REPLY</span> <span class="p">|</span> tr <span class="s1">&#39;[A-Z]&#39;</span> <span class="s1">&#39;[a-z]&#39;</span><span class="k">)</span> in
+			 y<span class="p">|</span>yes<span class="o">)</span> <span class="nb">echo</span> <span class="s2">&#34;yes&#34;</span> <span class="p">;;</span>
+			 *<span class="o">)</span>     <span class="nb">echo</span> <span class="s2">&#34;no&#34;</span> <span class="p">;;</span>
+	<span class="k">esac</span>
+<span class="o">}</span>
+
+<span class="nb">echo</span> <span class="s2">&#34;Checking total available ram&#34;</span>
+
+<span class="c1">#echo free human readable</span>
+cat /proc/meminfo <span class="p">|</span>grep MemTotal
+
+<span class="c1">#get memory total in bytes for calculation:</span>
+<span class="nv">MEMTOT</span><span class="o">=</span><span class="sb">`</span>cat /proc/meminfo <span class="p">|</span>grep MemTotal <span class="p">|</span>awk <span class="s1">&#39;{print $2}&#39;</span> 2&gt;<span class="p">&amp;</span>1<span class="sb">`</span>
+
+<span class="c1">#memingig</span>
+<span class="nv">MEMGB</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$MEMTOT</span> / 1048576<span class="sb">`</span>
+
+<span class="c1">#echo &#34;memeory total = &#34;$MEMTOT</span>
+<span class="c1">#echo &#34;mem total gb = &#34;$MEMGB</span>
+
+
+<span class="c1">##From the wiki:</span>
+<span class="c1">#    On a &lt;8GB system, set Java heap size percent to 20 and mysql innodb buffer pool to 20% of system memory.</span>
+<span class="c1">#    On a 8GB system, set Java heap size percent to 30 and mysql innodb buffer pool to 25% of system memory.</span>
+<span class="c1">#    On a 16GB system, set Java heap size percent to 25 and mysql innodb buffer pool to 30% of system memory, monitor and then increase innodb buffer pool size.</span>
+<span class="c1">#    On a 32GB system, set Java heap size percent to 20 and mysql innodb buffer pool to 35% of system memory, monitor and then increase innodb buffer pool size.</span>
+<span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+<span class="c1">#get values</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$MEMGB</span> -lt <span class="m">8</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+<span class="nv">JAVAHEAP</span><span class="o">=</span><span class="sb">`</span>perl -E <span class="s2">&#34;say int((</span><span class="nv">$MEMTOT</span><span class="s2">/1024*.2)+0.5)&#34;</span><span class="sb">`</span>
+<span class="nv">INNODB</span><span class="o">=</span><span class="sb">`</span>perl -E <span class="s2">&#34;say int((</span><span class="nv">$MEMTOT</span><span class="s2">*1024*.2)+0.5)&#34;</span><span class="sb">`</span>
+<span class="k">fi</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$MEMGB</span> -eq <span class="m">8</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+<span class="nv">JAVAHEAP</span><span class="o">=</span><span class="sb">`</span>perl -E <span class="s2">&#34;say int((</span><span class="nv">$MEMTOT</span><span class="s2">/1024*.3)+0.5)&#34;</span><span class="sb">`</span>
+<span class="nv">INNODB</span><span class="o">=</span><span class="sb">`</span>perl -E <span class="s2">&#34;say int((</span><span class="nv">$MEMTOT</span><span class="s2">*1024*.25)+0.5)&#34;</span><span class="sb">`</span>
+<span class="k">fi</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$MEMGB</span> -ge <span class="m">8</span> <span class="o">&amp;&amp;</span> <span class="nv">$MEMGB</span> -le <span class="m">16</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+<span class="nv">JAVAHEAP</span><span class="o">=</span><span class="sb">`</span>perl -E <span class="s2">&#34;say int((</span><span class="nv">$MEMTOT</span><span class="s2">/1024*.25)+0.5)&#34;</span><span class="sb">`</span>
+<span class="nv">INNODB</span><span class="o">=</span><span class="sb">`</span>perl -E <span class="s2">&#34;say int((</span><span class="nv">$MEMTOT</span><span class="s2">*1024*.3)+0.5)&#34;</span><span class="sb">`</span>
+<span class="k">fi</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$MEMGB</span> -gt <span class="m">16</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+<span class="nv">JAVAHEAP</span><span class="o">=</span><span class="sb">`</span>perl -E <span class="s2">&#34;say int((</span><span class="nv">$MEMTOT</span><span class="s2">/1024*.2)+0.5)&#34;</span><span class="sb">`</span>
+<span class="nv">INNODB</span><span class="o">=</span><span class="sb">`</span>perl -E <span class="s2">&#34;say int((</span><span class="nv">$MEMTOT</span><span class="s2">*1024*.35)+0.5)&#34;</span><span class="sb">`</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span> <span class="s2">&#34;For your system, with </span><span class="nv">$MEMGB</span><span class="s2"> gig of ram, these are your suggested values:&#34;</span>
+<span class="nb">echo</span> <span class="s2">&#34;Java Heap size (in MB):  &#34;</span><span class="nv">$JAVAHEAP</span>
+<span class="nb">echo</span> <span class="s2">&#34;Innodb bufer (in bytes): &#34;</span><span class="nv">$INNODB</span>
+
+<span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&#34;no&#34;</span> <span class="o">==</span> <span class="k">$(</span>ask_yes_or_no <span class="s2">&#34;Would You Like to Make these Changes?&#34;</span><span class="k">)</span> <span class="o">||</span> <span class="se">\
+</span><span class="se"></span>		<span class="s2">&#34;no&#34;</span> <span class="o">==</span> <span class="k">$(</span>ask_yes_or_no <span class="s2">&#34;Are you sure?&#34;</span><span class="k">)</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+		 <span class="nb">echo</span> <span class="s2">&#34;No changes have been made.&#34;</span>
+		 <span class="nb">exit</span> <span class="m">0</span>
+<span class="k">fi</span>
+<span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+
+<span class="nb">echo</span> <span class="s2">&#34;Executing zmlocalconfig -e mailboxd_java_heap_size=</span><span class="nv">$JAVAHEAP</span><span class="s2">&#34;</span>
+zmlocalconfig -e <span class="nv">mailboxd_java_heap_size</span><span class="o">=</span><span class="nv">$JAVAHEAP</span>
+
+<span class="nb">echo</span> <span class="s2">&#34;Creating copy of existing my.cnf, my.cnf.old&#34;</span>
+cp /opt/zimbra/conf/my.cnf /opt/zimbra/conf/my.cnf.old
+<span class="nb">echo</span> <span class="s2">&#34;Changing existing my.cnf&#34;</span>
+cat /opt/zimbra/conf/my.cnf <span class="p">|</span>sed <span class="s2">&#34;s/innodb_buffer_pool_size.*.\ =\ .*/innodb_buffer_pool_size\ \ \ \ \ \ =\ </span><span class="nv">$INNODB</span><span class="s2">/&#34;</span> &gt; /tmp/my.cnf.new
+mv -f /tmp/my.cnf.new /opt/zimbra/conf/my.cnf
+rm -f /tmp/my.cnf.new
+<span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+<span class="nb">echo</span> <span class="s2">&#34;Changes completed&#34;</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&#34;no&#34;</span> <span class="o">==</span> <span class="k">$(</span>ask_yes_or_no <span class="s2">&#34;Would You Like to restart mailboxd?&#34;</span><span class="k">)</span> <span class="o">||</span> <span class="se">\
+</span><span class="se"></span>		 <span class="s2">&#34;no&#34;</span> <span class="o">==</span> <span class="k">$(</span>ask_yes_or_no <span class="s2">&#34;Are you sure?&#34;</span><span class="k">)</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+		 <span class="nb">echo</span> <span class="s2">&#34;You must restart mysql and mailboxd for changes to be effective&#34;</span>
+		 <span class="nb">exit</span> <span class="m">0</span>
+
+<span class="k">fi</span>
+zmmailboxdctl stop
+mysql.server stop
+zmmailboxdctl start
+mysql.server start
+
+<span class="nb">echo</span> <span class="s2">&#34;Services restarted.&#34;</span>
+<span class="nb">exit</span> 0<span class="p">;</span>
+</code></pre></div><p>mv the file to /opt/zimbra
+change the ownership to zimbra user.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">chown zimbra. /opt/zimbra/memorytuning.sh
+</code></pre></div><p>Make the file executable.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+chmod +x /opt/zimbra/memorytuning.sh
+</code></pre></div><p>Run the script from zimbra user.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+cd /opt/zimbra
+./memorytuning.sh
+</code></pre></div><p>Follow the instructions that appears after executing the script.</p>
+<h4 id="zimbra-delegate-user-as-admin-role">Zimbra Delegate user as admin role</h4>
+<p>Using this script, you will be able to create user with admin role which has all access to create email account ,
+list account, modify account, create distribution list however the delegated user
+will not be able to use view email feature.</p>
+<p>Copy the following script in any file eg: <code>delegate.sh</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>zmprov ma <span class="nv">$2</span> zimbraIsDelegatedAdminAccount TRUE
+zmprov ma <span class="nv">$2</span> zimbraAdminConsoleUIComponents cartBlancheUI zimbraAdminConsoleUIComponents domainListView zimbraAdminConsoleUIComponents accountListView zimbraAdminConsoleUIComponents DLListView
+zmprov ma <span class="nv">$2</span> zimbraDomainAdminMaxMailQuota <span class="m">0</span>
+zmprov grantRight domain <span class="nv">$1</span> usr <span class="nv">$2</span> +createAccount
+zmprov grantRight domain <span class="nv">$1</span> usr <span class="nv">$2</span> +createAlias
+zmprov grantRight domain <span class="nv">$1</span> usr <span class="nv">$2</span> +createCalendarResource
+zmprov grantRight domain <span class="nv">$1</span> usr <span class="nv">$2</span> +createDistributionList
+zmprov grantRight domain <span class="nv">$1</span> usr <span class="nv">$2</span> +deleteAlias
+zmprov grantRight domain <span class="nv">$1</span> usr <span class="nv">$2</span> +listDomain
+zmprov grantRight domain <span class="nv">$1</span> usr <span class="nv">$2</span> +domainAdminRights
+zmprov grantRight domain <span class="nv">$1</span> usr <span class="nv">$2</span> +configureQuota
+zmprov grantRight domain <span class="nv">$1</span> usr <span class="nv">$2</span> set.account.zimbraAccountStatus
+zmprov grantRight domain <span class="nv">$1</span> usr <span class="nv">$2</span> set.account.sn
+zmprov grantRight domain <span class="nv">$1</span> usr <span class="nv">$2</span> set.account.displayName
+zmprov grantRight domain <span class="nv">$1</span> usr <span class="nv">$2</span> set.account.zimbraPasswordMustChange
+zmprov grantRight domain <span class="nv">$1</span> usr <span class="nv">$2</span> getDomainQuotaUsage
+zmprov grantRight account <span class="nv">$2</span> usr <span class="nv">$2</span> +deleteAccount
+zmprov grantRight account <span class="nv">$2</span> usr <span class="nv">$2</span> +getAccountInfo
+zmprov grantRight account <span class="nv">$2</span> usr <span class="nv">$2</span> +getAccountMembership
+zmprov grantRight account <span class="nv">$2</span> usr <span class="nv">$2</span> +getMailboxInfo
+zmprov grantRight account <span class="nv">$2</span> usr <span class="nv">$2</span> +listAccount
+zmprov grantRight account <span class="nv">$2</span> usr <span class="nv">$2</span> +removeAccountAlias
+zmprov grantRight account <span class="nv">$2</span> usr <span class="nv">$2</span> +renameAccount
+zmprov grantRight account <span class="nv">$2</span> usr <span class="nv">$2</span> +setAccountPassword
+zmprov grantRight account <span class="nv">$2</span> usr <span class="nv">$2</span> +viewAccountAdminUI
+zmprov grantRight account <span class="nv">$2</span> usr <span class="nv">$2</span> +configureQuota
+</code></pre></div><p>Move the file to /opt/zimbra</p>
+<p>Change the ownership of the file.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">chown zimbra. /opt/zimbra/delegate.sh
+</code></pre></div><p>Make the file executable</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">chmod +x /opt/zimbra/delegate.sh
+</code></pre></div><p>Execute the script as zimbra user</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+cd /opt/zimbra
+</code></pre></div><p>Remember to run the script with two parameters user and domain(You should have create a user to delegate admin role)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">./delegate.sh [user eg: test.test@test.com] [domain eg: test.com]
+</code></pre></div><p>Now login to admin panel <code>https://youremaildomain.com:7071</code> Now you can use admin roles.</p>
+<h4 id="find-compromised-account-in-zimbra">Find Compromised Account in Zimbra</h4>
+<p>Login to your zimbra server and run the following command as root user. If your email account is compromised, the list will be appeared.
+Change the password of the listed email account and restart zimbra services.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">grep sasl_user /var/log/zimbra.log | sed &#39;s/.*sasl_username=//g&#39; | sort | uniq -c | sort -nr | head
+</code></pre></div><p>Monitor the zimba mail log</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">tail -f /var/log/maillog
+</code></pre></div><h4 id="how-to-check-queue-status-to-hold-deferred-and-active">How to check queue status to hold, deferred and active</h4>
+<p>To check all queue details as follow with root.</p>
+<p>Login to your zimbra mail server and run the following command from root to check the queue.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">/opt/zimbra/libexec/zmqstat
+</code></pre></div><p>The queue will be listed as,</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">hold=0
+corrupt=0
+deferred=0
+active=0
+incoming=0
+</code></pre></div><p>To Check current mail queue status:</p>
+<p>Run the following commands from zimbra user.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+/opt/zimbra/common/sbin/postqueue -p
+</code></pre></div><p>To Flush Postfix Queue, run the command as root user.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">/opt/zimbra/common/sbin/postqueue -f  
+</code></pre></div><p>To Requeue Messages In Postfix:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">opt/zimbra/common/sbin/postsuper -r ALL
+</code></pre></div><p>To Check current hold messages:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">/opt/zimbra/common/sbin/postsuper -h ALL
+</code></pre></div><p>To Delete Single Message From Queue:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">/opt/zimbra/common/sbin/postsuper -d [MSGID From postqueue -p]
+</code></pre></div><p>To Delete ALL Messages From Queue</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">/opt/zimbra/common/sbin/postsuper -d ALL
+</code></pre></div><p>To Delete ALL Messages From The Deferred Queue</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">/opt/zimbra/common/sbin/postsuper -d ALL deferred
+</code></pre></div><p>To Delete ALL Messages From The Hold Queue</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">/opt/zimbra/common/sbin/postsuper -d ALL hold
+</code></pre></div><h4 id="how-to-remove-dnscache-from-zimbra-services">How to remove DNSCACHE from zimbra services.</h4>
+<p>If you will get a prompt stating something like “Port conflict detected: 53 (zimbra-dnscache)” with a prompt to hit ENTER to continue, you can just hit enter and let the installation/upgrade run out. Once everything is running, you will see that the Zimbra DnsCahe service is in a stopped state.
+To fix this error, all you have to do is;</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+zmcontrol status
+zmprov ms `zmhostname` -zimbraServiceEnabled dnscache
+zmprov ms `zmhostname` -zimbraServiceInstalled dnscache
+zmcontrol status
+</code></pre></div><h4 id="unlock-close-and-lock-zimbra-user-account">Unlock, Close and Lock zimbra user account.</h4>
+<p>To lock the email account</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+zmprov ma emailaccount@domain.com  zimbraAccountStatus lock
+</code></pre></div><p>To Unlock the email account</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+zmprov ma emailaccount@domain.com  zimbraAccountStatus unlock
+</code></pre></div><p>To close the email account</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+zmprov ma emailaccount@domain.com  zimbraAccountStatus closed
+</code></pre></div><p>To show the current account status</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+zmprov ga userid@domain.com zimbraAccountStatus
+</code></pre></div><h4 id="whitelist-and-blacklist-domains-in-zimbra">Whitelist and Blacklist domains in zimbra</h4>
+<p>The simplest filtering methods for spamassasin are the blacklist and whitelist. Blacklist entries block all email from an address or domain, and whitelist entries bypass all filtering for an address or domain.</p>
+<p>To add blackist or whitelist entries to your salocal.cf.in file.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">vi /opt/zimbra/conf/salocal.cf.in
+</code></pre></div><p>Add the following lines and save the file.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">blacklist_from *fenpropertyservices.co.uk
+blacklist_from *marshallsestateagents.co.uk
+whitelist_from m.rajesh@yahoo.com
+whitelist_from ganesh@gmail.com
+</code></pre></div><p>To set domain or IP level spam score in zimbra</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">vi /opt/zimbra/conf/amavisd.conf.in
+</code></pre></div><p>To set white listed domain or IP (score -1 to -10 : default -5)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">‘nobody@cert.org’                        =&gt; -3.0,
+‘cert-advisory@us-cert.gov’              =&gt; -3.0,
+</code></pre></div><p>To set block listed domain or IP (score 1 to 10)
+soft-blacklisting (positive score)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">‘sender@example.net’                     =&gt;  3.0,
+‘.example.net’                           =&gt;  1.0,
+‘.domain.com’                            =&gt;  8.0,
+</code></pre></div><p>Restart Zimbra spamassassin by using following command.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmmtactl restart &amp;&amp; zmamavisdctl restart
+</code></pre></div><h4 id="protect-policyd-webuicbpolicy">Protect Policyd WebUI(cbpolicy)</h4>
+<p>For Newer Versions <code>(8.*)</code></p>
+<p>Run the following Commands from zimbra user.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmapachectl stop
+cd /opt/zimbra/common/share/webui
+vi .htaccess
+</code></pre></div><p>Add the following lines and save the file</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">AuthUserFile /opt/zimbra/data/httpd/htdocs/webui/.htpasswd
+AuthGroupFile /dev/null
+AuthName &#34;User and Password&#34;
+AuthType Basic
+&lt;LIMIT GET&gt;
+require valid-user
+&lt;/LIMIT&gt;
+</code></pre></div><p>After saving the file, run the following commands.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /opt/zimbra/common/share/webui
+touch .htpasswd
+</code></pre></div><p>Change the username and password and replace with admin</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">/opt/zimbra/common/bin/htpasswd -cb .htpasswd admin admin
+vi /opt/zimbra/conf/httpd.conf
+</code></pre></div><p>At the end of the file, add the following lines</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Alias /webui /opt/zimbra/data/httpd/htdocs/webui/
+&lt;Directory /opt/zimbra/data/httpd/htdocs/webui/&gt;
+</code></pre></div><p>Comment out the following 3 lines to make web ui accessible from anywhere.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">AllowOverride AuthConfig
+Order Deny,Allow
+Allow from all
+</code></pre></div><p>Add the following line at the end,</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">	&lt;/Directory&gt;
+</code></pre></div><p>Save the file and restart apache</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmapachectl start
+</code></pre></div><p>Now you can configure cbpolicy using following url.
+<code>https://youremaildomain.com:7780/webui/index.php</code></p>
+<p>Use the username and password you have configured above</p>
+<p>Now you are good to configure cbpolicy.</p>
+<h4 id="zimbra-mail-quarantined-send-message-to-recipient-using-lmtp-re-injection-bypasses-virus-checks">Zimbra Mail Quarantined (Send message to recipient using LMTP re-injection (bypasses virus checks))</h4>
+<p>Sometimes you may not receive the email althought its has been successfully delivered frim sender side. Zimbra mail server creates unique email account to store such types of quarantined email.
+You can check the email account in your mail server and using view mail feature, you can forward the quarantined email to other users.</p>
+<p>From command line you can use following commands to retrieve quarantined email.</p>
+<p>Step 1) Become zimbra user.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+</code></pre></div><p>Step 2) Get quarantine account (This is the defualt account created during zimbra installation)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmprov gcf zimbraAmavisQuarantineAccount  
+(RETURNS: zimbraAmavisQuarantineAccount: virus-quarantine.randomstring@mymail.mydomain.com)
+</code></pre></div><p>Step 3) Get mailbox id for quarantine user</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmprov gmi &lt;quarantine_user&gt;
+</code></pre></div><p>Replace quarantine user with quarantine email account.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">eg : zmprov gmi virus-quarantine.randomstring@mymail.mydomain.com
+(RETURNS: mailboxId: 42)
+</code></pre></div><p>Step 4) Change to quarantine user message store</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /opt/zimbra/store/0/&lt;mailbox id&gt;/msg/0
+(eg : cd /opt/zimbra/store/0/42/msg/0)
+</code></pre></div><p>Step 5) Identify message by searching for recipient, message content, etc.</p>
+<p>You can use the quarantine webmail from above to view for some identifiers.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">eg: grep -l someuser@mydomain.com *
+(RETURNS: 123-45.msg)
+</code></pre></div><p>Step 6) Send message to recipient using LMTP re-injection (bypasses virus checks)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmlmtpinject -r &lt;recipient email&gt; -s &lt;sender email&gt; &lt;message filename&gt;
+(e.g. zmlmtpinject -r someuser@mydomain.com -s admin@mydomain.com 123-45.msg)
+</code></pre></div><p>Note : You should forward the email to any email account with your own domain.</p>
+<h4 id="list-email-account-size">List Email Account Size</h4>
+<p>This will show the list of email account with storage used</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">all_accounts=`zmprov -l gaa`; for account in $all_accounts; do mbox_size=`zmmailbox -z -m $account gms`; echo &#34;Mailbox size of $account = $mbox_size&#34;; done ;
+</code></pre></div><h4 id="mail-rules-zimra--spam-filter-on-basis-of-phrase">Mail rules zimra- spam filter on basis of phrase</h4>
+<p>In zimbra total score is 20</p>
+<p>5 (25%)- spam</p>
+<p>15 (75%)- reject</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+vi /opt/zimbra/conf/salocal.cf.in
+</code></pre></div><p>Append the following lines and save the file</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">body LOCAL_RULE   /\b(?:hacked|bitcoin|porn|porno|adult|keylogger|masturbation|masturbating|erotic|hacker|pervert)\b/i
+
+score LOCAL_RULE 10
+</code></pre></div><p>Restart the amavis service</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmamavisdctl restart
+</code></pre></div><h4 id="blank-zimbra-web-after-client-login-zimbra-404-error-cant-allocate-publicerrorjsp">Blank Zimbra Web after client login (Zimbra 404 error Cant allocate public/error.jsp)</h4>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+/opt/zimbra/jetty-distribution/webapps/zimbra/public
+</code></pre></div><p>Check the permission of the files.</p>
+<p>If you have old original files extract the zimbra/public files and replace.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmcontrol stop
+</code></pre></div><p>Copy the <code>/opt/zimbra/jetty-distribution/webapps/zimbra/public</code> file to the current running zimbra</p>
+<p>set the permission of the files</p>
+<p><code>chmod 664 for the files</code>
+<code>chmod 775 for folders</code></p>
+<p>Restart the zimbra services.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmcontrol restart
+</code></pre></div><h4 id="zimlet-failed-to-start-while-installing-zimbra-8812">Zimlet Failed to Start while installing zimbra 8.8.12</h4>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+cd /opt/zimbra/zimlets
+for A in *; do zmzimletctl deploy $A; done
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmcontrol restart
+</code></pre></div><h4 id="zimbra-indexing-issue-the-same-object-already-exists-error-while-sending-email">Zimbra Indexing Issue (The same object already exists error while sending email)</h4>
+<p>Sometime because of Zimbra database crash, you might face the issue stating that same object already exists while sending email to any account.
+This script will help you to re-indexing the database object.</p>
+<h5 id="before-running-the-script-always-take-backup-of-your-mail-server">Before Running the script, always take backup of your mail server.</h5>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+cd /opt/zimbra
+vi indexing.sh
+</code></pre></div><p>Copy all the below content in the file</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="k">function</span> ask_yes_or_no<span class="o">()</span> <span class="o">{</span>
+	<span class="nb">read</span> -p <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2"> ([y]es or [N]o): &#34;</span>
+	<span class="k">case</span> <span class="k">$(</span><span class="nb">echo</span> <span class="nv">$REPLY</span> <span class="p">|</span> tr <span class="s1">&#39;[A-Z]&#39;</span> <span class="s1">&#39;[a-z]&#39;</span><span class="k">)</span> in
+		 y<span class="p">|</span>yes<span class="o">)</span> <span class="nb">echo</span> <span class="s2">&#34;yes&#34;</span> <span class="p">;;</span>
+		 *<span class="o">)</span>     <span class="nb">echo</span> <span class="s2">&#34;no&#34;</span> <span class="p">;;</span>
+<span class="k">esac</span>
+<span class="o">}</span>
+
+<span class="nv">FIX</span><span class="o">=</span><span class="s2">&#34;false&#34;</span>
+
+
+<span class="c1">#getopts</span>
+
+<span class="k">while</span> <span class="nb">getopts</span> <span class="s1">&#39;m:f&#39;</span> flag<span class="p">;</span> <span class="k">do</span>
+<span class="k">case</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">flag</span><span class="si">}</span><span class="s2">&#34;</span> in
+m<span class="o">)</span> <span class="nv">MAILBOX</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">OPTARG</span><span class="si">}</span><span class="s2">&#34;</span> <span class="p">;;</span>
+f<span class="o">)</span> <span class="nv">FIX</span><span class="o">=</span><span class="s2">&#34;true&#34;</span> <span class="p">;;</span>
+*<span class="o">)</span> error <span class="s2">&#34;Unexpected option </span><span class="si">${</span><span class="nv">flag</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">;;</span>
+<span class="k">esac</span>
+<span class="k">done</span>
+
+<span class="c1">#WARN ON FIX</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$FIX</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;true&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&#34;no&#34;</span> <span class="o">==</span> <span class="k">$(</span>ask_yes_or_no <span class="s2">&#34;This will make changes to the mySQL databse. Are you sure you want to&#34;</span><span class="k">)</span> <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
+		 <span class="nb">echo</span> <span class="s2">&#34;No changes have been made.&#34;</span>
+		 <span class="nb">exit</span> <span class="m">0</span>
+<span class="k">fi</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$MAILBOX</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+<span class="c1">#get account specified with -m</span>
+mysql -N -e <span class="s2">&#34;select concat_ws(&#39;,&#39;, id, comment, item_id_checkpoint,group_id) from mailbox WHERE comment=&#39;</span><span class="nv">$MAILBOX</span><span class="s2">&#39;&#34;</span> zimbra &gt; /tmp/all_checkpoints.txt
+
+<span class="k">else</span>
+
+<span class="c1">#generate csv of accounts on mailstore</span>
+mysql -N -e <span class="s2">&#34;select concat_ws(&#39;,&#39;, id, comment, item_id_checkpoint,group_id) from mailbox&#34;</span> zimbra &gt; /tmp/all_checkpoints.txt
+
+<span class="k">fi</span>
+
+<span class="c1">#Loop through csv line by line\</span>
+<span class="nv">OLDIFS</span><span class="o">=</span><span class="nv">$IFS</span>
+<span class="nv">IFS</span><span class="o">=</span><span class="s2">&#34;,&#34;</span>
+
+<span class="c1">#touch zmprov command files</span>
+touch /tmp/affectedaccounts.txt 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+touch /tmp/maintenanceaccounts.txt 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+touch /tmp/reactivateaccounts.txt 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+
+<span class="c1">#read file line by line, assigning values from csv</span>
+<span class="k">while</span> <span class="nb">read</span> MID ACCOUNT CHECKPOINT GROUP
+
+<span class="k">do</span>
+<span class="c1">#first loop to ID accounts and create zmprov commands if necessary</span>
+<span class="nv">BIGGESTID</span><span class="o">=</span><span class="sb">`</span>mysql -N -e <span class="s2">&#34;SELECT MAX(id) FROM mail_item WHERE mailbox_id=</span><span class="nv">$MID</span><span class="s2">&#34;</span> mboxgroup<span class="nv">$GROUP</span><span class="sb">`</span>
+ <span class="k">if</span> <span class="o">[</span> <span class="nv">$BIGGESTID</span> -gt <span class="nv">$CHECKPOINT</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+	<span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$ACCOUNT</span><span class="s2">&#34;</span>
+		 <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$MID</span><span class="s2">,</span><span class="nv">$ACCOUNT</span><span class="s2">,</span><span class="nv">$CHECKPOINT</span><span class="s2">,</span><span class="nv">$GROUP</span><span class="s2">,</span><span class="nv">$BIGGESTID</span><span class="s2">&#34;</span> &gt;&gt; /tmp/affectedaccounts.txt
+
+		 <span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$FIX</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;true&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+				 <span class="nb">echo</span> <span class="s2">&#34;ma </span><span class="nv">$ACCOUNT</span><span class="s2"> zimbraAccountStatus maintenance&#34;</span> &gt;&gt; /tmp/maintenanceaccounts.txt
+
+
+		 <span class="k">fi</span>
+<span class="k">fi</span>
+<span class="k">done</span> &lt; /tmp/all_checkpoints.txt
+
+<span class="c1">#second loop if fixing accounts, using zmprov commands</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$FIX</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;true&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+cat /tmp/maintenanceaccounts.txt <span class="p">|</span>sed <span class="s2">&#34;s/maintenance/active/&#34;</span> &gt;&gt; /tmp/reactivateaccounts.txt
+<span class="nb">echo</span> <span class="s2">&#34;Putting affected accounts in maintenance mode&#34;</span>
+	zmprov &lt; /tmp/maintenanceaccounts.txt
+<span class="nb">echo</span> <span class="s2">&#34;Done.&#34;</span>
+ <span class="nb">echo</span> <span class="s2">&#34;Fixing affected accounts&#34;</span>
+		 <span class="k">while</span> <span class="nb">read</span> MID1 ACCOUNT1 CHECKPOINT1 GROUP1 BIGGESTID1
+
+			<span class="k">do</span>
+				 <span class="nv">NEWCHECKPOINT</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$BIGGESTID1</span> + 100<span class="sb">`</span>
+				 mysql -e <span class="s2">&#34;UPDATE zimbra.mailbox SET item_id_checkpoint=</span><span class="nv">$NEWCHECKPOINT</span><span class="s2"> WHERE id=&#39;</span><span class="nv">$MID1</span><span class="s2">&#39; AND comment=&#39;</span><span class="nv">$ACCOUNT1</span><span class="s2">&#39;&#34;</span>
+				 <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$ACCOUNT</span><span class="s2"> item_id_checkpoint updated. Old value: </span><span class="nv">$CHECKPOINT1</span><span class="s2"> | New value: </span><span class="nv">$NEWCHECKPOINT</span><span class="s2">&#34;</span>
+				 <span class="nb">echo</span> <span class="s2">&#34;Reloading </span><span class="nv">$ACCOUNT1</span><span class="s2"> . . .&#34;</span>
+				 <span class="c1">#echo &#34;ACCOUNT 1: $ACCOUNT1&#34;</span>
+				 zmsoap -A -z UnloadMailboxRequest/account @name<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$ACCOUNT1</span><span class="s2">&#34;</span>
+<span class="k">done</span> &lt; /tmp/affectedaccounts.txt
+<span class="nb">echo</span> <span class="s2">&#34;Reactivating Affected accounts&#34;</span>
+zmprov &lt; /tmp/reactivateaccounts.txt
+<span class="nb">echo</span> <span class="s2">&#34;done&#34;</span>
+<span class="k">fi</span>
+<span class="nb">echo</span> <span class="s2">&#34;cleaning up tempoary files&#34;</span>
+rm -f /tmp/all_checkpoints.txt 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+rm -f /tmp/maintenanceaccounts.txt 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+rm -f /tmp/reactivateaccounts.txt 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+<span class="nb">echo</span> <span class="s2">&#34;Done.&#34;</span>
+
+<span class="nb">echo</span> <span class="s2">&#34;You can see a list of all affected accounts in the file /tmp/affectedaccounts.txt&#34;</span>
+<span class="nb">echo</span> <span class="s2">&#34;ID Checkpoint Script complete. Exiting.&#34;</span>
+<span class="nv">IFS</span><span class="o">=</span><span class="nv">$OLDIFS</span>
+<span class="nb">exit</span> <span class="m">0</span>
+</code></pre></div><p>Make the file executable</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">chmod +x indexing.sh
+</code></pre></div><p>Run the script from zimbra user</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+cd /opt/zimbra
+./indexing.sh
+</code></pre></div><p>Restart the zimbra services.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+zmcontrol restart
+</code></pre></div><h4 id="remove-unchecked-to-delivered-email">Remove &ldquo;Unchecked&rdquo; to Delivered email</h4>
+<p>You may face this issue when amavis and antivirus service in zimbra stops working. Better try to start the service amavis and antivirus to protect your email server from virus and spam.
+For temporary purpose, you can remove &ldquo;UNCHECKED &quot; tag to sending email.</p>
+<p>Follow the below commands.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /opt/zimbra/common/sbin
+cp -pr amavisd amavisd.org
+vi amavisd
+</code></pre></div><p><code>Change: $undecipherable_subject_tag = ‘***UNCHECKED*** ‘; to $undecipherable_subject_tag = ”;</code></p>
+<p>Save and restart amavisd:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su – zimbra
+zmamavisdctl restart
+</code></pre></div><h4 id="view-deleted-accounts-in-zimbra">View Deleted Accounts in zimbra</h4>
+<p>Zimbra keeps track of deleted accounts in its MySQL database. So if it will be necessary to search for accounts that may have existed some time ago, you can list all accounts by SQL.</p>
+<p>As the zimbra user issue the following command:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql -e &#34;select email, from_unixtime(deleted_at) from zimbra.deleted_account order by deleted_at&#34;
+</code></pre></div><p>The result should look like</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">	+----------------------------------------------+---------------------------+
+	| email                                        | from_unixtime(deleted_at) |
+	+----------------------------------------------+---------------------------+
+	| aayush.koirala@aayush.koirala                | 2014-07-23 21:21:49       |
+	+----------------------------------------------+---------------------------+
+</code></pre></div><h4 id="install-letsencrypt-ssl-certificate-in-zimbra">Install letsencrypt SSL certificate in zimbra</h4>
+<h5 id="step-1-stop-the-zimbra-proxy-and-mailboxd-service">Step 1) Stop The zimbra proxy and mailboxd service</h5>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+zmproxyctl stop
+zmmailboxdctl stop
+</code></pre></div><h5 id="step-2-install-git-and-letsencrypt-if-you-are-installing-the-certificate-for-first-time">Step 2) Install git and letsencrypt (If you are installing the certificate for first time)</h5>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /opt
+yum install git -y
+git clone https://github.com/letsencrypt/letsencrypt
+</code></pre></div><h5 id="step-3-generate-the-ssl-certificate-for-your-mail-domain">Step 3) Generate the SSL certificate for your mail domain</h5>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /opt/letsencrypt
+./letsencrypt-auto certonly --standalone -d yourmaildomain(eg: mail.abc.com)
+</code></pre></div><p>If you have different hostname and domain for your email server (No need to do this for same hostname and mail domain)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">./letsencrypt-auto certonly --standalone -d mx-01.abc.com -d mail.abc.com
+</code></pre></div><h5 id="step-4-start-proxy-and-mailboxd-service">Step 4) Start Proxy and Mailboxd service.</h5>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+zmproxyctl start
+zmmailboxdctl start
+</code></pre></div><p>Check the generated certificates</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /etc/letsencrypt/live/
+</code></pre></div><p>You will find the directory of your domain. Go to the folder and append the following intermediate key in chain.pem file</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">cd mail.abc.com  [Replace with your domain]
+vi chain.pem
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">	-----BEGIN CERTIFICATE-----
+	MIIDSjCCAjKgAwIBAgIQRK+wgNajJ7qJMDmGLvhAazANBgkqhkiG9w0BAQUFADA/
+	MSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT
+	DkRTVCBSb290IENBIFgzMB4XDTAwMDkzMDIxMTIxOVoXDTIxMDkzMDE0MDExNVow
+	PzEkMCIGA1UEChMbRGlnaXRhbCBTaWduYXR1cmUgVHJ1c3QgQ28uMRcwFQYDVQQD
+	Ew5EU1QgUm9vdCBDQSBYMzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
+	AN+v6ZdQCINXtMxiZfaQguzH0yxrMMpb7NnDfcdAwRgUi+DoM3ZJKuM/IUmTrE4O
+	rz5Iy2Xu/NMhD2XSKtkyj4zl93ewEnu1lcCJo6m67XMuegwGMoOifooUMM0RoOEq
+	OLl5CjH9UL2AZd+3UWODyOKIYepLYYHsUmu5ouJLGiifSKOeDNoJjj4XLh7dIN9b
+	xiqKqy69cK3FCxolkHRyxXtqqzTWMIn/5WgTe1QLyNau7Fqckh49ZLOMxt+/yUFw
+	7BZy1SbsOFU5Q9D8/RhcQPGX69Wam40dutolucbY38EVAjqr2m7xPi71XAicPNaD
+	aeQQmxkqtilX4+U9m5/wAl0CAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNV
+	HQ8BAf8EBAMCAQYwHQYDVR0OBBYEFMSnsaR7LHH62+FLkHX/xBVghYkQMA0GCSqG
+	SIb3DQEBBQUAA4IBAQCjGiybFwBcqR7uKGY3Or+Dxz9LwwmglSBd49lZRNI+DT69
+	ikugdB/OEIKcdBodfpga3csTS7MgROSR6cz8faXbauX+5v3gTt23ADq1cEmv8uXr
+	AvHRAosZy5Q6XkjEGB5YGV8eAlrwDPGxrancWYaLbumR9YbK+rlmM6pZW87ipxZz
+	R8srzJmwN0jP41ZL9c8PDHIyh8bwRLtTcm1D9SZImlJnt1ir/md2cXjbDaJWFBM5
+	JDGFoqgCWjBH4d1QB7wCCZAA62RjYJsWvIjJEubSfZGL+T0yjWW06XyxV3bqxbYo
+	Ob8VZRzI9neWagqNdwvYkQsEjgfbKbYK7p2CNTUQ
+	-----END CERTIFICATE-----
+</code></pre></div><p>save the file and quite</p>
+<p>Now the certificate chain for Zimbra has been created.</p>
+<h5 id="step-5-verify-the-commercial-certificates-and-copy-the-generated-certificated-as">Step 5) Verify the commercial certificates and copy the generated certificated as:</h5>
+<p>Note : Run as root user</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">cp /etc/letsencrypt/live/yourdomain.com/* /opt/zimbra/ssl/letsencrypt/
+</code></pre></div><p>Note : If you are installing the certificate for the first time, you need to create a folder as ;</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir /opt/zimbra/ssl/letsencrypt
+</code></pre></div><p>Change the ownership of the copied files</p>
+<p>Run the command as root user.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">chown zimbra:zimbra /opt/zimbra/ssl/letsencrypt/*
+</code></pre></div><p>Verify the file permission.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">ls -la /opt/zimbra/ssl/letsencrypt/
+</code></pre></div><h5 id="step-6-verify-the-certificates">Step 6) Verify the Certificates</h5>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - zimbra
+cd /opt/zimbra/ssl/letsencrypt/
+/opt/zimbra/bin/zmcertmgr verifycrt comm privkey.pem cert.pem chain.pem
+</code></pre></div><h5 id="step-7-deploy-the-certificates">Step 7) Deploy the certificates</h5>
+<p>Keep a backup of old certificates as :</p>
+<p>Run the command as root user.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">cp -a /opt/zimbra/ssl/zimbra /opt/zimbra/ssl/zimbra.$(date &#34;+%Y%m%d&#34;)
+cp /opt/zimbra/ssl/letsencrypt/privkey.pem /opt/zimbra/ssl/zimbra/commercial/commercial.key
+sudo chown zimbra:zimbra /opt/zimbra/ssl/zimbra/commercial/commercial.key
+su - zimbra
+cd /opt/zimbra/ssl/letsencrypt/
+/opt/zimbra/bin/zmcertmgr deploycrt comm cert.pem chain.pem
+</code></pre></div><h5 id="step-8-restart-the-zimbra-services">Step 8) Restart the Zimbra Services</h5>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmcontrol restart
+</code></pre></div><p>Congratulations !! You have renewed letsencrypt ssl certificate.</p>
+<p>You can verify the certificate validity in your browser.</p>
+<h4 id="zimbra-error-while-viewing-mail-queue">Zimbra error while viewing mail queue</h4>
+<p>When browsing through server objects,the Zimbra Admin console reports this error :</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Message: system failure: server mail.example.com
+zimbraRemoteManagementPrivateKeyPath (/opt/zimbra/.ssh/zimbra_identity) does not exist Error
+code: service.FAILURE Details:soap:Receiver
+</code></pre></div><p>Solution :</p>
+<p>To resolve this issue, generate the SSH keys :</p>
+<p>To generate the SSH keys :</p>
+<p>Run these commands in the server mentioned in the error (in this case, mail.example.com)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su – zimbra
+zmsshkeygen
+zmupdateauthkeys
+</code></pre></div><p>For a multi-server environment, run this command on the other servers :</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmupdateauthkeys
+</code></pre></div><h4 id="fix-unable-to-start-tls-ssl">Fix: Unable to start TLS: SSL</h4>
+<p>Fix: Unable to start TLS: SSL connect attempt failed error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed when connecting to ldap master.Cannot determine services – exiting.</p>
+<p>Because of SSL certificate issue, you might face this problem while starting the zimbra services.</p>
+<p>Run the following commands as zimbra user.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmlocalconfig -e ldap_starttls_required=false
+zmlocalconfig -e ldap_starttls_supported=0
+zmcontrol restart
+</code></pre></div><h4 id="zimbra-incoming-email-issue">Zimbra Incoming email issue</h4>
+<p>Zimbra sets the LMTP port 7025 publicly while installing the zimbra mail server. If your Mail server is behind firewall or configured with NAT IP and 7025 port is not opened publicly, you may not be able to receive email.There is two options you can set zmlmtp host lookup one is dns and another is native. If port 7025 is not opened publicly , run the following command to set zmlmtp host look up native.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmprov ms mtaserver.com zimbraMtaLmtpHostLookup native
+zmprov mcf zimbraMtaLmtpHostLookup native
+</code></pre></div><p>Note : Replace your mail server domain with mtaserver.com (eg : mail.abc.com)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">zmcontrol restart
+</code></pre></div><hr>
+<p>Aayush koirala
+<a href="mailto:koiralaaayush20@gmail.com">koiralaaayush20@gmail.com</a></p>
+
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.tecnep.com">www.tecnep.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>

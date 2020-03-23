@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tecnep.com</title>
+    <link>/</link>
+    <description>Recent content on Tecnep.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 28 Nov 2018 15:14:39 +1000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mail Cleaner</title>
+      <link>/docs/mailcleaner/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/mailcleaner/</guid>
+      <description>MailCleaner is a business anti spam gateway installed between your mail infrastructure and the Internet. It offers professional protection against viruses and eliminates up to 99% of spam.
+Requirements and planning Make sure that your hardware or Virtual Machine meets the minimum requirements:</description>
+    </item>
+    
+    <item>
+      <title>System Hardening</title>
+      <link>/docs/hardening/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/hardening/</guid>
+      <description>System Hardening is the process of securing a system’s configuration and settings to reduce IT vulnerability and the possibility of being compromised. To safeguard the data, services we need to secure our Linux system.</description>
+    </item>
+    
+    <item>
+      <title>Glassfish</title>
+      <link>/docs/glassfish/</link>
+      <pubDate>Mon, 09 Dec 2019 03:51:55 +0545</pubDate>
+      
+      <guid>/docs/glassfish/</guid>
+      <description>Glassfish Server is a production ready Java EE 6 compliant application server developed under an open source license. Benefits include a modular, runtime that minimizes resource consumption, an easy-to-use administration console, a feature-rich command line tool, centralized administration and high-availability clustering.</description>
+    </item>
+    
+    <item>
+      <title>NTP</title>
+      <link>/docs/chrony/</link>
+      <pubDate>Sun, 08 Dec 2019 18:46:11 +0545</pubDate>
+      
+      <guid>/docs/chrony/</guid>
+      <description>NTP is an internet protocol that’s used to synchronise the clocks on computer networks to within a few milliseconds of universal coordinated time (UTC).
+Chronyd is a daemon for synchronisation of the system clock.</description>
+    </item>
+    
+    <item>
+      <title>Redis</title>
+      <link>/docs/redis/</link>
+      <pubDate>Sun, 08 Dec 2019 18:29:55 +0545</pubDate>
+      
+      <guid>/docs/redis/</guid>
+      <description>In-memory data structure store, used as database cache and message broker. In-memory database is a database that keeps the whole database in RAM. Supports data structure such as strings, hashes.</description>
+    </item>
+    
+    <item>
+      <title>Increase hard disk</title>
+      <link>/docs/system_resources/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/system_resources/</guid>
+      <description>First, add the disk from vmware exsi or physically add disk. Then, create a new XFS partition.
+lsblk See disk path of added disk and note down Make partition and set to linux lvm fdisk /dev/sdb	Enter &amp;ldquo;n&amp;rdquo; for new disk partition and press enter for partitioning full disk in every line Make kernel update for the changes to apply partprobe /dev/sdb Create physical volume of the added disk pvcreate /dev/sdb1 Verify by listing physical volume pvs or pvdisplay Extend existing volume group &amp;ldquo;centos&amp;rdquo; vgextend centos /dev/sdb1 Verify by listing volume groups vgs or vgdisplay List logical volumes lvs Extend existing logical volume &amp;ldquo;root&amp;rdquo; lvextend -l +100%FREE /dev/centos/root Verify by logical volumes lvs or lvdisplay	grow xfs system xfs_growfs /dev/centos/root verify disk space of root df -h  Suresh Saud sureshsaud17@gmail.</description>
+    </item>
+    
+    <item>
+      <title>Zimbra Tips &amp; Tricks</title>
+      <link>/docs/zimbra-tips-tricks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/zimbra-tips-tricks/</guid>
+      <description>Zimbra Mail server Memory Tuning This utility will detect the amount of RAM in this system and make suggestions on the size of your java heap as well as the size of your innodb buffer pool.</description>
+    </item>
+    
+    <item>
+      <title>Kaspersky for linux</title>
+      <link>/docs/kaspersky/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/kaspersky/</guid>
+      <description>In this tutorial, you will learn how to install Kaspersky in Centos Server and connect to Kaspersky Server.
+Note : First telnet to the Kaspersky server port 13000 (default), It should success.</description>
+    </item>
+    
+    <item>
+      <title>SNMP</title>
+      <link>/docs/snmp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/snmp/</guid>
+      <description>Simple Network Management Protocol (SNMP) is a way for different devices on a network to share information helps in communication of devices of different hardware and software. It is a protocol used by network management tools to identify devices, monitor network performance, keep track of changes to the network, or determine the status of network devices in real time.</description>
+    </item>
+    
+    <item>
+      <title>Firewall</title>
+      <link>/docs/firewall/</link>
+      <pubDate>Sun, 08 Dec 2019 13:41:34 +0545</pubDate>
+      
+      <guid>/docs/firewall/</guid>
+      <description>Firewalld provides a dynamically managed firewall with support for network/firewall zones to define the trust level of network connections or interfaces. firewalld provides support for zones, predefined services and ICMP types and has a separation of runtime and permanent configuration options.</description>
+    </item>
+    
+  </channel>
+</rss>

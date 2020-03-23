@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Firewall - Tecnep.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.6aa5eecd4ca7c47fb2ca9b0775a7bd787e3e64a2eadf0fef8c9f924498f49127.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-docs">
+      <a href="/docs/">
+        <span>Docs</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="/"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="/"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-docs">
+      <a href="/docs/">
+        <span>Docs</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Docs</h4>
+  <ul>
+    
+    <li class="">
+      <a href="/docs/mailcleaner/">Mail Cleaner</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/hardening/">System Hardening</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/glassfish/">Glassfish</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/chrony/">NTP</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/redis/">Redis</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/system_resources/">Increase hard disk</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/zimbra-tips-tricks/">Zimbra Tips &amp; Tricks</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/kaspersky/">Kaspersky for linux</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/snmp/">SNMP</a>
+    </li>
+    
+    <li class="active ">
+      <a href="/docs/firewall/">Firewall</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Firewall</h1>
+<div class="content ">
+  <p>Firewalld provides a dynamically managed firewall with support for network/firewall zones to define the trust level of network connections or interfaces.
+firewalld provides support for zones, predefined services and ICMP types and has a separation of runtime and permanent configuration options.
+Permanent configuration is loaded from XML files in <code>/usr/lib/firewalld</code> or <code>/etc/firewalld</code></p>
+<p>Install firewall in centos</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install firewalld -y
+</code></pre></div><p>Start the service</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl start firewalld
+</code></pre></div><p>Enable the service</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable firewalld
+</code></pre></div><p>Add tcp port 443 to listen https traffic</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">firewall-cmd --add-port=443/tcp --permanent
+</code></pre></div><p>Reload firewall service to take into an effect</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">firewall-cmd --reload
+</code></pre></div><p>Verify using,</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">firewall-cmd --list-all
+</code></pre></div>
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.tecnep.com">www.tecnep.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>

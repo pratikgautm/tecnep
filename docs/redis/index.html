@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Redis - Tecnep.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.6aa5eecd4ca7c47fb2ca9b0775a7bd787e3e64a2eadf0fef8c9f924498f49127.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-docs">
+      <a href="/docs/">
+        <span>Docs</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="/"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="/"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-docs">
+      <a href="/docs/">
+        <span>Docs</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Docs</h4>
+  <ul>
+    
+    <li class="">
+      <a href="/docs/mailcleaner/">Mail Cleaner</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/hardening/">System Hardening</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/glassfish/">Glassfish</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/chrony/">NTP</a>
+    </li>
+    
+    <li class="active ">
+      <a href="/docs/redis/">Redis</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/system_resources/">Increase hard disk</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/zimbra-tips-tricks/">Zimbra Tips &amp; Tricks</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/kaspersky/">Kaspersky for linux</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/snmp/">SNMP</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/firewall/">Firewall</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Redis</h1>
+<div class="content ">
+  <ul>
+<li>In-memory data structure store, used as database cache and message broker.</li>
+<li>In-memory database is a database that keeps the whole database in RAM.</li>
+<li>Supports data structure such as strings, hashes. list, sets, sorted sets.</li>
+<li>Each time you query a database or update data in a database, you only access the main memory</li>
+</ul>
+<p>Redis-cli
+Following are the helpful redis command</p>
+<p>Check redis file configuration</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">redis-server /etc/redis.conf
+</code></pre></div><p>login to Redis server host 10.10.18.6 with default port 6379 and password</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">redis-cli -h 10.10.18.6 -p 6379 -a password
+</code></pre></div><p>See all the keys in redis</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; keys *
+	1) &#34;Age&#34;
+	2) &#34;Address&#34;
+	3) &#34;Name&#34;
+</code></pre></div><p>Set name &lsquo;office&rsquo; and value &lsquo;Pokhara&rsquo;</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; set office Pokhara
+</code></pre></div><p>Get the key from name</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; get office
+	&#34;Pokhara&#34;
+</code></pre></div><p>Delete specific key</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; del key age
+(integer) 0
+</code></pre></div><p>Flush all the key</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; flushall
+</code></pre></div><p>See memory details</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; info memory
+	# Memory
+	used_memory:811840
+	used_memory_human:792.81K
+	used_memory_rss:2732032
+	used_memory_rss_human:2.61M
+	used_memory_peak:812840
+	used_memory_peak_human:793.79K
+	total_system_memory:491356160
+	total_system_memory_human:468.59M
+	used_memory_lua:37888
+	used_memory_lua_human:37.00K
+	maxmemory:0
+	maxmemory_human:0B
+	maxmemory_policy:noeviction
+	mem_fragmentation_ratio:3.37
+	mem_allocator:jemalloc-3.6.0
+</code></pre></div><h3 id="maxmemory-policy">Maxmemory Policy</h3>
+<p>The policy set how redis will select what to remove when maxmemory is reached, you can select among following behavior in config file <code>/etc/redis.conf</code></p>
+<p><code>maxmemory_policy ALGORIGTHM</code></p>
+<p>The following are supported algorithms:-</p>
+<p><strong>volatile-lru</strong> : Remove any key according to the LRU algorithm</p>
+<p><strong>allkeys_lru</strong> : Remove any key according to the LRU algorithm</p>
+<p><strong>volatiel_random</strong> : Remove a random key with an expire set</p>
+<p><strong>allkeys_random</strong> : Remove a random key, any key</p>
+<p><strong>volatile_ttl</strong> : Remove the key with nearest expire time (minor TTL)</p>
+<p><strong>noeviction</strong> : Don&rsquo;t expire all, just return an on write operation</p>
+<hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.tecnep.com">www.tecnep.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>
