@@ -31,6 +31,16 @@
   </url>
   
   <url>
+    <loc>/docs/dkim/</loc>
+    <lastmod>2019-12-08T18:29:55+05:45</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/spf/</loc>
+    <lastmod>2019-12-08T18:29:55+05:45</lastmod>
+  </url>
+  
+  <url>
     <loc>/docs/system_resources/</loc>
   </url>
   
@@ -44,6 +54,11 @@
   
   <url>
     <loc>/docs/snmp/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/dmarc/</loc>
+    <lastmod>2019-12-08T18:29:55+05:45</lastmod>
   </url>
   
   <url>

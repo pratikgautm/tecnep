@@ -59,6 +59,24 @@ Chronyd is a daemon for synchronisation of the system clock.</description>
     </item>
     
     <item>
+      <title>DKIM</title>
+      <link>/docs/dkim/</link>
+      <pubDate>Sun, 08 Dec 2019 18:29:55 +0545</pubDate>
+      
+      <guid>/docs/dkim/</guid>
+      <description>Domain Key Identified Mail is email authentication technique that allows the receiver to check that an email was indeed sent and authorized by the owner of that domain. It is email security standard designed to make sure message weren&amp;rsquo;t altered in transist between the sending and receipient servers by the use of private and public key cryptography.</description>
+    </item>
+    
+    <item>
+      <title>SPF</title>
+      <link>/docs/spf/</link>
+      <pubDate>Sun, 08 Dec 2019 18:29:55 +0545</pubDate>
+      
+      <guid>/docs/spf/</guid>
+      <description>Sender Policy Framework (SPF) is authentication protocol used to indicate to mail exchanges which hosts are authorized to send mail for a domain. It is defined using TXT record type, also has SPF record type.</description>
+    </item>
+    
+    <item>
       <title>Increase hard disk</title>
       <link>/docs/system_resources/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -94,6 +112,15 @@ Note : First telnet to the Kaspersky server port 13000 (default), It should succ
       
       <guid>/docs/snmp/</guid>
       <description>Simple Network Management Protocol (SNMP) is a way for different devices on a network to share information helps in communication of devices of different hardware and software. It is a protocol used by network management tools to identify devices, monitor network performance, keep track of changes to the network, or determine the status of network devices in real time.</description>
+    </item>
+    
+    <item>
+      <title>DMARC</title>
+      <link>/docs/dmarc/</link>
+      <pubDate>Sun, 08 Dec 2019 18:29:55 +0545</pubDate>
+      
+      <guid>/docs/dmarc/</guid>
+      <description>Domain-based Message Authentication Reporting and conformance (DMARC) is designed to protect your company&amp;rsquo;s email domain for being used for email spoofing, phishing scans. It is enhancement to existing email authentication technologies.</description>
     </item>
     
     <item>

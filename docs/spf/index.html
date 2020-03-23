@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Kaspersky for linux - Tecnep.com</title>
+  <title>SPF - Tecnep.com</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="icon" href="/favicon.png">
@@ -114,7 +114,7 @@
       <a href="/docs/dkim/">DKIM</a>
     </li>
     
-    <li class="">
+    <li class="active ">
       <a href="/docs/spf/">SPF</a>
     </li>
     
@@ -126,7 +126,7 @@
       <a href="/docs/zimbra-tips-tricks/">Zimbra Tips &amp; Tricks</a>
     </li>
     
-    <li class="active ">
+    <li class="">
       <a href="/docs/kaspersky/">Kaspersky for linux</a>
     </li>
     
@@ -149,35 +149,38 @@
         </div>
         <div class="col-12 col-md-9">
           
-<h1 class="title">Kaspersky for linux</h1>
+<h1 class="title">SPF</h1>
 <div class="content ">
-  <p>In this tutorial, you will learn how to install Kaspersky in Centos Server and connect to Kaspersky Server.</p>
-<p>Note : First telnet to the Kaspersky server port <code>13000</code> (default), It should <em>success.</em></p>
-<p><code>telnet Kapsersky_server_IP 13000</code></p>
-<h4 id="step-1--install-required-dependencies-">Step 1 : Install Required Dependencies:-</h4>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install &#39;perl(Data::Dumper)&#39; -y
-yum install perl-Digest-MD5 -y
-yum install glibc -y
-yum install kernel-devel -y
-</code></pre></div><h4 id="step-2-download-and-install-kaspersky-network-agent-from-its-official-site">Step 2: Download and install Kaspersky Network Agent from its official site</h4>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">rpm -ivh https://products.s.kaspersky-labs.com/endpoints/keslinux10/11.0.0.2706/multilanguage-INT-11.0.1.2706/3239363336377c44454c7c31/klnagent-12.0.1-45.i386.rpm
-</code></pre></div><p>As it suggest, run postinstall.pl and specify Kaspersky server and other information.</p>
-<h4 id="step-3-install-kaspersky-endpoint-security-application-also-from-our-local-repository-">Step 3: Install Kaspersky endpoint security application also from our local repository:-</h4>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">rpm -ivh https://products.s.kaspersky-labs.com/endpoints/keslinux10/11.0.0.2706/multilanguage-INT-11.0.0.2706/3237363230337c44454c7c31/kesl-11.0.0-2706.i386.rpm
-</code></pre></div><p>Again, as it suggests, run kesl-setup.pl script and fill the information.</p>
-<p>With this KES and Netagent is installed and running:- Check the status:-</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl status klnagent64
-systemctl status kesl-supervisor
-</code></pre></div><h5 id="make-it-enable--">Make it enable :-</h5>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Systemctl enable klnagent64
-Systemctl enable kesl-supervisor
-</code></pre></div><h4 id="step-4-login-to-kaspersky-server-the-device-appears-in-unassigned-devices">Step 4: Login to Kaspersky server. The device appears in unassigned devices.</h4>
-<p>Now, move it to the particular group to apply the key:-</p>
-<h4 id="step-5-if-you-see-the-status-of-the-device-the-real-time-protection-is-not-enabled">Step 5: IF you see the status of the device, the real time protection is not enabled.</h4>
-<p>To make it effective Right click on the device &gt; All task &gt; Force Synchronization.</p>
-<h4 id="step-6--add-the-key-to-the-server">Step 6 : Add the key to the server.</h4>
-<h4 id="step-7--restart-the-service-if-necessary">step 7 : Restart the service if necessary.</h4>
-<hr>
+  <p>Sender Policy Framework  (SPF) is authentication protocol used to indicate to mail exchanges which hosts are authorized to send mail for a domain.
+It is defined using TXT record type, also has SPF record type. If you send email from xyz.com to tecnep.com, tecnep.com mail server will check if xyz.com is authorized for sending
+email or not. SPF record actually prevent email spoofing with spf records.</p>
+<p>For example if tecnep.com has TXT record of :-</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">v=spf1 mx a ip4:10.100.100.10 ~all
+</code></pre></div><p>where,</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">v = spf1 specify SPF version 1
+mx = use domain mail exchange
+a = A record of the domain tecnep.com (also can send email)
+ipv4 = IP address to allow to send email
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">	~ = SOFTFAIL, Tagged as spam
+	- = HARDFAIL, Reject the email.
+	? + NEUTRAL, Result interpreted like NONE
+</code></pre></div><p>It also has <code>redirect</code> and <code>include</code></p>
+<h6 id="redirect">Redirect</h6>
+<p>Example,</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">v=spf1 redirect:_spf.google.com ~all
+</code></pre></div><h6 id="include">Include</h6>
+<p>Example,</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">v=spf1 include:_spf.google.com ~all
+</code></pre></div><p>Redirect is used to point to another SPF record for processing. This is used when you have multiple domain and apply same SPF. Redirect should only be used if you control both domain, otherwise use <code>include</code>.</p>
+<p>####### Limitations</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">1) Each FQDN may have at maximum one SPF record.
+2) Only 10 mechanism (like ip4,a,mx) can be used.
+</code></pre></div><h6 id="digging-spf-record">Digging SPF record</h6>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">dig tecnep.com TXT
+</code></pre></div><p>Exactly to get from spf name,</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">dig _spf.google.com TXT
+nslookup -q=txt _spf.google.com
+</code></pre></div><hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
 

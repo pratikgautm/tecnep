@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>DKIM - Tecnep.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.6aa5eecd4ca7c47fb2ca9b0775a7bd787e3e64a2eadf0fef8c9f924498f49127.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-docs">
+      <a href="/docs/">
+        <span>Docs</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="/"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="/"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-docs">
+      <a href="/docs/">
+        <span>Docs</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Docs</h4>
+  <ul>
+    
+    <li class="">
+      <a href="/docs/mailcleaner/">Mail Cleaner</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/hardening/">System Hardening</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/glassfish/">Glassfish</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/chrony/">NTP</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/redis/">Redis</a>
+    </li>
+    
+    <li class="active ">
+      <a href="/docs/dkim/">DKIM</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/spf/">SPF</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/system_resources/">Increase hard disk</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/zimbra-tips-tricks/">Zimbra Tips &amp; Tricks</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/kaspersky/">Kaspersky for linux</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/snmp/">SNMP</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/dmarc/">DMARC</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/firewall/">Firewall</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">DKIM</h1>
+<div class="content ">
+  <p>Domain Key Identified Mail is email authentication technique that allows the receiver to check that an email was indeed sent and authorized by the owner of that domain.
+It is email security standard designed to make sure message weren&rsquo;t altered in transist between the sending and receipient servers by the use of private and public key cryptography.</p>
+<h6 id="how-dkim-works-">How DKIM works ?</h6>
+<p>a) On sender mail server</p>
+<p>A hash is created from the content of the message headers and signed it with private key. This generates DKIM signature which carries everything a recipient server needs to validate the message.
+It looks like :-</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tecnep.com; s=m1; t=1584422723; i=@tecnep.com; bh=L9MkoPypSddnX8hkMpD9A/AP+phE0qcvS8uV9z0fs40=; h=Content-Type:To:Message-ID:Date:Subject:From;
+b=q3/mxnoKVSieUmkfoJXP+q0P+IZ/LTnEJSNUs3OalsAKdv0rv447Ry/rChZVmteGlPWu4nVI4pMBdXIz9dWEyCUqEx06JsM5i4owDbILDQ4/Aa+Hxjo5axS8LVXAvPb+vFfJQvq4LsTbMtV8r9R90BSX5UBgRHGbQh93d/vKqA0
+</code></pre></div><p>Where,</p>
+<p><code>DKIM-Signature 		: Is the header registered for DKIM signed messages.</code></p>
+<p><code>V=1 								: Version of DKIM  used by sending server</code></p>
+<p><code>a=rsa-sha256 			: 	Algorithm used to generate the hash for private/public key. Also rsa-sha1 supported.</code></p>
+<p><code>c=relaxed/relaxed 	:		Sets the canonicalization posture for the sending domain. This regulates whitespaces of text wrapping      changes in the messages.</code></p>
+<p><code>d=tecnep.com 			: 	Email domain that signed the message.</code></p>
+<p><code>s=m1 							: 	selector for public DKIM key verification.</code></p>
+<p><code>i=@tecnep.com 			: 	identity of signer email address</code></p>
+<p><code>bh=L9MkoPy...		  : 	Is the value of body hash generated before the message headers are signed.</code></p>
+<p><code>h=Content-Type..  	: 	Is the header used for generating hash.</code></p>
+<p><code>b=q3/mxnoKVS... 		: Is the cryptographic signature of all the preceding information form DKIM signature field.</code></p>
+<p>b) On Receiving side</p>
+<p>The mail server extract DKIM-Signature form email headers <code>(h=Content-Type:To:Message-ID:Date:Subject:From;)</code> Then it fetch DKIM record from DNS using the selector.
+Finally, the message header&rsquo;s hash value is signed with the public key fetched from DNS record. If the both signature are identical, it results DKIM pass result.</p>
+<p>Note : Using DKIM will make sure your message hasn&rsquo;t been altered, but it doesn&rsquo;t encrypt the contents of your message.</p>
+<h6 id="digging-dkim-record">Digging DKIM record</h6>
+<p>Syntax</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">dig selector._domainkey.domain.name TXT
+</code></pre></div><p>Example,</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">dig +short m1._domainkey.tecnep.com TXT
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;v=DKIM1;k=rsa;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCzy1gD5Q3hnR3FPoSa74nQhAWpxEpHLh06qOg7xuFl94q3PI4oOO+kB5df5agNdDhBGhDAxAiqDEzVLSiT5e9gQ4z3hi9D4rDeJFr2EkzRZcgTkqtxcVq7lX3QzTkhOWUD83p1buIzV/TtY3sDf6X/sdMdOI6opzBJy8av0fdKnQIDAQAB&#34;
+</code></pre></div><p>where,</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">v=DKIM1 is the version
+k=rsa is public key is generating algorithm
+p=MIGfMA0GCSqGSI...... is the actual DKIM public key of 1024 bits
+</code></pre></div><hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.tecnep.com">www.tecnep.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>

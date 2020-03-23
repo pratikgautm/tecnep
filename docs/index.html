@@ -111,6 +111,14 @@
     </li>
     
     <li class="">
+      <a href="/docs/dkim/">DKIM</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/spf/">SPF</a>
+    </li>
+    
+    <li class="">
       <a href="/docs/system_resources/">Increase hard disk</a>
     </li>
     
@@ -124,6 +132,10 @@
     
     <li class="">
       <a href="/docs/snmp/">SNMP</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/dmarc/">DMARC</a>
     </li>
     
     <li class="">
@@ -184,6 +196,20 @@ Chronyd is a daemon for synchronisation of the system clock.</p>
 
 <div class="summary mb-2">
   
+  <h2 class="title-summary"><a href="/docs/dkim/">DKIM</a></h2>
+  <p>Domain Key Identified Mail is email authentication technique that allows the receiver to check that an email was indeed sent and authorized by the owner of that domain. It is email security standard designed to make sure message weren&rsquo;t altered in transist between the sending and receipient servers by the use of private and public key cryptography.</p>
+</div>
+
+
+<div class="summary mb-2">
+  
+  <h2 class="title-summary"><a href="/docs/spf/">SPF</a></h2>
+  <p>Sender Policy Framework (SPF) is authentication protocol used to indicate to mail exchanges which hosts are authorized to send mail for a domain. It is defined using TXT record type, also has SPF record type.</p>
+</div>
+
+
+<div class="summary mb-2">
+  
   <h2 class="title-summary"><a href="/docs/system_resources/">Increase hard disk</a></h2>
   <p>First, add the disk from vmware exsi or physically add disk. Then, create a new XFS partition.
 lsblk See disk path of added disk and note down Make partition and set to linux lvm fdisk /dev/sdb	Enter &ldquo;n&rdquo; for new disk partition and press enter for partitioning full disk in every line Make kernel update for the changes to apply partprobe /dev/sdb Create physical volume of the added disk pvcreate /dev/sdb1 Verify by listing physical volume pvs or pvdisplay Extend existing volume group &ldquo;centos&rdquo; vgextend centos /dev/sdb1 Verify by listing volume groups vgs or vgdisplay List logical volumes lvs Extend existing logical volume &ldquo;root&rdquo; lvextend -l +100%FREE /dev/centos/root Verify by logical volumes lvs or lvdisplay	grow xfs system xfs_growfs /dev/centos/root verify disk space of root df -h  Suresh Saud sureshsaud17@gmail.</p>
@@ -209,6 +235,13 @@ Note : First telnet to the Kaspersky server port 13000 (default), It should succ
   
   <h2 class="title-summary"><a href="/docs/snmp/">SNMP</a></h2>
   <p>Simple Network Management Protocol (SNMP) is a way for different devices on a network to share information helps in communication of devices of different hardware and software. It is a protocol used by network management tools to identify devices, monitor network performance, keep track of changes to the network, or determine the status of network devices in real time.</p>
+</div>
+
+
+<div class="summary mb-2">
+  
+  <h2 class="title-summary"><a href="/docs/dmarc/">DMARC</a></h2>
+  <p>Domain-based Message Authentication Reporting and conformance (DMARC) is designed to protect your company&rsquo;s email domain for being used for email spoofing, phishing scans. It is enhancement to existing email authentication technologies.</p>
 </div>
 
 
