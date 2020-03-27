@@ -59,6 +59,17 @@ Chronyd is a daemon for synchronisation of the system clock.</description>
     </item>
     
     <item>
+      <title>Mailcleaner Basic</title>
+      <link>/docs/mailcleaner_basic/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/mailcleaner_basic/</guid>
+      <description>Basic Terminology following are the terminology frequently used in mailcleaner or any other mail filtering gateways:-
+Virus / Antivirus
+An email virus consists of malicious code that is distributed in email messages, and it can be activated when a user clicks on a link in an email message, opens an email attachment or interacts in some other way with the infected email message.</description>
+    </item>
+    
+    <item>
       <title>DKIM</title>
       <link>/docs/dkim/</link>
       <pubDate>Sun, 08 Dec 2019 18:29:55 +0545</pubDate>
@@ -93,6 +104,15 @@ lsblk See disk path of added disk and note down Make partition and set to linux 
       
       <guid>/docs/zimbra-tips-tricks/</guid>
       <description>Zimbra Mail server Memory Tuning This utility will detect the amount of RAM in this system and make suggestions on the size of your java heap as well as the size of your innodb buffer pool.</description>
+    </item>
+    
+    <item>
+      <title>Useful command</title>
+      <link>/docs/useful_command/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/useful_command/</guid>
+      <description>yum provides yum history yum install package_name yum remove package_name yum update yum whatprovides {package_name} yum list installed yum-config-manager --enable [remi-php72] yum check-update yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm yum makecache fast ======================================================================= Add route for a network ( This will only add route temporarly, add the command in rc.</description>
     </item>
     
     <item>

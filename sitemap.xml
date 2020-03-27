@@ -31,6 +31,10 @@
   </url>
   
   <url>
+    <loc>/docs/mailcleaner_basic/</loc>
+  </url>
+  
+  <url>
     <loc>/docs/dkim/</loc>
     <lastmod>2019-12-08T18:29:55+05:45</lastmod>
   </url>
@@ -46,6 +50,10 @@
   
   <url>
     <loc>/docs/zimbra-tips-tricks/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/useful_command/</loc>
   </url>
   
   <url>

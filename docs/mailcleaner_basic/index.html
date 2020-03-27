@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Mailcleaner Basic - Tecnep.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.6aa5eecd4ca7c47fb2ca9b0775a7bd787e3e64a2eadf0fef8c9f924498f49127.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-docs">
+      <a href="/docs/">
+        <span>Docs</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-about">
+      <a href="/about">
+        <span>About</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="/"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="/"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-docs">
+      <a href="/docs/">
+        <span>Docs</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-about">
+      <a href="/about">
+        <span>About</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Docs</h4>
+  <ul>
+    
+    <li class="">
+      <a href="/docs/mailcleaner/">Mail Cleaner</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/hardening/">System Hardening</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/glassfish/">Glassfish</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/chrony/">NTP</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/redis/">Redis</a>
+    </li>
+    
+    <li class="active ">
+      <a href="/docs/mailcleaner_basic/">Mailcleaner Basic</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/dkim/">DKIM</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/spf/">SPF</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/system_resources/">Increase hard disk</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/zimbra-tips-tricks/">Zimbra Tips &amp; Tricks</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/useful_command/">Useful command</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/kaspersky/">Kaspersky for linux</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/snmp/">SNMP</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/dmarc/">DMARC</a>
+    </li>
+    
+    <li class="">
+      <a href="/docs/firewall/">Firewall</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Mailcleaner Basic</h1>
+<div class="content ">
+  <h5 id="basic-terminology">Basic Terminology</h5>
+<p>following are the terminology frequently used in mailcleaner or any other mail filtering gateways:-</p>
+<p><code>Virus / Antivirus</code></p>
+<p>An email virus consists of malicious code that is distributed in email messages, and it can be activated when a user clicks on a link in an email message, opens an email attachment or interacts in some other way with the infected email message.
+Antivirus are the program to protect the system from virus. ClamAV open source antivirus engine for detecting trojans, viruses, malware &amp; other malicious threats, used by the mailcleaner.</p>
+<p><code>Spam / Antispam</code></p>
+<p>Spam is any kind of unwanted, unsolicited digital communication, often an email, that gets sent out in bulk. Antispam software protect form such unwanted messages/email. Mailcleaner use Apache SpamAssassin which has spam-detection techniques, including DNS and fuzzy checksum techniques, Bayesian filtering, external programs, blacklists and online databases.</p>
+<p><code>Quarantine</code></p>
+<p>An isolated area on a server where email messages that are suspected to be spam are stored temporarily so that they can be reviewed and retrieved if necessary. Messages that are not released from the Quarantine are automatically deleted after a designated period of time.</p>
+<p><code>Email Spoofing</code></p>
+<p>Email spoofing is the fabrication of an email which makes email originated from someone or somewhere other than the intended source. The ultimate goal of email spoofing is to get recipients to open, and possibly even respond to, a solicitation. The technology like <a href="/docs/spf">SPF</a>, <a href="/docs/dkim">DKIM</a> and <a href="/docs/dmarc">DMARC</a> are used to protect email spoofing.</p>
+<p><code>Greylist</code></p>
+<p>Grey Listing is a method of defending against spam messages. Enabling grey listing will &ldquo;temporarily reject&rdquo; any email from a sender by sending 4xx reply codes <code>please call back later</code>. If the mail is legitimate, the originating server will try again after a delay, and if sufficient time has elapsed, the email will be accepted. Most legitimate email servers will retry sending an undeliverable message whereas spammers who want to send millions of messages do not retry.</p>
+<p><code>RBLs</code></p>
+<p>Realtime Blackhole List, a list of IP addresses whose owners refuse to stop the reproduction of spam. It lists server IP addresses who sends spam. b.barracudacentral.org,	cbl.abuseat.org, 	dnsbl-3.uceprotect.net are some  DNS-based RBLs entities. If the IP address matches one on the list, then the connection gets dropped before accepting any traffic from the sender.</p>
+<p><code>Warn list</code></p>
+<p>If a sender&rsquo;s e-mail is added to the mailcleaner warn list, you will be notified immediately each time a message originating from the email address is blocked by the system.</p>
+<p><code>White list</code></p>
+<p>Message whose sender address is  in the white list are directly delivered to your mailbox, without being filtered for spam. Viruses and dangerous content are still filtered.</p>
+<p><code>False negative</code></p>
+<p>A spam has managed to bypass all the controls and was delivered to your mailbox.</p>
+<p><code>False positive</code></p>
+<p>A message that you wanted to receive was blocked by mailcleaner.</p>
+<h4 id="filtered-message">Filtered message</h4>
+<p>Mailcleaner filter four types of unwanted messages:-</p>
+<p>a) <code>Virus</code>, Email which comes with virus.</p>
+<p>b) <code>Dangerous Content</code>, Email has the attachment not favorable.</p>
+<p>c) <code>Spam</code>, Email is unwanted for the recipient.</p>
+<p>d) <code>Newsletter</code>, Email is identified as newsletter.</p>
+<h4 id="mode-of-spam-handling">Mode of Spam Handling</h4>
+<p>Spam can be handled by three different modes in Mailcleaner:-</p>
+<p>a) <code>Quarantine mode</code> (Default), all spam is kept in isolated zone.</p>
+<p>b) <code>flag mode</code>, spam is delivered to the mailbox but is identified by adding a keyword(flag) to message subject.</p>
+<p>c) <code>Delete mode</code>, spam is deleted.</p>
+<h4 id="mailcleaner-arrival-status">Mailcleaner Arrival Status</h4>
+<p>a) <code>Accepted</code>, Message is accepted.</p>
+<p>b) <code>Rejected</code>, Message is rejected due to some reason.</p>
+<p>c) <code>Relayed</code>, Message is directly sent directly to mailcleaner.</p>
+<p>d) <code>Bounced</code>, Message is Bounced as something is not matched in the policy.</p>
+<h4 id="processing-e-mail">Processing e-Mail</h4>
+<p>Mailcleaner process a email basically in following ways :-</p>
+<p>a) <code>Incoming MTA</code></p>
+<p>Mailcleaner checks SPF, DKIM, and DMARC policy, Reverse DNS, LDAP record. This could be pass or fail depends upon administrative setting.</p>
+<p>b) <code>Filtering MTA | Engine</code></p>
+<p>If the email successfully passed from incoming MTA stage then different engine are used to check the messages. Antispam check through (NiceBayes, clamSpam, PreRBLs, uriRBLs, SpamC) are also applied. Similarly, content protection methodologies are also applied like attachment type, scripts, executable files, password protection. Required score to pass spam is 5.</p>
+<p>c) <code>Outgoing stage</code></p>
+<p>Message delivered to mailserver.</p>
+<hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.tecnep.com">www.tecnep.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>
