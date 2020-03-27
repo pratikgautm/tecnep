@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Mail Cleaner - Tecnep.com</title>
+  <title>MailCleaner - Tecnep.com</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="icon" href="/favicon.png">
@@ -103,7 +103,7 @@
   <ul>
     
     <li class="active ">
-      <a href="/docs/mailcleaner/">Mail Cleaner</a>
+      <a href="/docs/mailcleaner/">MailCleaner</a>
     </li>
     
     <li class="">
@@ -169,7 +169,7 @@
         </div>
         <div class="col-12 col-md-9">
           
-<h1 class="title">Mail Cleaner</h1>
+<h1 class="title">MailCleaner</h1>
 <div class="content ">
   <p>MailCleaner is a business anti spam gateway installed between your mail infrastructure and the Internet.
 It offers professional protection against viruses and eliminates up to 99% of spam.</p>
@@ -203,17 +203,17 @@ In my case, I had downloaded the appliance of. ova format and imported it to the
 <h5 id="go-to-configuration--general-settings-and-configure-defaults-company-quarantines-periodic-tasks-logging-and-archiving">Go to configuration =&gt; General settings and configure defaults, Company, Quarantines, Periodic tasks, logging and archiving.</h5>
 <p>After configuring Base system and General settings, it is more important to configure domains.
 Adding domain is most critical and backbone of the mailcleaner.</p>
-<p>To configure the Domain, follow the below steps.
-<img src="1.png" alt="image"></p>
+<p>To configure the Domain, follow the below steps.</p>
+<p><img src="1.png" alt="image"></p>
 <h5 id="go-to-configuration--domain-there-you-will-see-the-domain-default-setting-and-new-domain">Go to Configuration =&gt; Domain, there you will see the Domain default setting and new domain.</h5>
 <p>If you want the default configuration for all domains, configure in the default domain setting. Else, go to New Domain to add Domains. Add domain and submit.
-To configure the individual domains, go to list of the domain and select it.
-<img src="2.png" alt="image">
-In the General fill the details of Aliases, postmaster address and support details. Submit the details and click next step.
-<img src="3.png" alt="image"></p>
-<p>In the Destination server, fill the IP address of the mail server in which mail will be sent from mailcleaner. Choose smtp port as 25 and use multiple server as load balancing. Submit the details and test the destination then go to next step
-<img src="4.png" alt="image">
-Next step is to configure Address verification. To configure address verification, go to Domain=&gt; Select Domain=&gt;Go to address verification.
+To configure the individual domains, go to list of the domain and select it.</p>
+<p><img src="2.png" alt="image"></p>
+<p>In the General fill the details of Aliases, postmaster address and support details. Submit the details and click next step.</p>
+<p><img src="3.png" alt="image"></p>
+<p>In the Destination server, fill the IP address of the mail server in which mail will be sent from mailcleaner. Choose smtp port as 25 and use multiple server as load balancing. Submit the details and test the destination then go to next step</p>
+<p><img src="4.png" alt="image"></p>
+<p>Next step is to configure Address verification. To configure address verification, go to Domain=&gt; Select Domain=&gt;Go to address verification.
 You will need to configure the following details.</p>
 <p><strong>Callout Connector:-</strong> This is the method which is used to authenticate the address. Callout connector uses LDAP, SMTP, NONE and LOCAL protocols.</p>
 <p><strong>LDAP Server:</strong> If you are configuring with LDAP, you will need to define the LDAP server from which LDAP authentication is done.</p>
@@ -233,11 +233,11 @@ Dc=abc, dc=com, dc=np</p>
 <p><strong>User Attribute:</strong> If you are using ldap/active directory as authentication type, use ‘SamAccountName’ as user attribute.</p>
 <p>Configure Use SSL, Protocol version, Username Modifier, Address lookup as in above snapshot and submit the details. After submission test any user from ldap/active directory and test authentication. If the configurations are correct, you will see the connection successful message.</p>
 <p>Another step to be configured is Filtering. In this section, you can define the different filtering methods for any domain. Configure the mailcleaner as shown in snapshot. Enable greylisting and whitelisting.
-If you want to select any domain to be not checked, mention it in the add an address.
-<img src="6.png" alt="image">
-Another step is to configure outgoing relay. In the configuration you will need to generate DKIM signing.
-<img src="7.png" alt="image">
-Make a configuration as shown in the above snapshot. You will need to enable BATV to generate DKIM signing. You will need to add this DKIM record to public dns.</p>
+If you want to select any domain to be not checked, mention it in the add an address.</p>
+<p><img src="6.png" alt="image"></p>
+<p>Another step is to configure outgoing relay. In the configuration you will need to generate DKIM signing.</p>
+<p><img src="7.png" alt="image"></p>
+<p>Make a configuration as shown in the above snapshot. You will need to enable BATV to generate DKIM signing. You will need to add this DKIM record to public dns.</p>
 <p>Keep the configuration of archiving and templates as per default.</p>
 <p>Configure SMTP, Anti-spam, Content protection, accesses and Services as per your requirement.</p>
 <h4 id="5cluster-creation-and-implementation">5.	Cluster Creation and Implementation</h4>
@@ -258,8 +258,8 @@ Make a configuration as shown in the above snapshot. You will need to enable BAT
 <p>You can now reach the admin interface of any host, but only the master will let you configure the system. It also is the only one that users can reach in order to access their quarantine.</p>
 <p>In order to balance your incoming mail on the two (or more) nodes you can add a new MX record with the same priority pointing the second node. To test, go to user interface panel</p>
 <p>After clustering, go to URL of master cluster there you will see the stack of master and slaves.</p>
-<p>Verify the incoming and outgoing status of mails.
-<img src="8.png" alt="image"></p>
+<p>Verify the incoming and outgoing status of mails.</p>
+<p><img src="8.png" alt="image"></p>
 <hr>
 <p>By : Aayush koirala
 <a href="mailto:koiralaaayush20@gmail.com">koiralaaayush20@gmail.com</a></p>

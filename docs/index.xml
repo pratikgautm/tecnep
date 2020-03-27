@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Mail Cleaner</title>
+      <title>MailCleaner</title>
       <link>/docs/mailcleaner/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -64,9 +64,7 @@ Chronyd is a daemon for synchronisation of the system clock.</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/docs/mailcleaner_basic/</guid>
-      <description>Basic Terminology following are the terminology frequently used in mailcleaner or any other mail filtering gateways:-
-Virus / Antivirus
-An email virus consists of malicious code that is distributed in email messages, and it can be activated when a user clicks on a link in an email message, opens an email attachment or interacts in some other way with the infected email message.</description>
+      <description>Basic Terminology MailCleaner is an anti spam gateway installed between your mail infrastructure and the Internet. MailCleaner is built on popular and very efficient free software OS: Debian 8 Jessie, MTA: Exim, Filtering: MailScanner, Anti-Spam: SpamAssassin, Anti-Virus: ClamAV, Web GUI: Apache/PHP/mysql.</description>
     </item>
     
     <item>
