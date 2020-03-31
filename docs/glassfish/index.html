@@ -1,282 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Glassfish - Tecnep</title>
+<meta name="description" content="Share your ideas, skill, knowledge for system Engineers.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/docs/glassfish/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="Glassfish" />
+<meta property="og:description" content="Glassfish Server is a production ready Java EE 6 compliant application server developed under an open source license. Benefits include a modular, runtime that minimizes resource consumption, an easy-to-use administration console, a feature-rich command line tool, centralized administration and high-availability clustering.
+a. Create a user to own Glassfish and java software
+useradd client b. Switch to the client user:
+su - client c. Download or copy tar file of java in client user and extract it" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tecnep.com/docs/glassfish/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="article:published_time" content="2019-12-09T03:51:55+05:45" />
+<meta property="article:modified_time" content="2019-12-09T03:51:55+05:45" /><meta property="og:site_name" content="Hugo Techdoc Theme" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Glassfish - Tecnep.com</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel="icon" href="/favicon.png">
+<meta name="twitter:title" content="Glassfish"/>
+<meta name="twitter:description" content="Glassfish Server is a production ready Java EE 6 compliant application server developed under an open source license. Benefits include a modular, runtime that minimizes resource consumption, an easy-to-use administration console, a feature-rich command line tool, centralized administration and high-availability clustering.
+a. Create a user to own Glassfish and java software
+useradd client b. Switch to the client user:
+su - client c. Download or copy tar file of java in client user and extract it"/>
+<meta itemprop="name" content="Glassfish">
+<meta itemprop="description" content="Glassfish Server is a production ready Java EE 6 compliant application server developed under an open source license. Benefits include a modular, runtime that minimizes resource consumption, an easy-to-use administration console, a feature-rich command line tool, centralized administration and high-availability clustering.
+a. Create a user to own Glassfish and java software
+useradd client b. Switch to the client user:
+su - client c. Download or copy tar file of java in client user and extract it">
+<meta itemprop="datePublished" content="2019-12-09T03:51:55&#43;05:45" />
+<meta itemprop="dateModified" content="2019-12-09T03:51:55&#43;05:45" />
+<meta itemprop="wordCount" content="398">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
 
-  
-  
-  <link rel="stylesheet" href="/css/style.min.6aa5eecd4ca7c47fb2ca9b0775a7bd787e3e64a2eadf0fef8c9f924498f49127.css">
-  
 
-  
 
-</head>
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+<a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
+<p class="description">Share your ideas, skill, knowledge for system Engineers.</p>
 
-<body class='page page-default-single'>
-  <div id="main-menu-mobile" class="main-menu-mobile">
-  <ul>
-    
-    
-    <li class="menu-item-home">
-      <a href="/">
-        <span>Home</span>
-      </a>
-    </li>
-    
-    <li class="menu-item-docs">
-      <a href="/docs/">
-        <span>Docs</span>
-      </a>
-    </li>
-    
-    <li class="menu-item-about">
-      <a href="/about">
-        <span>About</span>
-      </a>
-    </li>
-    
-  </ul>
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/">About</a></li></ul>
+</nav>
 </div>
-  <div class="wrapper">
-    <div class='header'>
-  <div class="container">
-    <div class="logo">
-      <a href="/"><img alt="Logo" src="/images/logo.svg" /></a>
-    </div>
-    <div class="logo-mobile">
-      <a href="/"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
-    </div>
-    <div id="main-menu" class="main-menu">
-  <ul>
-    
-    
-    <li class="menu-item-home">
-      <a href="/">
-        <span>Home</span>
-      </a>
-    </li>
-    
-    <li class="menu-item-docs">
-      <a href="/docs/">
-        <span>Docs</span>
-      </a>
-    </li>
-    
-    <li class="menu-item-about">
-      <a href="/about">
-        <span>About</span>
-      </a>
-    </li>
-    
-  </ul>
-</div>
-    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
-  <span class="hamburger-box">
-    <span class="hamburger-inner"></span>
-  </span>
-</button>
-  </div>
-</div>
-
-
-    
-    
-    
-    
-    
-    
-
-    
-    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
-      <div class="row">
-        <div class="col-12 col-md-3 mb-3">
-          <div class="sidebar">
-            
-<div class="docs-menu">
-  <h4>Docs</h4>
-  <ul>
-    
-    <li class="">
-      <a href="/docs/mailcleaner/">MailCleaner</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/hardening/">System Hardening</a>
-    </li>
-    
-    <li class="active ">
-      <a href="/docs/glassfish/">Glassfish</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/chrony/">NTP</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/redis/">Redis</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/mailcleaner_basic/">Mailcleaner Basic</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/dkim/">DKIM</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/spf/">SPF</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/system_resources/">Increase hard disk</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/zimbra-tips-tricks/">Zimbra Tips &amp; Tricks</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/useful_command/">Useful command</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/kaspersky/">Kaspersky for linux</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/snmp/">SNMP</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/dmarc/">DMARC</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/firewall/">Firewall</a>
-    </li>
-    
-  </ul>
-</div>
-
-          </div>
-        </div>
-        <div class="col-12 col-md-9">
-          
-<h1 class="title">Glassfish</h1>
-<div class="content ">
-  <p>Glassfish Server is a production ready Java EE 6 compliant application server developed under an open source license. Benefits include a modular, runtime that minimizes resource consumption, an easy-to-use administration console, a feature-rich command line tool, centralized administration and high-availability clustering.</p>
+<div class="content-container">
+<main><h1>Glassfish</h1>
+<p>Glassfish Server is a production ready Java EE 6 compliant application server developed under an open source license. Benefits include a modular, runtime that minimizes resource consumption, an easy-to-use administration console, a feature-rich command line tool, centralized administration and high-availability clustering.</p>
 <p>a. Create a user to own Glassfish and java  software</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">useradd client
-</code></pre></div><p>b. Switch  to the client user:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">su - client
-</code></pre></div><p>c. Download or copy tar file of java in client user and extract it</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /home/client
+<pre><code>useradd client
+</code></pre><p>b. Switch  to the client user:</p>
+<pre><code>su - client
+</code></pre><p>c. Download or copy tar file of java in client user and extract it</p>
+<pre><code>cd /home/client
 tar -xzvf jdk-8u211-linux-x64.tar.gz
 mv java8 .java8
-</code></pre></div><p>d. Set java home environment by editing .bash_profile</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">vi .bash_profile
-</code></pre></div><p>Add following line and replace java folder with your own</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">export PATH
+</code></pre><p>d. Set java home environment by editing .bash_profile</p>
+<pre><code>vi .bash_profile
+</code></pre><p>Add following line and replace java folder with your own</p>
+<pre><code>export PATH
 JAVA_HOME=/home/client/.java8; export JAVA_HOME
 PATH=$JAVA_HOME/bin:$PATH; export PATH
-</code></pre></div><p>e. Update bash profile.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">source .bash_profile
-</code></pre></div><p>f. Check if JAVA has been properly installed.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">java -version
-</code></pre></div><p>If java is correctly installed it should show like:-</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">java version &#34;1.8.0_211&#34;
+</code></pre><p>e. Update bash profile.</p>
+<pre><code>source .bash_profile
+</code></pre><p>f. Check if JAVA has been properly installed.</p>
+<pre><code>java -version
+</code></pre><p>If java is correctly installed it should show like:-</p>
+<pre><code>java version &quot;1.8.0_211&quot;
 Java(TM) SE Runtime Environment (build 1.8.0_211-b12)
 Java HotSpot(TM) 64-Bit Server VM (build 25.211-b12, mixed mode)
-</code></pre></div><p>g. Download and extract the latest Glassfish archive again in client user</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">unzip glassfish-4.1.zip
-</code></pre></div><p>h. If unzip is not avaialable in your system install unzip</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">yum -y install unzip
-</code></pre></div><p>i. Change the ownership of /home/client/glassfish</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">chown -R client:client glassfish
-</code></pre></div><p>j. Check the available domains (domain1 is installed by default)</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/asadmin list-domains
+</code></pre><p>g. Download and extract the latest Glassfish archive again in client user</p>
+<pre><code>unzip glassfish-4.1.zip
+</code></pre><p>h. If unzip is not avaialable in your system install unzip</p>
+<pre><code>yum -y install unzip
+</code></pre><p>i. Change the ownership of /home/client/glassfish</p>
+<pre><code>chown -R client:client glassfish
+</code></pre><p>j. Check the available domains (domain1 is installed by default)</p>
+<pre><code>bin/asadmin list-domains
   domain1 not running
   Command list-domains executed successfully.
-</code></pre></div><p>k. Delete default domain [Optional]</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/asadmin delete-domain domain1
-</code></pre></div><p>l. Add new domain as per your requirement. We are going to create portbase domain</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/asadmin create-domain --portbase 5000 client
-</code></pre></div><p>m. Start the domain</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/asadmin start-domain client
+</code></pre><p>k. Delete default domain [Optional]</p>
+<pre><code>bin/asadmin delete-domain domain1
+</code></pre><p>l. Add new domain as per your requirement. We are going to create portbase domain</p>
+<pre><code>bin/asadmin create-domain --portbase 5000 client
+</code></pre><p>m. Start the domain</p>
+<pre><code>bin/asadmin start-domain client
   Waiting for client to start .......
   Successfully started the domain : client
   domain  Location: /home/client/glassfish4/glassfish/domains/client
   Log File: /home/client/glassfish4/glassfish/domains/client/logs/server.log
   Admin Port: 5048
   Command start-domain executed successfully.
-</code></pre></div><p>n. After domain has started, you can now access through web interface also. Make sure firewall has allowed its http port 5048</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">firewall-cmd --add-port=5048/tcp --permanent
+</code></pre><p>n. After domain has started, you can now access through web interface also. Make sure firewall has allowed its http port 5048</p>
+<pre><code>firewall-cmd --add-port=5048/tcp --permanent
 firewall-cmd --reload
-</code></pre></div><p>o. Secure the glassfish admin console</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/asadmin --host localhost --port 5048 enable-secure-admin
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/asadmin restart-domain client
-</code></pre></div><p>You can now access the default page <code>https://yourIP:5048</code></p>
+</code></pre><p>o. Secure the glassfish admin console</p>
+<pre><code>bin/asadmin --host localhost --port 5048 enable-secure-admin
+</code></pre><p>If you need driver (for database), copy it to the location <code>domaindir/lib/ext</code></p>
+<pre><code>bin/asadmin restart-domain client
+</code></pre><p>You can now access the default page <code>https://yourIP:5048</code></p>
 <p>p. Deploy a sample .ear file</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/asadmin deploy --port 5048 /home/client/glassfish4/EnterpriseHelloWorld.ear
+<pre><code>bin/asadmin deploy --port 5048 /home/client/glassfish4/EnterpriseHelloWorld.ear
 	Enter admin user name&gt;  admin
-	Enter admin password for user &#34;admin&#34;&gt;
+	Enter admin password for user &quot;admin&quot;&gt;
 	Application deployed with name EnterpriseHelloWorld.
 	Command deploy executed successfully.
-</code></pre></div><p>r. To undeploy use following command with your installed path</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">bin/asadmin undeploy --port 5048 /home/client/glassfish4/glassfish/domains/client/applications/EnterpriseHelloWorld
+</code></pre><p>r. To undeploy use following command with your installed path</p>
+<pre><code>bin/asadmin undeploy --port 5048 /home/client/glassfish4/glassfish/domains/client/applications/EnterpriseHelloWorld
 	Enter admin user name&gt;  admin
-	Enter admin password for user &#34;admin&#34;&gt;
+	Enter admin password for user &quot;admin&quot;&gt;
 	Command undeploy executed successfully.
-</code></pre></div><hr>
+</code></pre><hr>
 <p>Ritu Singh</p>
+<div class="edit-meta">
+Last updated on 9 Dec 2019
 
+
+<br>
+Published on 9 Dec 2019
+<br><a href="https://github.com/thingsym/hugo-theme-techdoc/edit/master/content/docs%5cglassfish%5cindex.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/docs/zimbra-tips-tricks/" title="Zimbra Tips &amp; Tricks"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Zimbra Tips &amp; Tricks</a>
+<a class="nav nav-next" href="https://tecnep.com/docs/system_resources/" title="Increase hard disk">Next - Increase hard disk <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="open-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class="parent"><a href="https://tecnep.com/docs/">Docs</a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/docs/hardening/">System Hardening</a></li>
+<li class=""><a href="https://tecnep.com/docs/chrony/">NTP</a></li>
+<li class=""><a href="https://tecnep.com/docs/redis/">Redis</a></li>
+<li class=""><a href="https://tecnep.com/docs/mailcleaner_basic/">Mailcleaner Basic</a></li>
+<li class=""><a href="https://tecnep.com/docs/mailcleaner_config/">MailCleaner configurations</a></li>
+<li class=""><a href="https://tecnep.com/docs/kaspersky/">Kaspersky for linux</a></li>
+<li class=""><a href="https://tecnep.com/docs/snmp/">SNMP</a></li>
+<li class=""><a href="https://tecnep.com/docs/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/docs/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/docs/dmarc/">DMARC</a></li>
+<li class=""><a href="https://tecnep.com/docs/firewall/">Firewall</a></li>
+<li class=""><a href="https://tecnep.com/docs/zimbra-tips-tricks/">Zimbra Tips &amp; Tricks</a></li>
+<li class="active"><a href="https://tecnep.com/docs/glassfish/">Glassfish</a></li>
+<li class=""><a href="https://tecnep.com/docs/system_resources/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/docs/tomcat/">Tomcat</a></li>
+<li class=""><a href="https://tecnep.com/docs/dns/">DNS</a></li>
+<li class=""><a href="https://tecnep.com/docs/useful_command/">Useful command</a></li>
+<li class=""><a href="https://tecnep.com/docs/keepalive/">Keepalive</a></li>
+<li class=""><a href="https://tecnep.com/docs/ssl/">SSL</a></li>
+<li class=""><a href="https://tecnep.com/docs/nas_san/">NAS and SAN</a></li>
+<li class=""><a href="https://tecnep.com/docs/haproxy/">Haproxy</a></li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
 </div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
 </div>
-
-        </div>
-      </div>
-    </div>
-    
-  </div>
-
-  <div class="sub-footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="sub-footer-inner">
-          <ul>
-            <li class="zerostatic"><a href="https://www.tecnep.com">www.tecnep.com</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-  
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
-  
-
-  
-  
-  
-    
-  
-
-
 </body>
-
 </html>

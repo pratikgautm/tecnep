@@ -1,177 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Redis - Tecnep</title>
+<meta name="description" content="Share your ideas, skill, knowledge for system Engineers.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/docs/redis/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="Redis" />
+<meta property="og:description" content="In-memory data structure store, used as database cache and message broker. In-memory database is a database that keeps the whole database in RAM. Supports data structure such as strings, hashes. list, sets, sorted sets. Each time you query a database or update data in a database, you only access the main memory  Redis-cli Following are the helpful redis command
+Check redis file configuration
+redis-server /etc/redis.conf login to Redis server host 10." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tecnep.com/docs/redis/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="article:published_time" content="2019-12-08T18:29:55+05:45" />
+<meta property="article:modified_time" content="2019-12-08T18:29:55+05:45" /><meta property="og:site_name" content="Hugo Techdoc Theme" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Redis - Tecnep.com</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel="icon" href="/favicon.png">
+<meta name="twitter:title" content="Redis"/>
+<meta name="twitter:description" content="In-memory data structure store, used as database cache and message broker. In-memory database is a database that keeps the whole database in RAM. Supports data structure such as strings, hashes. list, sets, sorted sets. Each time you query a database or update data in a database, you only access the main memory  Redis-cli Following are the helpful redis command
+Check redis file configuration
+redis-server /etc/redis.conf login to Redis server host 10."/>
+<meta itemprop="name" content="Redis">
+<meta itemprop="description" content="In-memory data structure store, used as database cache and message broker. In-memory database is a database that keeps the whole database in RAM. Supports data structure such as strings, hashes. list, sets, sorted sets. Each time you query a database or update data in a database, you only access the main memory  Redis-cli Following are the helpful redis command
+Check redis file configuration
+redis-server /etc/redis.conf login to Redis server host 10.">
+<meta itemprop="datePublished" content="2019-12-08T18:29:55&#43;05:45" />
+<meta itemprop="dateModified" content="2019-12-08T18:29:55&#43;05:45" />
+<meta itemprop="wordCount" content="252">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
 
-  
-  
-  <link rel="stylesheet" href="/css/style.min.6aa5eecd4ca7c47fb2ca9b0775a7bd787e3e64a2eadf0fef8c9f924498f49127.css">
-  
 
-  
 
-</head>
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+<a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
+<p class="description">Share your ideas, skill, knowledge for system Engineers.</p>
 
-<body class='page page-default-single'>
-  <div id="main-menu-mobile" class="main-menu-mobile">
-  <ul>
-    
-    
-    <li class="menu-item-home">
-      <a href="/">
-        <span>Home</span>
-      </a>
-    </li>
-    
-    <li class="menu-item-docs">
-      <a href="/docs/">
-        <span>Docs</span>
-      </a>
-    </li>
-    
-    <li class="menu-item-about">
-      <a href="/about">
-        <span>About</span>
-      </a>
-    </li>
-    
-  </ul>
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/">About</a></li></ul>
+</nav>
 </div>
-  <div class="wrapper">
-    <div class='header'>
-  <div class="container">
-    <div class="logo">
-      <a href="/"><img alt="Logo" src="/images/logo.svg" /></a>
-    </div>
-    <div class="logo-mobile">
-      <a href="/"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
-    </div>
-    <div id="main-menu" class="main-menu">
-  <ul>
-    
-    
-    <li class="menu-item-home">
-      <a href="/">
-        <span>Home</span>
-      </a>
-    </li>
-    
-    <li class="menu-item-docs">
-      <a href="/docs/">
-        <span>Docs</span>
-      </a>
-    </li>
-    
-    <li class="menu-item-about">
-      <a href="/about">
-        <span>About</span>
-      </a>
-    </li>
-    
-  </ul>
-</div>
-    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
-  <span class="hamburger-box">
-    <span class="hamburger-inner"></span>
-  </span>
-</button>
-  </div>
-</div>
-
-
-    
-    
-    
-    
-    
-    
-
-    
-    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
-      <div class="row">
-        <div class="col-12 col-md-3 mb-3">
-          <div class="sidebar">
-            
-<div class="docs-menu">
-  <h4>Docs</h4>
-  <ul>
-    
-    <li class="">
-      <a href="/docs/mailcleaner/">MailCleaner</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/hardening/">System Hardening</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/glassfish/">Glassfish</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/chrony/">NTP</a>
-    </li>
-    
-    <li class="active ">
-      <a href="/docs/redis/">Redis</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/mailcleaner_basic/">Mailcleaner Basic</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/dkim/">DKIM</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/spf/">SPF</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/system_resources/">Increase hard disk</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/zimbra-tips-tricks/">Zimbra Tips &amp; Tricks</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/useful_command/">Useful command</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/kaspersky/">Kaspersky for linux</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/snmp/">SNMP</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/dmarc/">DMARC</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/firewall/">Firewall</a>
-    </li>
-    
-  </ul>
-</div>
-
-          </div>
-        </div>
-        <div class="col-12 col-md-9">
-          
-<h1 class="title">Redis</h1>
-<div class="content ">
-  <ul>
+<div class="content-container">
+<main><h1>Redis</h1>
+<ul>
 <li>In-memory data structure store, used as database cache and message broker.</li>
 <li>In-memory database is a database that keeps the whole database in RAM.</li>
 <li>Supports data structure such as strings, hashes. list, sets, sorted sets.</li>
@@ -180,26 +68,26 @@
 <p>Redis-cli
 Following are the helpful redis command</p>
 <p>Check redis file configuration</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">redis-server /etc/redis.conf
-</code></pre></div><p>login to Redis server host 10.10.18.6 with default port 6379 and password</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">redis-cli -h 10.10.18.6 -p 6379 -a password
-</code></pre></div><p>See all the keys in redis</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; keys *
-	1) &#34;Age&#34;
-	2) &#34;Address&#34;
-	3) &#34;Name&#34;
-</code></pre></div><p>Set name &lsquo;office&rsquo; and value &lsquo;Pokhara&rsquo;</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; set office Pokhara
-</code></pre></div><p>Get the key from name</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; get office
-	&#34;Pokhara&#34;
-</code></pre></div><p>Delete specific key</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; del key age
+<pre><code>redis-server /etc/redis.conf
+</code></pre><p>login to Redis server host 10.10.18.6 with default port 6379 and password</p>
+<pre><code>redis-cli -h 10.10.18.6 -p 6379 -a password
+</code></pre><p>See all the keys in redis</p>
+<pre><code>127.0.0.1:6379&gt; keys *
+	1) &quot;Age&quot;
+	2) &quot;Address&quot;
+	3) &quot;Name&quot;
+</code></pre><p>Set name &lsquo;office&rsquo; and value &lsquo;Pokhara&rsquo;</p>
+<pre><code>127.0.0.1:6379&gt; set office Pokhara
+</code></pre><p>Get the key from name</p>
+<pre><code>127.0.0.1:6379&gt; get office
+	&quot;Pokhara&quot;
+</code></pre><p>Delete specific key</p>
+<pre><code>127.0.0.1:6379&gt; del key age
 (integer) 0
-</code></pre></div><p>Flush all the key</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; flushall
-</code></pre></div><p>See memory details</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">127.0.0.1:6379&gt; info memory
+</code></pre><p>Flush all the key</p>
+<pre><code>127.0.0.1:6379&gt; flushall
+</code></pre><p>See memory details</p>
+<pre><code>127.0.0.1:6379&gt; info memory
 	# Memory
 	used_memory:811840
 	used_memory_human:792.81K
@@ -216,7 +104,7 @@ Following are the helpful redis command</p>
 	maxmemory_policy:noeviction
 	mem_fragmentation_ratio:3.37
 	mem_allocator:jemalloc-3.6.0
-</code></pre></div><h3 id="maxmemory-policy">Maxmemory Policy</h3>
+</code></pre><h3 id="maxmemory-policy">Maxmemory Policy</h3>
 <p>The policy set how redis will select what to remove when maxmemory is reached, you can select among following behavior in config file <code>/etc/redis.conf</code></p>
 <p><code>maxmemory_policy ALGORIGTHM</code></p>
 <p>The following are supported algorithms:-</p>
@@ -229,47 +117,67 @@ Following are the helpful redis command</p>
 <hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<div class="edit-meta">
+Last updated on 8 Dec 2019
 
+
+<br>
+Published on 8 Dec 2019
+<br><a href="https://github.com/thingsym/hugo-theme-techdoc/edit/master/content/docs%5credis%5cindex.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/docs/chrony/" title="NTP"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - NTP</a>
+<a class="nav nav-next" href="https://tecnep.com/docs/mailcleaner_basic/" title="Mailcleaner Basic">Next - Mailcleaner Basic <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="open-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class="parent"><a href="https://tecnep.com/docs/">Docs</a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/docs/hardening/">System Hardening</a></li>
+<li class=""><a href="https://tecnep.com/docs/chrony/">NTP</a></li>
+<li class="active"><a href="https://tecnep.com/docs/redis/">Redis</a></li>
+<li class=""><a href="https://tecnep.com/docs/mailcleaner_basic/">Mailcleaner Basic</a></li>
+<li class=""><a href="https://tecnep.com/docs/mailcleaner_config/">MailCleaner configurations</a></li>
+<li class=""><a href="https://tecnep.com/docs/kaspersky/">Kaspersky for linux</a></li>
+<li class=""><a href="https://tecnep.com/docs/snmp/">SNMP</a></li>
+<li class=""><a href="https://tecnep.com/docs/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/docs/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/docs/dmarc/">DMARC</a></li>
+<li class=""><a href="https://tecnep.com/docs/firewall/">Firewall</a></li>
+<li class=""><a href="https://tecnep.com/docs/zimbra-tips-tricks/">Zimbra Tips &amp; Tricks</a></li>
+<li class=""><a href="https://tecnep.com/docs/glassfish/">Glassfish</a></li>
+<li class=""><a href="https://tecnep.com/docs/system_resources/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/docs/tomcat/">Tomcat</a></li>
+<li class=""><a href="https://tecnep.com/docs/dns/">DNS</a></li>
+<li class=""><a href="https://tecnep.com/docs/useful_command/">Useful command</a></li>
+<li class=""><a href="https://tecnep.com/docs/keepalive/">Keepalive</a></li>
+<li class=""><a href="https://tecnep.com/docs/ssl/">SSL</a></li>
+<li class=""><a href="https://tecnep.com/docs/nas_san/">NAS and SAN</a></li>
+<li class=""><a href="https://tecnep.com/docs/haproxy/">Haproxy</a></li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
 </div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
 </div>
-
-        </div>
-      </div>
-    </div>
-    
-  </div>
-
-  <div class="sub-footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="sub-footer-inner">
-          <ul>
-            <li class="zerostatic"><a href="https://www.tecnep.com">www.tecnep.com</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-  
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
-  
-
-  
-  
-  
-    
-  
-
-
 </body>
-
 </html>

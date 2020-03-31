@@ -1,213 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>NTP - Tecnep</title>
+<meta name="description" content="Share your ideas, skill, knowledge for system Engineers.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/docs/chrony/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="NTP" />
+<meta property="og:description" content="NTP is an internet protocol that’s used to synchronise the clocks on computer networks to within a few milliseconds of universal coordinated time (UTC).
+Chronyd is a daemon for synchronisation of the system clock. It can synchronise the clock with NTP servers, reference clocks and manual input using wristwatch and keyboard via chronyc. It can also operate as an NTPv4 server andpeer to provide a time service to other computers in the network." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tecnep.com/docs/chrony/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="og:site_name" content="Hugo Techdoc Theme" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>NTP - Tecnep.com</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel="icon" href="/favicon.png">
+<meta name="twitter:title" content="NTP"/>
+<meta name="twitter:description" content="NTP is an internet protocol that’s used to synchronise the clocks on computer networks to within a few milliseconds of universal coordinated time (UTC).
+Chronyd is a daemon for synchronisation of the system clock. It can synchronise the clock with NTP servers, reference clocks and manual input using wristwatch and keyboard via chronyc. It can also operate as an NTPv4 server andpeer to provide a time service to other computers in the network."/>
+<meta itemprop="name" content="NTP">
+<meta itemprop="description" content="NTP is an internet protocol that’s used to synchronise the clocks on computer networks to within a few milliseconds of universal coordinated time (UTC).
+Chronyd is a daemon for synchronisation of the system clock. It can synchronise the clock with NTP servers, reference clocks and manual input using wristwatch and keyboard via chronyc. It can also operate as an NTPv4 server andpeer to provide a time service to other computers in the network.">
 
-  
-  
-  <link rel="stylesheet" href="/css/style.min.6aa5eecd4ca7c47fb2ca9b0775a7bd787e3e64a2eadf0fef8c9f924498f49127.css">
-  
+<meta itemprop="wordCount" content="558">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
 
-  
 
-</head>
 
-<body class='page page-default-single'>
-  <div id="main-menu-mobile" class="main-menu-mobile">
-  <ul>
-    
-    
-    <li class="menu-item-home">
-      <a href="/">
-        <span>Home</span>
-      </a>
-    </li>
-    
-    <li class="menu-item-docs">
-      <a href="/docs/">
-        <span>Docs</span>
-      </a>
-    </li>
-    
-    <li class="menu-item-about">
-      <a href="/about">
-        <span>About</span>
-      </a>
-    </li>
-    
-  </ul>
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+<a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
+<p class="description">Share your ideas, skill, knowledge for system Engineers.</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/">About</a></li></ul>
+</nav>
 </div>
-  <div class="wrapper">
-    <div class='header'>
-  <div class="container">
-    <div class="logo">
-      <a href="/"><img alt="Logo" src="/images/logo.svg" /></a>
-    </div>
-    <div class="logo-mobile">
-      <a href="/"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
-    </div>
-    <div id="main-menu" class="main-menu">
-  <ul>
-    
-    
-    <li class="menu-item-home">
-      <a href="/">
-        <span>Home</span>
-      </a>
-    </li>
-    
-    <li class="menu-item-docs">
-      <a href="/docs/">
-        <span>Docs</span>
-      </a>
-    </li>
-    
-    <li class="menu-item-about">
-      <a href="/about">
-        <span>About</span>
-      </a>
-    </li>
-    
-  </ul>
-</div>
-    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
-  <span class="hamburger-box">
-    <span class="hamburger-inner"></span>
-  </span>
-</button>
-  </div>
-</div>
-
-
-    
-    
-    
-    
-    
-    
-
-    
-    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
-      <div class="row">
-        <div class="col-12 col-md-3 mb-3">
-          <div class="sidebar">
-            
-<div class="docs-menu">
-  <h4>Docs</h4>
-  <ul>
-    
-    <li class="">
-      <a href="/docs/mailcleaner/">MailCleaner</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/hardening/">System Hardening</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/glassfish/">Glassfish</a>
-    </li>
-    
-    <li class="active ">
-      <a href="/docs/chrony/">NTP</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/redis/">Redis</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/mailcleaner_basic/">Mailcleaner Basic</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/dkim/">DKIM</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/spf/">SPF</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/system_resources/">Increase hard disk</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/zimbra-tips-tricks/">Zimbra Tips &amp; Tricks</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/useful_command/">Useful command</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/kaspersky/">Kaspersky for linux</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/snmp/">SNMP</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/dmarc/">DMARC</a>
-    </li>
-    
-    <li class="">
-      <a href="/docs/firewall/">Firewall</a>
-    </li>
-    
-  </ul>
-</div>
-
-          </div>
-        </div>
-        <div class="col-12 col-md-9">
-          
-<h1 class="title">NTP</h1>
-<div class="content ">
-  <p>NTP is an internet protocol that’s used to synchronise the clocks on computer networks to within a few milliseconds of universal coordinated time (UTC).</p>
+<div class="content-container">
+<main><h1>NTP</h1>
+<p>NTP is an internet protocol that’s used to synchronise the clocks on computer networks to within a few milliseconds of universal coordinated time (UTC).</p>
 <p>Chronyd is a daemon for synchronisation of the system clock. It can synchronise the clock with NTP servers, reference clocks and manual input using wristwatch and keyboard via chronyc. It can also operate as an NTPv4 server andpeer to provide a time service to other computers in the network.</p>
 <p>Install chrony package</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install chrony -y
-</code></pre></div><p>Edit the confiugration file /etc/chrony.conf and add NTP server 10.13.222.1</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">vi /etc/chrony.conf
-</code></pre></div><p>Comment the following line</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">#server 0.centos.pool.ntp.org iburst
+<pre><code>yum install chrony -y
+</code></pre><p>Edit the confiugration file /etc/chrony.conf and add NTP server 10.13.222.1</p>
+<pre><code>vi /etc/chrony.conf
+</code></pre><p>Comment the following line</p>
+<pre><code>#server 0.centos.pool.ntp.org iburst
 #server 1.centos.pool.ntp.org iburst
 #server 2.centos.pool.ntp.org iburst
 #server 3.centos.pool.ntp.org iburst
-</code></pre></div><p>Add following server host(for Nepal)  or your own NTP, if you have;</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">server 0.asia.pool.ntp.org iburst
+</code></pre><p>Add following server host(for Nepal)  or your own NTP, if you have;</p>
+<pre><code>server 0.asia.pool.ntp.org iburst
 server 1.asia.pool.ntp.org iburst
 server 2.asia.pool.ntp.org iburst
 server 3.asia.pool.ntp.org iburst
-</code></pre></div><blockquote>
+</code></pre><blockquote>
 <p>The <strong>iburst</strong> server option is useful to speed up the initial synchronization. If an NTP server is unresponsive, the IBURST mode continues to send frequent queries until the server responds and time synchronization starts. <strong>BURST</strong> sends a burst of eight packets when the server is reachable. IBURST sends a burst of eight packets when the server is unreachable (tries to find out if a host is reachable), and then shorten the time until the first sync.</p>
 </blockquote>
 <p>Start chronyd service</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl start chronyd.service
-</code></pre></div><p>Enable the service</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable chronyd.service
-</code></pre></div><p>Verify the source of NTP server</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">chronyc sources
-</code></pre></div><p>You will get something like:-</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">210 Number of sources = 4
+<pre><code>systemctl start chronyd.service
+</code></pre><p>Enable the service</p>
+<pre><code>systemctl enable chronyd.service
+</code></pre><p>Verify the source of NTP server</p>
+<pre><code>chronyc sources
+</code></pre><p>You will get something like:-</p>
+<pre><code>210 Number of sources = 4
 MS Name/IP address         Stratum Poll Reach LastRx Last sample
 ===============================================================================
-^- time.iqnet.com                2   6    35    36    -17ms[  -17ms] +/-  139ms
+#* time.iqnet.com                2   6    35    36    -17ms[  -17ms] +/-  139ms
 ^+ undefined.hostname.local&gt;     2   6    17    38    -18ms[  -24ms] +/-  161ms
-^* ntp.gnc.am                    2   6    17    37    +52ms[  +46ms] +/-  196ms
-^+ x.ns.gin.ntt.net              2   6    17    38    -24ms[  -30ms] +/-  147ms
-</code></pre></div><p>Verify using chronyc tracking for various time parameter</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">chronyc tracking
-</code></pre></div><p>which outputs similar to:-</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Reference ID    : 81FA23FA (x.ns.gin.ntt.net)
+^? ntp.gnc.am                    2   6    17    37    +52ms[  +46ms] +/-  196ms
+^- x.ns.gin.ntt.net              2   6    17    38    -24ms[  -30ms] +/-  147ms
+</code></pre><p><code>^</code> means a server</p>
+<p><code>=</code> means a peer and</p>
+<p><code>#</code> indicates a locally connected reference clock.</p>
+<p><code>*</code> indicates the source to which chronyd is current synchronized.</p>
+<p><code>+</code> indicates other acceptable sources.</p>
+<p><code>?</code> indicates sources to which connectivity has been lost.</p>
+<p><code>x</code> indicates a clock which chronyd thinks is a false ticker (i.e. its time is inconsistent with a majority of other sources).</p>
+<p><code>-</code> indicates a source whose time appears to have too much variability. The ~ condition is also shown at start-up, until at least 3 samples have been gathered from it.</p>
+<p>Verify using chronyc tracking for various time parameter</p>
+<pre><code>chronyc tracking
+</code></pre><p>which outputs similar to:-</p>
+<pre><code>Reference ID    : 81FA23FA (x.ns.gin.ntt.net)
 Stratum         : 3
 Ref time (UTC)  : Mon Dec 09 05:32:41 2019
 System time     : 0.010854832 seconds fast of NTP time
@@ -220,10 +111,10 @@ Root delay      : 0.289628744 seconds
 Root dispersion : 0.007535583 seconds
 Update interval : 64.5 seconds
 Leap status     : Normal
-</code></pre></div><p>Use following command for more detail :</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">timedatectl
-</code></pre></div><p>Output:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Local time: Mon 2019-12-09 11:19:56 +0545
+</code></pre><p>Use following command for more detail :</p>
+<pre><code>timedatectl
+</code></pre><p>Output:</p>
+<pre><code>Local time: Mon 2019-12-09 11:19:56 +0545
 Universal time: Mon 2019-12-09 05:34:56 UTC
 RTC time: Mon 2019-12-09 05:34:56
 Time zone: Asia/Kathmandu (+0545, +0545)
@@ -231,50 +122,71 @@ NTP enabled: yes
 NTP synchronized: yes
 RTC in local TZ: no
 DST active: n/a
-</code></pre></div><hr>
+</code></pre><h5 id="chrony-as-server">Chrony as server</h5>
+<p>Chronyd also can be configured as NTP server. You can just add &lsquo;allow NETWORK_IP&rsquo; in its configuration file.</p>
+<pre><code>vi /etc/chrony.conf
+</code></pre><pre><code>allow 192.168.219.0/24
+</code></pre><p>This will open <code>udp port 123</code>, which you need to allow through firewall. To add upd port from firewall see <a href="/docs/firewall">firewall</a></p>
+<hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<div class="edit-meta">
 
+<br><a href="https://github.com/thingsym/hugo-theme-techdoc/edit/master/content/docs%5cchrony%5cindex.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/docs/hardening/" title="System Hardening"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - System Hardening</a>
+<a class="nav nav-next" href="https://tecnep.com/docs/redis/" title="Redis">Next - Redis <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="open-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class="parent"><a href="https://tecnep.com/docs/">Docs</a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/docs/hardening/">System Hardening</a></li>
+<li class="active"><a href="https://tecnep.com/docs/chrony/">NTP</a></li>
+<li class=""><a href="https://tecnep.com/docs/redis/">Redis</a></li>
+<li class=""><a href="https://tecnep.com/docs/mailcleaner_basic/">Mailcleaner Basic</a></li>
+<li class=""><a href="https://tecnep.com/docs/mailcleaner_config/">MailCleaner configurations</a></li>
+<li class=""><a href="https://tecnep.com/docs/kaspersky/">Kaspersky for linux</a></li>
+<li class=""><a href="https://tecnep.com/docs/snmp/">SNMP</a></li>
+<li class=""><a href="https://tecnep.com/docs/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/docs/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/docs/dmarc/">DMARC</a></li>
+<li class=""><a href="https://tecnep.com/docs/firewall/">Firewall</a></li>
+<li class=""><a href="https://tecnep.com/docs/zimbra-tips-tricks/">Zimbra Tips &amp; Tricks</a></li>
+<li class=""><a href="https://tecnep.com/docs/glassfish/">Glassfish</a></li>
+<li class=""><a href="https://tecnep.com/docs/system_resources/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/docs/tomcat/">Tomcat</a></li>
+<li class=""><a href="https://tecnep.com/docs/dns/">DNS</a></li>
+<li class=""><a href="https://tecnep.com/docs/useful_command/">Useful command</a></li>
+<li class=""><a href="https://tecnep.com/docs/keepalive/">Keepalive</a></li>
+<li class=""><a href="https://tecnep.com/docs/ssl/">SSL</a></li>
+<li class=""><a href="https://tecnep.com/docs/nas_san/">NAS and SAN</a></li>
+<li class=""><a href="https://tecnep.com/docs/haproxy/">Haproxy</a></li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
 </div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
 </div>
-
-        </div>
-      </div>
-    </div>
-    
-  </div>
-
-  <div class="sub-footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="sub-footer-inner">
-          <ul>
-            <li class="zerostatic"><a href="https://www.tecnep.com">www.tecnep.com</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-  
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
-  
-
-  
-  
-  
-    
-  
-
-
 </body>
-
 </html>
