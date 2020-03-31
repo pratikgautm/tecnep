@@ -3,11 +3,11 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Tags - Tecnep</title>
+<title>Glassfish - Tecnep</title>
 <meta name="description" content="Share your ideas.">
 <meta name="generator" content="Hugo 0.68.0" />
 <link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
-<link rel="canonical" href="https://tecnep.com/tags/">
+<link rel="canonical" href="https://tecnep.com/glassfish/">
 <link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
 <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
@@ -16,18 +16,18 @@
 <script src="https://tecnep.com/js/bundle.js"></script><style>
 :root {--custom-background-color: #52555B;}
 </style>
-<meta property="og:title" content="Tags" />
+<meta property="og:title" content="Glassfish" />
 <meta property="og:description" content="Share your ideas." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://tecnep.com/tags/" />
+<meta property="og:url" content="https://tecnep.com/glassfish/" />
 <meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
-<meta property="og:site_name" content="tecnep.com" />
+<meta property="og:updated_time" content="2019-12-09T03:51:55+05:45" /><meta property="og:site_name" content="tecnep.com" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
-<meta name="twitter:title" content="Tags"/>
+<meta name="twitter:title" content="Glassfish"/>
 <meta name="twitter:description" content="Share your ideas."/>
-<meta itemprop="name" content="Tags">
+<meta itemprop="name" content="Glassfish">
 <meta itemprop="description" content="Share your ideas."></head>
 <body><div class="container"><header>
 <h1>Tecnep</h1>
@@ -43,10 +43,77 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Tags</h1><div class="edit-meta">
+<main><h1>Glassfish</h1><p>Glassfish Server is a production ready Java EE 6 compliant application server developed under an open source license. Benefits include a modular, runtime that minimizes resource consumption, an easy-to-use administration console, a feature-rich command line tool, centralized administration and high-availability clustering.</p>
+<p>a. Create a user to own Glassfish and java  software</p>
+<pre><code>useradd client
+</code></pre><p>b. Switch  to the client user:</p>
+<pre><code>su - client
+</code></pre><p>c. Download or copy tar file of java in client user and extract it</p>
+<pre><code>cd /home/client
+tar -xzvf jdk-8u211-linux-x64.tar.gz
+mv java8 .java8
+</code></pre><p>d. Set java home environment by editing .bash_profile</p>
+<pre><code>vi .bash_profile
+</code></pre><p>Add following line and replace java folder with your own</p>
+<pre><code>export PATH
+JAVA_HOME=/home/client/.java8; export JAVA_HOME
+PATH=$JAVA_HOME/bin:$PATH; export PATH
+</code></pre><p>e. Update bash profile.</p>
+<pre><code>source .bash_profile
+</code></pre><p>f. Check if JAVA has been properly installed.</p>
+<pre><code>java -version
+</code></pre><p>If java is correctly installed it should show like:-</p>
+<pre><code>java version &quot;1.8.0_211&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_211-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.211-b12, mixed mode)
+</code></pre><p>g. Download and extract the latest Glassfish archive again in client user</p>
+<pre><code>unzip glassfish-4.1.zip
+</code></pre><p>h. If unzip is not avaialable in your system install unzip</p>
+<pre><code>yum -y install unzip
+</code></pre><p>i. Change the ownership of /home/client/glassfish</p>
+<pre><code>chown -R client:client glassfish
+</code></pre><p>j. Check the available domains (domain1 is installed by default)</p>
+<pre><code>bin/asadmin list-domains
+  domain1 not running
+  Command list-domains executed successfully.
+</code></pre><p>k. Delete default domain [Optional]</p>
+<pre><code>bin/asadmin delete-domain domain1
+</code></pre><p>l. Add new domain as per your requirement. We are going to create portbase domain</p>
+<pre><code>bin/asadmin create-domain --portbase 5000 client
+</code></pre><p>m. Start the domain</p>
+<pre><code>bin/asadmin start-domain client
+  Waiting for client to start .......
+  Successfully started the domain : client
+  domain  Location: /home/client/glassfish4/glassfish/domains/client
+  Log File: /home/client/glassfish4/glassfish/domains/client/logs/server.log
+  Admin Port: 5048
+  Command start-domain executed successfully.
+</code></pre><p>n. After domain has started, you can now access through web interface also. Make sure firewall has allowed its http port 5048</p>
+<pre><code>firewall-cmd --add-port=5048/tcp --permanent
+firewall-cmd --reload
+</code></pre><p>o. Secure the glassfish admin console</p>
+<pre><code>bin/asadmin --host localhost --port 5048 enable-secure-admin
+</code></pre><p>If you need driver (for database), copy it to the location <code>domaindir/lib/ext</code></p>
+<pre><code>bin/asadmin restart-domain client
+</code></pre><p>You can now access the default page <code>https://yourIP:5048</code></p>
+<p>p. Deploy a sample .ear file</p>
+<pre><code>bin/asadmin deploy --port 5048 /home/client/glassfish4/EnterpriseHelloWorld.ear
+	Enter admin user name&gt;  admin
+	Enter admin password for user &quot;admin&quot;&gt;
+	Application deployed with name EnterpriseHelloWorld.
+	Command deploy executed successfully.
+</code></pre><p>r. To undeploy use following command with your installed path</p>
+<pre><code>bin/asadmin undeploy --port 5048 /home/client/glassfish4/glassfish/domains/client/applications/EnterpriseHelloWorld
+	Enter admin user name&gt;  admin
+	Enter admin password for user &quot;admin&quot;&gt;
+	Command undeploy executed successfully.
+</code></pre><hr>
+<p>Ritu Singh</p>
+<div class="edit-meta">
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
-</div><nav class="pagination"><a class="nav nav-next" href="https://tecnep.com/hardening/" title="System Hardening">Next - System Hardening <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/zimbra/zimbra_tips_tricks/" title="Zimbra Tips &amp; Tricks"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Zimbra Tips &amp; Tricks</a>
+<a class="nav nav-next" href="https://tecnep.com/system_resources/" title="System Resources">Next - System Resources <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>
 <p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
 </footer>
@@ -101,7 +168,7 @@
   
 </li>
 
-<li class=""><a href="https://tecnep.com/glassfish/">Glassfish</a>
+<li class="parent active"><a href="https://tecnep.com/glassfish/">Glassfish</a>
   
 </li>
 

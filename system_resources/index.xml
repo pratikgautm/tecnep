@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>System Resources on Tecnep</title>
+    <link>https://tecnep.com/system_resources/</link>
+    <description>Recent content in System Resources on Tecnep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://tecnep.com/system_resources/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Increase hard disk</title>
+      <link>https://tecnep.com/system_resources/increase_hd/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tecnep.com/system_resources/increase_hd/</guid>
+      <description>First, add the disk from vmware exsi or physically add disk. Then, create a new XFS partition.
+lsblk See disk path of added disk and note down Make partition and set to linux lvm fdisk /dev/sdb	Enter &amp;ldquo;n&amp;rdquo; for new disk partition and press enter for partitioning full disk in every line Make kernel update for the changes to apply partprobe /dev/sdb Create physical volume of the added disk pvcreate /dev/sdb1 Verify by listing physical volume pvs or pvdisplay Extend existing volume group &amp;ldquo;centos&amp;rdquo; vgextend centos /dev/sdb1 Verify by listing volume groups vgs or vgdisplay List logical volumes lvs Extend existing logical volume &amp;ldquo;root&amp;rdquo; lvextend -l +100%FREE /dev/centos/root Verify by logical volumes lvs or lvdisplay	grow xfs system xfs_growfs /dev/centos/root verify disk space of root df -h  Suresh Saud sureshsaud17@gmail.</description>
+    </item>
+    
+  </channel>
+</rss>

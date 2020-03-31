@@ -3,11 +3,11 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Tags - Tecnep</title>
+<title>Firewall - Tecnep</title>
 <meta name="description" content="Share your ideas.">
 <meta name="generator" content="Hugo 0.68.0" />
 <link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
-<link rel="canonical" href="https://tecnep.com/tags/">
+<link rel="canonical" href="https://tecnep.com/firewall/">
 <link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
 <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
@@ -16,18 +16,18 @@
 <script src="https://tecnep.com/js/bundle.js"></script><style>
 :root {--custom-background-color: #52555B;}
 </style>
-<meta property="og:title" content="Tags" />
+<meta property="og:title" content="Firewall" />
 <meta property="og:description" content="Share your ideas." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://tecnep.com/tags/" />
+<meta property="og:url" content="https://tecnep.com/firewall/" />
 <meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
-<meta property="og:site_name" content="tecnep.com" />
+<meta property="og:updated_time" content="2019-12-08T13:41:34+05:45" /><meta property="og:site_name" content="tecnep.com" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
-<meta name="twitter:title" content="Tags"/>
+<meta name="twitter:title" content="Firewall"/>
 <meta name="twitter:description" content="Share your ideas."/>
-<meta itemprop="name" content="Tags">
+<meta itemprop="name" content="Firewall">
 <meta itemprop="description" content="Share your ideas."></head>
 <body><div class="container"><header>
 <h1>Tecnep</h1>
@@ -43,10 +43,47 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Tags</h1><div class="edit-meta">
+<main><h1>Firewall</h1><p>Firewalld provides a dynamically managed firewall with support for network/firewall zones to define the trust level of network connections or interfaces.
+firewalld provides support for zones, predefined services and ICMP types and has a separation of runtime and permanent configuration options.
+Permanent configuration is loaded from XML files in <code>/usr/lib/firewalld</code> or <code>/etc/firewalld</code></p>
+<p>Install firewall in centos</p>
+<pre><code>yum install firewalld -y
+</code></pre><p>Start the service</p>
+<pre><code>systemctl start firewalld
+</code></pre><p>Enable the service</p>
+<pre><code>systemctl enable firewalld
+</code></pre><p>Add tcp port 443 to listen https traffic</p>
+<pre><code>firewall-cmd --add-port=443/tcp --permanent
+</code></pre><p>Reload firewall service to take into an effect</p>
+<pre><code>firewall-cmd --reload
+</code></pre><p>Verify using,</p>
+<pre><code>firewall-cmd --list-all
+</code></pre><h5 id="rich-rule">Rich rule</h5>
+<p>With the rich language more complex firewall rules can be created in an easy to understand way. The language uses keywords with values and is an abstract representation of ip*tables rules.</p>
+<p>The rich language extends the current zone elements (service, port, icmp-block, icmp-type, masquerade, forward-port and source-port) with additional source and destination addresses, logging, actions and limits for logs and actions.</p>
+<p>To accept ssh connection form a network only</p>
+<pre><code>firewall-cmd --permanent --zone=public --add-rich-rule='rule family=&quot;ipv4&quot; source address=&quot;10.10.10.0/24&quot;
+port protocol=&quot;tcp&quot; port=&quot;22&quot; accept'
+</code></pre><p>To allow monitoring tool like PRTG, Nagios, Cacti ; Source address is the address of your monitoring tool. SNMP agents listen on UDP port 161</p>
+<pre><code>firewall-cmd --permanent --zone=public --add-rich-rule='rule family=&quot;ipv4&quot; source address=&quot;10.10.13.50&quot; port protocol=&quot;udp&quot; port=&quot;161&quot; accept'
+</code></pre><p>Reload firewall</p>
+<pre><code>firewall-cmd --reload
+</code></pre><p>Verify,</p>
+<pre><code>firewall-cmd --list-all
+</code></pre><h5 id="firewalld-and-keepalived">Firewalld and keepalived</h5>
+<p>Keepalived provides simple and robust facilities for load-balancing and high-availability. The load-balancing framework relies on the well-known and widely used Linux Virtual Server (IPVS) kernel module providing Layer4 load-balancing.</p>
+<p>Keepalived implements a set of checkers to dynamically and adaptively maintain and manage a load-balanced server pool according to their health. Keepalived also implements the VRRPv2 and VRRPv3 protocols to achieve high-availability with director failover.</p>
+<p>You can allow firewall to accept vrrp protocol, which will allow you keepalive work accurately</p>
+<p><code>firewall-cmd --add-rich-rule='rule protocol value=&quot;vrrp&quot; accept' --permanent</code></p>
+<p>Reload firewall to take into effect</p>
+<p><code>firewall-cmd --reload</code></p>
+<p>Verify using ,</p>
+<p><code>firewall-cmd --list-all</code></p>
+<div class="edit-meta">
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
-</div><nav class="pagination"><a class="nav nav-next" href="https://tecnep.com/hardening/" title="System Hardening">Next - System Hardening <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/snmp/" title="SNMP"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - SNMP</a>
+<a class="nav nav-next" href="https://tecnep.com/firewall/firewall_keepalive/" title="Firewalld and keepalived">Next - Firewalld and keepalived <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>
 <p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
 </footer>
@@ -84,7 +121,7 @@
   
 </li>
 
-<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
+<li class="parent active has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark opened">-</span></a>
   
 <ul class="sub-menu">
 <li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Increase hard disk - Tecnep</title>
+<meta name="description" content="Share your ideas.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/system_resources/increase_hd/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="Increase hard disk" />
+<meta property="og:description" content="First, add the disk from vmware exsi or physically add disk. Then, create a new XFS partition.
+lsblk See disk path of added disk and note down Make partition and set to linux lvm fdisk /dev/sdb	Enter &ldquo;n&rdquo; for new disk partition and press enter for partitioning full disk in every line Make kernel update for the changes to apply partprobe /dev/sdb Create physical volume of the added disk pvcreate /dev/sdb1 Verify by listing physical volume pvs or pvdisplay Extend existing volume group &ldquo;centos&rdquo; vgextend centos /dev/sdb1 Verify by listing volume groups vgs or vgdisplay List logical volumes lvs Extend existing logical volume &ldquo;root&rdquo; lvextend -l &#43;100%FREE /dev/centos/root Verify by logical volumes lvs or lvdisplay	grow xfs system xfs_growfs /dev/centos/root verify disk space of root df -h  Suresh Saud sureshsaud17@gmail." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tecnep.com/system_resources/increase_hd/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="og:site_name" content="tecnep.com" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
+
+<meta name="twitter:title" content="Increase hard disk"/>
+<meta name="twitter:description" content="First, add the disk from vmware exsi or physically add disk. Then, create a new XFS partition.
+lsblk See disk path of added disk and note down Make partition and set to linux lvm fdisk /dev/sdb	Enter &ldquo;n&rdquo; for new disk partition and press enter for partitioning full disk in every line Make kernel update for the changes to apply partprobe /dev/sdb Create physical volume of the added disk pvcreate /dev/sdb1 Verify by listing physical volume pvs or pvdisplay Extend existing volume group &ldquo;centos&rdquo; vgextend centos /dev/sdb1 Verify by listing volume groups vgs or vgdisplay List logical volumes lvs Extend existing logical volume &ldquo;root&rdquo; lvextend -l &#43;100%FREE /dev/centos/root Verify by logical volumes lvs or lvdisplay	grow xfs system xfs_growfs /dev/centos/root verify disk space of root df -h  Suresh Saud sureshsaud17@gmail."/>
+<meta itemprop="name" content="Increase hard disk">
+<meta itemprop="description" content="First, add the disk from vmware exsi or physically add disk. Then, create a new XFS partition.
+lsblk See disk path of added disk and note down Make partition and set to linux lvm fdisk /dev/sdb	Enter &ldquo;n&rdquo; for new disk partition and press enter for partitioning full disk in every line Make kernel update for the changes to apply partprobe /dev/sdb Create physical volume of the added disk pvcreate /dev/sdb1 Verify by listing physical volume pvs or pvdisplay Extend existing volume group &ldquo;centos&rdquo; vgextend centos /dev/sdb1 Verify by listing volume groups vgs or vgdisplay List logical volumes lvs Extend existing logical volume &ldquo;root&rdquo; lvextend -l &#43;100%FREE /dev/centos/root Verify by logical volumes lvs or lvdisplay	grow xfs system xfs_growfs /dev/centos/root verify disk space of root df -h  Suresh Saud sureshsaud17@gmail.">
+
+<meta itemprop="wordCount" content="130">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+<a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
+<p class="description">Share your ideas.</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/">About</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Increase hard disk</h1>
+<p>First, add the disk from vmware exsi or physically add disk.
+Then, create a new XFS partition.</p>
+<pre><code>lsblk
+</code></pre><h5 id="see-disk-path-of-added-disk-and-note-down">See disk path of added disk and note down</h5>
+<p><img src="1.png" alt="image"></p>
+<h5 id="make-partition-and-set-to-linux-lvm">Make partition and set to linux lvm</h5>
+<pre><code>fdisk /dev/sdb			
+</code></pre><p><img src="2.png" alt="image"></p>
+<h5 id="enter-n-for-new-disk-partition-and-press-enter-for-partitioning-full-disk-in-every-line">Enter &ldquo;n&rdquo; for new disk partition and press enter for partitioning full disk in every line</h5>
+<p><img src="3.png" alt="image"></p>
+<h5 id="make-kernel-update-for-the-changes-to-apply">Make kernel update for the changes to apply</h5>
+<pre><code>partprobe /dev/sdb
+</code></pre><h5 id="create-physical-volume-of-the-added-disk">Create physical volume of the added disk</h5>
+<pre><code>pvcreate /dev/sdb1
+</code></pre><h5 id="verify-by-listing-physical-volume">Verify by listing physical volume</h5>
+<pre><code>pvs or pvdisplay
+</code></pre><h5 id="extend-existing-volume-group-centos">Extend existing volume group &ldquo;centos&rdquo;</h5>
+<pre><code>vgextend centos /dev/sdb1
+</code></pre><h5 id="verify-by-listing-volume-groups">Verify by listing volume groups</h5>
+<pre><code>vgs or vgdisplay
+</code></pre><h5 id="list-logical-volumes">List logical volumes</h5>
+<pre><code>lvs
+</code></pre><h5 id="extend-existing-logical-volume-root">Extend existing logical volume &ldquo;root&rdquo;</h5>
+<pre><code>lvextend -l +100%FREE /dev/centos/root
+</code></pre><h5 id="verify-by-logical-volumes">Verify by logical volumes</h5>
+<pre><code>lvs or lvdisplay		
+</code></pre><h5 id="grow-xfs-system">grow xfs system</h5>
+<pre><code>xfs_growfs /dev/centos/root
+</code></pre><h5 id="verify-disk-space-of-root">verify disk space of root</h5>
+<pre><code>df -h
+</code></pre><hr>
+<p>Suresh Saud
+<a href="mailto:sureshsaud17@gmail.com">sureshsaud17@gmail.com</a></p>
+<div class="edit-meta">
+<br>
+<a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/system_resources/" title="System Resources"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - System Resources</a>
+<a class="nav nav-next" href="https://tecnep.com/tomcat/" title="Tomcat">Next - Tomcat <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer>
+<p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class=""><a href="https://tecnep.com/hardening/">System Hardening</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/chrony/">NTP</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/redis/">Redis</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/mailcleaner/">Mailcleaner<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/mailcleaner/mailcleaner_config/">MailCleaner configurations</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/snmp/">SNMP</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>
+<li class=""><a href="https://tecnep.com/firewall/rich_rule/">Rich rule</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/zimbra/zimbra_tips_tricks/">Zimbra Tips &amp; Tricks</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/glassfish/">Glassfish</a>
+  
+</li>
+
+<li class="parent has-sub-menu"><a href="https://tecnep.com/system_resources/">System Resources<span class="mark opened">-</span></a>
+  
+<ul class="sub-menu">
+<li class="active"><a href="https://tecnep.com/system_resources/increase_hd/">Increase hard disk</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/tomcat/">Tomcat</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/dns/">DNS<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/useful_command/">Useful command</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/keepalive/">Keepalive</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ssl/">SSL</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/nas_san/">NAS and SAN</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/haproxy/">Haproxy</a>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

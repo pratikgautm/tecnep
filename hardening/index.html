@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>System Hardening - Tecnep</title>
+<meta name="description" content="Share your ideas.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/hardening/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="System Hardening" />
+<meta property="og:description" content="Share your ideas." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://tecnep.com/hardening/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="og:site_name" content="tecnep.com" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
+
+<meta name="twitter:title" content="System Hardening"/>
+<meta name="twitter:description" content="Share your ideas."/>
+<meta itemprop="name" content="System Hardening">
+<meta itemprop="description" content="Share your ideas."></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+<a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
+<p class="description">Share your ideas.</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/">About</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>System Hardening</h1><p>System Hardening is the process of securing a system’s configuration and settings to reduce IT vulnerability and the possibility of being compromised.
+To safeguard the data, services we need to secure our Linux system. The article presents detail on linux system hardening, step by step.</p>
+<h4 id="update-software-and-kernel">Update software and kernel</h4>
+<p>Make sure that the system is up to date.</p>
+<pre><code>yum update -y
+</code></pre><h4 id="enable-firewall">Enable firewall</h4>
+<p><a href="../firewall/">See the section firewall for detail</a></p>
+<h4 id="remove-unnecessary-package-and-users">Remove unnecessary package and users</h4>
+<p>Some services are installed and enabled by default, we may not use. For example in Centos 7, postfix comes default and service is started when server is up.
+We can remove it using:-</p>
+<pre><code>yum remove postfix -y
+</code></pre><p>Similarly user &lsquo;games&rsquo; &lsquo;postfix&rsquo; is also added by default, which is also not needed. So remove it:-</p>
+<pre><code>userdel games
+userdel postfix
+groupdel games
+groupdel postfix
+</code></pre><p>There are other user like <code>adm,lp,ftp</code> which might not be used.</p>
+<h4 id="ssh">ssh</h4>
+<p>Change the following configuration in /etc/ssh/sshd_config</p>
+<pre><code>#Change the default port 22 to some other
+Port 9007
+
+# Prevent root logins:
+PermitRootLogin no
+
+#Use of strong ciphers for encryption
+Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
+
+#Each user must have password
+PermitEmptyPasswords no
+
+#The host is authenticated so some users can just authenticate without the need of a key or whatsoever.
+HostbasedAuthentication no
+
+IgnoreRhosts yes
+
+# If you don't need some tool that has a GUI
+X11Forwarding no
+
+# The client alive messages are sent through the encrypted channel and therefore will not be spoofable. The TCP keepalive option enabled by TCPKeepAlive is spoofable.
+TCPKeepAlive no
+
+#Protocol 1 suffers from a number of cryptographic weaknesses and should not be used.Protocol 1 is only offered to support legacy devices.
+#Protocol 2 is secure so use Protocol 2.
+Protocol 2
+
+#compression
+#A useful option for (very) slow connections. Specifies whether compression is allowed (yes), denied (no) or delayed until the user has authenticated successfully (delayed - default).
+Compression no
+</code></pre><p>Check ssh configuration by typing</p>
+<pre><code>sshd -t
+</code></pre><p>Restart sshd service to take into effect</p>
+<pre><code>systemctl restart sshd
+</code></pre><h4 id="banner">Banner</h4>
+<p>To display Welcome or Warning message for SSH users before login. We use issue.net file to display a banner massages.</p>
+<pre><code>vi /etc/issue.net
+</code></pre><p>Add the banner sample message of your choice and save the file.</p>
+<pre><code>############################################################
+Welcome to TecNep.com
+All connections are monitored and recorded
+Disconnect IMMEDIATELY if you are not an authorized user!            			
+############################################################
+</code></pre><p>You need to add Banner <code>/etc/issue.net</code> in <code>/etc/ssh/sshd_config</code></p>
+<h4 id="password-policy">Password Policy</h4>
+<p><em>Minimum length of a password – 8</em></p>
+<p><em>Require at least one lowercase and one uppercase characters in a password.</em></p>
+<p><em>Require at least one digit in a password.</em></p>
+<p><em>Require at least one other character in a password.</em></p>
+<p><em>Set Deny and Lockout Time for Failed Password Attempts in <code>/etc/pam.d/</code></em></p>
+<p><em>Must change password at first login</em></p>
+<pre><code>chage -d 0 {user-name}
+</code></pre><p><em>Secure Password policy</em></p>
+<p>Open <code>/etc/login.defs</code> and set following</p>
+<pre><code>#Maximum days to expire Password
+PASS_MAX_DAYS 90
+#Cannot change password at least 24 hours
+PASS_MIN_DAYS 1
+#Minimum password lenght
+PASS_MIN_LEN 8
+#Warn DAys
+PASS_WARN_AGE 30
+</code></pre><h4 id="seperate-partition">Seperate partition</h4>
+<p>Keep the following partitions separate: /boot, /home, /tmp, /var, /var/log, /var/tmp, /var/log/audit /var/www
+Placing these in their own partitions gives more control over mount options.
+It also ensures that the system cannot be halted because of some partition running out of disk space.
+Splitting off /opt depends on a setup and is generally not useful, but not harmful either.</p>
+<p>Partitions should have hardened mount options:</p>
+<pre><code>noexec - deny binary execution
+nosuid - disable any binary to be suid root
+nodev  - disable any block devices from being created.
+
+/boot     	: 	rw,nodev,noexec,nosuid
+/home     	: 	rw,nodev,nosuid
+/tmp      	: 	rw,nodev,noexec,nosuid
+/var  	  	:	  rw,nosuid
+/var/log  	:	  rw,nodev,noexec,nosuid
+/var/log/audit  : 	rw,nodev,noexec,nosuid
+/var/www 	: 	  rw,nodev,nosuid
+/dev/shm 	:	    rw,nodev,noexec,nosuid
+</code></pre><p>To check mount properties type mount :-</p>
+<pre><code>mount | grep /dev/shm
+</code></pre><p>Add /dev/shm with nodev nosuid and noexec in /etc/fstab. You need to reboot the system to take into effect.</p>
+<pre><code>echo &quot;tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0&quot; &gt;&gt;/etc/fstab
+</code></pre><p>For temporary mount use the following command:-</p>
+<pre><code>mount -o remount,noexec,nosuid,nodev /dev/shm
+</code></pre><h4 id="block-usb-storage">Block USB storage</h4>
+<p>In order to disable the USB storage, you need to create a .conf file and edit it using a text editor.</p>
+<pre><code>touch /etc/modprobe.d/block_usb.conf
+</code></pre><pre><code>echo &quot;install usb-storage /bin/true&quot; &gt; /etc/modprobe.d/block_usb.conf
+</code></pre><h4 id="selinux">Selinux</h4>
+<p>The SELinux stands for Security-Enhanced Linux where it is a linux kernel security module. It gives you fine control over all programs and daemons
+on their activities like communicating with out side programs  or controlling whether to establish a outside connections for a particular program.
+The SELinux architecture provides general support for the enforcement of many kinds of  mandatory  access  control policies, including those based
+on the concepts of Type Enforcement, Role- Based Access Control, and Multi-Level  Security.</p>
+<h4 id="umask">Umask</h4>
+<p>The following files require umask hardening: /etc/bashrc, /etc/csh.cshrc, /etc/init.d/functions and /etc/profile.</p>
+<pre><code>sed -i -e 's/umask 022/umask 027/g' -e 's/umask 002/umask 027/g' /etc/bashrc
+sed -i -e 's/umask 022/umask 027/g' -e 's/umask 002/umask 027/g' /etc/csh.cshrc
+sed -i -e 's/umask 022/umask 027/g' -e 's/umask 002/umask 027/g' /etc/profile
+sed -i -e 's/umask 022/umask 027/g' -e 's/umask 002/umask 027/g' /etc/init.d/functions
+</code></pre><h4 id="grub-password">Grub password</h4>
+<p>Anyone who have physical access to system can easily reset the root password. So we can avoid it by using the setting up of the grub password.
+Set grub password using :-</p>
+<pre><code>grub2-setpassword
+</code></pre><h4 id="disable-core-dump">Disable Core Dump</h4>
+<p>A core dump is the memory of an executable program. It is generally used to determine why a program aborted.
+It can also be used to glean confidential information from a core file. You can do it by:-</p>
+<pre><code>echo &quot;* hard core 0&quot; &gt;&gt;/etc/security/limits.conf
+</code></pre><h4 id="sysctl-for-networking">Sysctl for Networking</h4>
+<p>Add the parameter in <code>/etc/sysctl.conf</code></p>
+<pre><code># Disable packet forwarding
+#A router has multiple network interfaces. If traffic comes in on one interface that matches
+#a subnet of another network interface, a router then forwards that traffic to the other network interface.
+net.ipv4.ip_forward = 0
+
+# Disable redirects
+#It is used by routers to notify the host about a better routing path that is available for a
+#particular destination. Following this, the host updates the route cache entry and forwards the
+#subsequent packets directly over the optimal path/route suggested via ICMP redirect message.
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.default.accept_redirects = 0
+net.ipv4.conf.all.send_redirects = 0
+net.ipv4.conf.default.send_redirects = 0
+net.ipv4.conf.all.secure_redirects = 0
+net.ipv4.conf.default.secure_redirects = 0
+net.ipv6.conf.all.accept_redirects = 0
+net.ipv6.conf.default.accept_redirects = 0
+
+# Disable source routing
+#Source routing is an Internet Protocol mechanism that allows an IP packet to carry information,
+#a list of addresses, that tells a router the path the packet must take. 	
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.default.accept_source_route = 0
+et.ipv6.conf.all.accept_source_route = 0
+
+# Enable source validation by reversed path
+#Reverse path filtering is a mechanism adopted by the Linux kernel, as well as most of
+#the networking devices out there to check whether a receiving packet source address is routable.
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.conf.default.rp_filter = 1
+
+# Log packets with impossible addresses to kernel log
+#A Martian packet is nothing but an IP packet which specifies a source or destination
+#address that is reserved for special-use by Internet Assigned Numbers Authority (IANA).
+net.ipv4.conf.all.log_martians = 1
+net.ipv4.conf.default.log_martians = 1
+
+# Disable ICMP broadcasts
+#ICMP echo messages are the messages used by the &quot;ping&quot; command-line tool. By ignoring broadcast
+#ICMP echo requests, your machine won't respond when someone tries to ping a broadcast address
+net.ipv4.icmp_echo_ignore_broadcasts = 1
+
+# Ignore bogus ICMP errors
+#prevents the kernel from logging bogus responses from broadcast reframes,
+#keeping file systems from filling up with useless log messages.
+net.ipv4.icmp_ignore_bogus_error_responses = 1
+
+# Against SYN flood attacks
+#The attacker begin with the TCP connection handshake sending the SYN packet,
+#and then never completing the process to open the connection. This results into massive half-open connections.
+net.ipv4.tcp_syncookies = 1
+
+# Disable timestamps
+#It could improve security but degrade performance.
+#Use the TCP timestamp response to approximate the remote host's uptime and aid in further attacks.
+net.ipv4.tcp_timestamps = 0
+
+# Disable IPv6 unless required
+net.ipv6.conf.lo.disable_ipv6 = 1
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+
+# Randomize virtual address space
+#Address Space Layout Randomization (ASLR) can help defeat certain types of buffer overflow
+#attacks. ASLR can locate the base, libraries, heap, and stack at random positions in a
+#process's address space, which makes it difficult for an attacking program to predict
+#the memory address of the next instruction.
+kernel.randomize_va_space = 2
+
+#Restrict core dump by setuid
+#This will make sure that core dumps can never be made by setuid programs.
+fs.suid_dumpable = 0
+</code></pre><p>Load  in  sysctl  settings  from the file specified in <code>/etc/sysctl.conf</code></p>
+<pre><code>sysctl -p
+</code></pre><h4 id="network-time">Network Time</h4>
+<p><a href="../chrony/">See the section Chrony</a></p>
+<h4 id="system-auditing">System Auditing</h4>
+<p>Use a security tool like Lynis to perform a regular audit of your system. Any findings are showed on the screen and also stored ina log file for further analysis.</p>
+<p>Install lynis</p>
+<pre><code>yum install epel-release -y
+yum install lynis -y
+</code></pre><p>Audit the system using:-</p>
+<pre><code>lynis audit system
+</code></pre><p>See the result and solve accordingly</p>
+<pre><code>grep Suggestion /var/log/lynis.log
+</code></pre><pre><code>grep Warning /var/log/lynis.log
+</code></pre><hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautme@gmail.come">pratikgautme@gmail.come</a></p>
+<div class="edit-meta">
+<br>
+<a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/" title="Welcome"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Welcome</a>
+<a class="nav nav-next" href="https://tecnep.com/chrony/" title="NTP">Next - NTP <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer>
+<p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class="parent active"><a href="https://tecnep.com/hardening/">System Hardening</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/chrony/">NTP</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/redis/">Redis</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/mailcleaner/">Mailcleaner<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/mailcleaner/mailcleaner_config/">MailCleaner configurations</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/snmp/">SNMP</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>
+<li class=""><a href="https://tecnep.com/firewall/rich_rule/">Rich rule</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/zimbra/zimbra_tips_tricks/">Zimbra Tips &amp; Tricks</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/glassfish/">Glassfish</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/system_resources/">System Resources<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/system_resources/increase_hd/">Increase hard disk</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/tomcat/">Tomcat</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/dns/">DNS<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/useful_command/">Useful command</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/keepalive/">Keepalive</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ssl/">SSL</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/nas_san/">NAS and SAN</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/haproxy/">Haproxy</a>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

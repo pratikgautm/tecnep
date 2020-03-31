@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DNS on Tecnep</title>
+    <link>https://tecnep.com/dns/</link>
+    <description>Recent content in DNS on Tecnep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 Dec 2019 18:29:55 +0545</lastBuildDate>
+    
+	<atom:link href="https://tecnep.com/dns/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SPF</title>
+      <link>https://tecnep.com/dns/spf/</link>
+      <pubDate>Sun, 08 Dec 2019 18:29:55 +0545</pubDate>
+      
+      <guid>https://tecnep.com/dns/spf/</guid>
+      <description>Sender Policy Framework (SPF) is authentication protocol used to indicate to mail exchanges which hosts are authorized to send mail for a domain. It is defined using TXT record type, also has SPF record type. If you send email from xyz.com to tecnep.com, tecnep.com mail server will check if xyz.com is authorized for sending email or not. SPF record actually prevent email spoofing with spf records.
+For example if tecnep.com has TXT record of :-</description>
+    </item>
+    
+    <item>
+      <title>DKIM</title>
+      <link>https://tecnep.com/dns/dkim/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tecnep.com/dns/dkim/</guid>
+      <description>Domain Key Identified Mail is email authentication technique that allows the receiver to check that an email was indeed sent and authorized by the owner of that domain. It is email security standard designed to make sure message weren&amp;rsquo;t altered in transist between the sending and receipient servers by the use of private and public key cryptography.
+How DKIM works ? a) On sender mail server
+A hash is created from the content of the message headers and signed it with private key.</description>
+    </item>
+    
+    <item>
+      <title>DMARC</title>
+      <link>https://tecnep.com/dns/dmarc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tecnep.com/dns/dmarc/</guid>
+      <description>Domain-based Message Authentication Reporting and conformance (DMARC) is designed to protect your company&amp;rsquo;s email domain for being used for email spoofing, phishing scans. It is enhancement to existing email authentication technologies. DMARC uses existing two protocols SPF and DKIM and applies the policy for receiving email. Record is published in DNS record to specify which mechanism (DKIM, SPF or both) is employed when sending email from that domain, how to check &amp;lsquo;From:&amp;rsquo; field of the sender email.</description>
+    </item>
+    
+  </channel>
+</rss>

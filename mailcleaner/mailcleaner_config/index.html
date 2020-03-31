@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>MailCleaner configurations - Tecnep</title>
+<meta name="description" content="Share your ideas.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/mailcleaner/mailcleaner_config/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="MailCleaner configurations" />
+<meta property="og:description" content="MailCleaner is a business anti spam gateway installed between your mail infrastructure and the Internet. It offers professional protection against viruses and eliminates up to 99% of spam.
+Requirements and planning Make sure that your hardware or Virtual Machine meets the minimum requirements:
+▪ 2 CPU, 4 GB RAM ▪ 60 GB HDD ▪ 100 Mbps network card ▪ 2 Mbps network connectivity Virtual Machine Download &amp; Installation: Download the latest MailCleaner Virtual Machine corresponding to your virtualization environment here:https://www." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tecnep.com/mailcleaner/mailcleaner_config/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="og:site_name" content="tecnep.com" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
+
+<meta name="twitter:title" content="MailCleaner configurations"/>
+<meta name="twitter:description" content="MailCleaner is a business anti spam gateway installed between your mail infrastructure and the Internet. It offers professional protection against viruses and eliminates up to 99% of spam.
+Requirements and planning Make sure that your hardware or Virtual Machine meets the minimum requirements:
+▪ 2 CPU, 4 GB RAM ▪ 60 GB HDD ▪ 100 Mbps network card ▪ 2 Mbps network connectivity Virtual Machine Download &amp; Installation: Download the latest MailCleaner Virtual Machine corresponding to your virtualization environment here:https://www."/>
+<meta itemprop="name" content="MailCleaner configurations">
+<meta itemprop="description" content="MailCleaner is a business anti spam gateway installed between your mail infrastructure and the Internet. It offers professional protection against viruses and eliminates up to 99% of spam.
+Requirements and planning Make sure that your hardware or Virtual Machine meets the minimum requirements:
+▪ 2 CPU, 4 GB RAM ▪ 60 GB HDD ▪ 100 Mbps network card ▪ 2 Mbps network connectivity Virtual Machine Download &amp; Installation: Download the latest MailCleaner Virtual Machine corresponding to your virtualization environment here:https://www.">
+
+<meta itemprop="wordCount" content="1603">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+<a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
+<p class="description">Share your ideas.</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/">About</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>MailCleaner configurations</h1>
+<p>MailCleaner is a business anti spam gateway installed between your mail infrastructure and the Internet.
+It offers professional protection against viruses and eliminates up to 99% of spam.</p>
+<h4 id="requirements-and-planning">Requirements and planning</h4>
+<p>Make sure that your hardware or Virtual Machine meets the minimum requirements:</p>
+<pre><code>▪ 2 CPU, 4 GB RAM
+▪ 60 GB HDD
+▪ 100 Mbps network card
+▪ 2 Mbps network connectivity
+</code></pre><h4 id="virtual-machine-download--installation">Virtual Machine Download &amp; Installation:</h4>
+<p>Download the latest MailCleaner Virtual Machine corresponding to your virtualization environment here:<strong><a href="https://www.mailcleaner.net/downloads/vm">https://www.mailcleaner.net/downloads/vm</a></strong> For installation instructions follow the README inside the ZIP file
+In my case, I had downloaded the appliance of. ova format and imported it to the VMware vSphere. After the successful installation, login to the virtual machine with user ‘root’ and password &lsquo;MCPassw0rd&rsquo;. After login, there will be asked to complete the wizards. There in the wizard, you need to select the keyboard language, hostname, IP address. You can change the root password later.</p>
+<p><img src="Picture1.png" alt="image"></p>
+<h4 id="network-environment">Network environment:</h4>
+<p>Please have on hand an IP address and a hostname to be dedicated to your MailCleaner. The hostname must be resolvable via DNS. Have a MX record of the IP in public DNS MailCleaner also needs Internet access on a number of ports. Make sure the firewall allows the all the ports required by Mailcleaner like SMTP, TCP, HTTPS, HTTP, LDAP, SSH etc.</p>
+<h4 id="configuration-after-installation">Configuration after installation</h4>
+<p>Once the installation of the Virtual Machine is finished, you can connect your favorite browser to the MailCleaner wizard configurator:<strong>https://yourhost:4242</strong> Where your host refers to either the hostname or the IP address. MailCleaner by default is configured for DHCP, so if you have DHCP, it will get an address on your network and you could check your equipment to see what address it got. If you do not have DHCP on your network MailCleaner could be accessible on 192.168.1.42. You can set your own static IP from terminal of while installing the virtual appliance. In the URL mentioned above, you will be redirected to the wizard. Complete the wizard, as per your requirements.</p>
+<p><img src="Picture2.png" alt="image"></p>
+<h4 id="registration">Registration</h4>
+<p>Registration for enterprises edition:</p>
+<p>If you wish to get automatic updates for your MailCleaner, you may want to register with Mail Cleaner’s update service. Once you get the settings back from our service (client id, reseller id/password, etc.), you must connect your favorite browser to the MailCleaner web administration interface:<strong>https://yourhost/admin/</strong> Where your host refers to either the hostname or the IP address you provided during the installation. The username is admin and the password is the one provided during the installation. Select “Configuration” menu, “Base system” sub-menu and “Registration” section You must fill all fields of this section with the information provided on your license certificate, by your reseller or directly by MailCleaner Sales Department.</p>
+<p>What is your reseller ID?</p>
+<p>The reseller ID as assigned by MailCleaner Sales Department.</p>
+<p>What is your reseller password?</p>
+<p>The password associated with the reseller ID as assigned by MailCleaner Sales Department. What is this client ID The client (or customer) ID as assigned by MailCleaner: 4-digit ID When finished, this step will register your MailCleaner installation with our update service? Available updates will then be fetched every 15 minutes. Anti-virus definitions are updated every hour by default.</p>
+<h4 id="gui-configuration">Gui Configuration</h4>
+<p>To activate the mailcleaner, it is required to properly configure the set up followed by mailcleaner GUI.</p>
+<p><img src="Picture3.png" alt="image"></p>
+<h5 id="go-to-configuration--base-system-and-configure-network-dns-localization-date-and-time-and-proxies-as-per-your-environment">Go to configuration =&gt; Base system and configure Network, DNS, Localization, Date and time and Proxies as per your environment.</h5>
+<p><img src="Picture4.png" alt="image"></p>
+<h5 id="go-to-configuration--general-settings-and-configure-defaults-company-quarantines-periodic-tasks-logging-and-archiving">Go to configuration =&gt; General settings and configure defaults, Company, Quarantines, Periodic tasks, logging and archiving.</h5>
+<p>After configuring Base system and General settings, it is more important to configure domains.
+Adding domain is most critical and backbone of the mailcleaner.</p>
+<p>To configure the Domain, follow the below steps.</p>
+<p><img src="1.png" alt="image"></p>
+<h5 id="go-to-configuration--domain-there-you-will-see-the-domain-default-setting-and-new-domain">Go to Configuration =&gt; Domain, there you will see the Domain default setting and new domain.</h5>
+<p>If you want the default configuration for all domains, configure in the default domain setting. Else, go to New Domain to add Domains. Add domain and submit.
+To configure the individual domains, go to list of the domain and select it.</p>
+<p><img src="2.png" alt="image"></p>
+<p>In the General fill the details of Aliases, postmaster address and support details. Submit the details and click next step.</p>
+<p><img src="3.png" alt="image"></p>
+<p>In the Destination server, fill the IP address of the mail server in which mail will be sent from mailcleaner. Choose smtp port as 25 and use multiple server as load balancing. Submit the details and test the destination then go to next step</p>
+<p><img src="4.png" alt="image"></p>
+<p>Next step is to configure Address verification. To configure address verification, go to Domain=&gt; Select Domain=&gt;Go to address verification.
+You will need to configure the following details.</p>
+<p><strong>Callout Connector:-</strong> This is the method which is used to authenticate the address. Callout connector uses LDAP, SMTP, NONE and LOCAL protocols.</p>
+<p><strong>LDAP Server:</strong> If you are configuring with LDAP, you will need to define the LDAP server from which LDAP authentication is done.</p>
+<p><strong>BASE DN:</strong> Base DN uses domain controller for the address verification.
+If you are using Active directory to address verification, configure the Base DN as following
+For domain: abc.com.np
+Dc=abc, dc=com, dc=np</p>
+<p><strong>Bind User and Bind Password:</strong> Use the user and password of the LDAP server. Submit the details and test configuration.</p>
+<p>Go to Next Step and configure Preferences as per your requirement.</p>
+<p>In the next step, will be redirected to Users Authentication. Any user defined in this step will authenticate users to the mailcleaner. To configure Users Authentication, follow the following steps.</p>
+<p><img src="5.png" alt="image"></p>
+<p><strong>Authentication Type:</strong> In the authentication type, we can see different authentication methods to get access. In my case, I have used ldap/Active Directory as an authentication method.</p>
+<p><strong>Authentication Server:</strong> Define the Authentication Server in this section. In my case, I have defined the IP address of LDAP server as Authentication Server.</p>
+<p><strong>BASE DN:</strong> Define the domain name from which LDAP users will be authenticated. If you have domain abc.com.np, please select the base DN as: dc=abc, dc=com, dc=np</p>
+<p><strong>Bind User:</strong>  Select the user from LDAP server as bind user. In my case, I have used administrator as bind user.</p>
+<p><strong>Bind Password:</strong> Use the password of the user from LDAP which is going to be used as bind user.</p>
+<p><strong>User Attribute:</strong> If you are using ldap/active directory as authentication type, use ‘SamAccountName’ as user attribute.</p>
+<p>Configure Use SSL, Protocol version, Username Modifier, Address lookup as in above snapshot and submit the details. After submission test any user from ldap/active directory and test authentication. If the configurations are correct, you will see the connection successful message.</p>
+<p>Another step to be configured is Filtering. In this section, you can define the different filtering methods for any domain. Configure the mailcleaner as shown in snapshot. Enable greylisting and whitelisting.
+If you want to select any domain to be not checked, mention it in the add an address.</p>
+<p><img src="6.png" alt="image"></p>
+<p>Another step is to configure outgoing relay. In the configuration you will need to generate DKIM signing.</p>
+<p><img src="7.png" alt="image"></p>
+<p>Make a configuration as shown in the above snapshot. You will need to enable BATV to generate DKIM signing. You will need to add this DKIM record to public dns.</p>
+<p>Keep the configuration of archiving and templates as per default.</p>
+<p>Configure SMTP, Anti-spam, Content protection, accesses and Services as per your requirement.</p>
+<h4 id="5cluster-creation-and-implementation">5.	Cluster Creation and Implementation</h4>
+<p>To filter very large volume of email and/or for security and redundancy reasons, MailCleaner has been developed, from the very beginning, to work in a cluster configuration. One server, defined as the master, holds the database configuration and hosts the administrator and user web interfaces. The other servers in the cluster are defined as slaves. First, install each server independently.</p>
+<h5 id="master-configuration">Master Configuration:</h5>
+<p>Use the script located in: <strong>/usr/mailcleaner/scripts/configuration/slaves.pl</strong></p>
+<p>-The first time, you will have to set the real hostname of the master. The real hostname is the Fully Qualified Domain Name (FQDN) of the master server. This name must be resolvable by DNS. Alternatively, you can use the master server&rsquo;s IP address in place of its name.</p>
+<p>▪Select option 1(fully qualified hostname or IP). By default, it is 127.0.0.1, which is to be changed in the case of a cluster.</p>
+<p>▪Select option 4 to add a slave and enter the hostname or IP address and the password of the server.</p>
+<p>▪Back in the main menu, hit q to apply changes.</p>
+<h5 id="slave-configuration">Slave Configuration:</h5>
+<p>Use the script located in: <strong>/usr/mailcleaner/scripts/configuration/slaves.pl</strong></p>
+<p>The first time, you will have to set the real hostname of the slave. The real hostname is the Fully Qualified Domain Name (FQDN) of this slave. This name must be resolvable by DNS. Alternatively, you can use the server&rsquo;s IP address in place of its name</p>
+<p>	Select option 1(fully qualified hostname or IP). By default, it is 127.0.0.1.</p>
+<p>	Select option 5 to set this server as a slave. Enter the master&rsquo;s FQDN or IP address and password.</p>
+<p>	Back in the main menu, hit q to apply changes.</p>
+<p>You can now reach the admin interface of any server, but only the master will let you configure the system. The master is also the only server that allows users to access their quarantine.</p>
+<p>You can now reach the admin interface of any host, but only the master will let you configure the system. It also is the only one that users can reach in order to access their quarantine.</p>
+<p>In order to balance your incoming mail on the two (or more) nodes you can add a new MX record with the same priority pointing the second node. To test, go to user interface panel</p>
+<p>After clustering, go to URL of master cluster there you will see the stack of master and slaves.</p>
+<p>Verify the incoming and outgoing status of mails.</p>
+<p><img src="8.png" alt="image"></p>
+<hr>
+<p>By : Aayush koirala
+<a href="mailto:koiralaaayush20@gmail.com">koiralaaayush20@gmail.com</a></p>
+<div class="edit-meta">
+<br>
+<a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/mailcleaner/" title="Mailcleaner"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Mailcleaner</a>
+<a class="nav nav-next" href="https://tecnep.com/kaspersky/" title="Kaspersky for linux">Next - Kaspersky for linux <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer>
+<p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class=""><a href="https://tecnep.com/hardening/">System Hardening</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/chrony/">NTP</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/redis/">Redis</a>
+  
+</li>
+
+<li class="parent has-sub-menu"><a href="https://tecnep.com/mailcleaner/">Mailcleaner<span class="mark opened">-</span></a>
+  
+<ul class="sub-menu">
+<li class="active"><a href="https://tecnep.com/mailcleaner/mailcleaner_config/">MailCleaner configurations</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/snmp/">SNMP</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>
+<li class=""><a href="https://tecnep.com/firewall/rich_rule/">Rich rule</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/zimbra/zimbra_tips_tricks/">Zimbra Tips &amp; Tricks</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/glassfish/">Glassfish</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/system_resources/">System Resources<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/system_resources/increase_hd/">Increase hard disk</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/tomcat/">Tomcat</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/dns/">DNS<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/useful_command/">Useful command</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/keepalive/">Keepalive</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ssl/">SSL</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/nas_san/">NAS and SAN</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/haproxy/">Haproxy</a>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

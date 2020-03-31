@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Firewall on Tecnep</title>
+    <link>https://tecnep.com/firewall/</link>
+    <description>Recent content in Firewall on Tecnep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 Dec 2019 13:41:34 +0545</lastBuildDate>
+    
+	<atom:link href="https://tecnep.com/firewall/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Firewalld and keepalived</title>
+      <link>https://tecnep.com/firewall/firewall_keepalive/</link>
+      <pubDate>Sun, 08 Dec 2019 13:41:34 +0545</pubDate>
+      
+      <guid>https://tecnep.com/firewall/firewall_keepalive/</guid>
+      <description>Keepalived provides simple and robust facilities for load-balancing and high-availability. The load-balancing framework relies on the well-known and widely used Linux Virtual Server (IPVS) kernel module providing Layer4 load-balancing.
+Keepalived implements a set of checkers to dynamically and adaptively maintain and manage a load-balanced server pool according to their health. Keepalived also implements the VRRPv2 and VRRPv3 protocols to achieve high-availability with director failover.
+You can allow firewall to accept vrrp protocol, which will allow you keepalive work accurately</description>
+    </item>
+    
+    <item>
+      <title>Rich rule</title>
+      <link>https://tecnep.com/firewall/rich_rule/</link>
+      <pubDate>Sun, 08 Dec 2019 13:41:34 +0545</pubDate>
+      
+      <guid>https://tecnep.com/firewall/rich_rule/</guid>
+      <description>With the rich language more complex firewall rules can be created in an easy to understand way. The language uses keywords with values and is an abstract representation of ip*tables rules.
+The rich language extends the current zone elements (service, port, icmp-block, icmp-type, masquerade, forward-port and source-port) with additional source and destination addresses, logging, actions and limits for logs and actions.
+To accept ssh connection form a network only
+firewall-cmd --permanent --zone=public --add-rich-rule=&#39;rule family=&amp;quot;ipv4&amp;quot; source address=&amp;quot;10.</description>
+    </item>
+    
+  </channel>
+</rss>

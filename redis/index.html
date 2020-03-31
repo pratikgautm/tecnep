@@ -3,11 +3,11 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Tags - Tecnep</title>
+<title>Redis - Tecnep</title>
 <meta name="description" content="Share your ideas.">
 <meta name="generator" content="Hugo 0.68.0" />
 <link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
-<link rel="canonical" href="https://tecnep.com/tags/">
+<link rel="canonical" href="https://tecnep.com/redis/">
 <link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
 <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
@@ -16,18 +16,18 @@
 <script src="https://tecnep.com/js/bundle.js"></script><style>
 :root {--custom-background-color: #52555B;}
 </style>
-<meta property="og:title" content="Tags" />
+<meta property="og:title" content="Redis" />
 <meta property="og:description" content="Share your ideas." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://tecnep.com/tags/" />
+<meta property="og:url" content="https://tecnep.com/redis/" />
 <meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
-<meta property="og:site_name" content="tecnep.com" />
+<meta property="og:updated_time" content="2019-12-08T18:29:55+05:45" /><meta property="og:site_name" content="tecnep.com" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
-<meta name="twitter:title" content="Tags"/>
+<meta name="twitter:title" content="Redis"/>
 <meta name="twitter:description" content="Share your ideas."/>
-<meta itemprop="name" content="Tags">
+<meta itemprop="name" content="Redis">
 <meta itemprop="description" content="Share your ideas."></head>
 <body><div class="container"><header>
 <h1>Tecnep</h1>
@@ -43,10 +43,69 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Tags</h1><div class="edit-meta">
+<main><h1>Redis</h1><ul>
+<li>In-memory data structure store, used as database cache and message broker.</li>
+<li>In-memory database is a database that keeps the whole database in RAM.</li>
+<li>Supports data structure such as strings, hashes. list, sets, sorted sets.</li>
+<li>Each time you query a database or update data in a database, you only access the main memory</li>
+</ul>
+<p>Redis-cli
+Following are the helpful redis command</p>
+<p>Check redis file configuration</p>
+<pre><code>redis-server /etc/redis.conf
+</code></pre><p>login to Redis server host 10.10.18.6 with default port 6379 and password</p>
+<pre><code>redis-cli -h 10.10.18.6 -p 6379 -a password
+</code></pre><p>See all the keys in redis</p>
+<pre><code>127.0.0.1:6379&gt; keys *
+	1) &quot;Age&quot;
+	2) &quot;Address&quot;
+	3) &quot;Name&quot;
+</code></pre><p>Set name &lsquo;office&rsquo; and value &lsquo;Pokhara&rsquo;</p>
+<pre><code>127.0.0.1:6379&gt; set office Pokhara
+</code></pre><p>Get the key from name</p>
+<pre><code>127.0.0.1:6379&gt; get office
+	&quot;Pokhara&quot;
+</code></pre><p>Delete specific key</p>
+<pre><code>127.0.0.1:6379&gt; del key age
+(integer) 0
+</code></pre><p>Flush all the key</p>
+<pre><code>127.0.0.1:6379&gt; flushall
+</code></pre><p>See memory details</p>
+<pre><code>127.0.0.1:6379&gt; info memory
+	# Memory
+	used_memory:811840
+	used_memory_human:792.81K
+	used_memory_rss:2732032
+	used_memory_rss_human:2.61M
+	used_memory_peak:812840
+	used_memory_peak_human:793.79K
+	total_system_memory:491356160
+	total_system_memory_human:468.59M
+	used_memory_lua:37888
+	used_memory_lua_human:37.00K
+	maxmemory:0
+	maxmemory_human:0B
+	maxmemory_policy:noeviction
+	mem_fragmentation_ratio:3.37
+	mem_allocator:jemalloc-3.6.0
+</code></pre><h3 id="maxmemory-policy">Maxmemory Policy</h3>
+<p>The policy set how redis will select what to remove when maxmemory is reached, you can select among following behavior in config file <code>/etc/redis.conf</code></p>
+<p><code>maxmemory_policy ALGORIGTHM</code></p>
+<p>The following are supported algorithms:-</p>
+<p><strong>volatile-lru</strong> : Remove any key according to the LRU algorithm</p>
+<p><strong>allkeys_lru</strong> : Remove any key according to the LRU algorithm</p>
+<p><strong>volatiel_random</strong> : Remove a random key with an expire set</p>
+<p><strong>allkeys_random</strong> : Remove a random key, any key</p>
+<p><strong>volatile_ttl</strong> : Remove the key with nearest expire time (minor TTL)</p>
+<p><strong>noeviction</strong> : Don&rsquo;t expire all, just return an on write operation</p>
+<hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<div class="edit-meta">
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
-</div><nav class="pagination"><a class="nav nav-next" href="https://tecnep.com/hardening/" title="System Hardening">Next - System Hardening <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/chrony/" title="NTP"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - NTP</a>
+<a class="nav nav-next" href="https://tecnep.com/mailcleaner/" title="Mailcleaner">Next - Mailcleaner <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>
 <p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
 </footer>
@@ -64,7 +123,7 @@
   
 </li>
 
-<li class=""><a href="https://tecnep.com/redis/">Redis</a>
+<li class="parent active"><a href="https://tecnep.com/redis/">Redis</a>
   
 </li>
 
@@ -108,7 +167,6 @@
 <li class=" has-sub-menu"><a href="https://tecnep.com/system_resources/">System Resources<span class="mark closed">+</span></a>
   
 <ul class="sub-menu">
-<li class=""><a href="https://tecnep.com/system_resources/increase_hd/">Increase hard disk</a></li>
 </ul>
   
 </li>

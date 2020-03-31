@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>NTP - Tecnep</title>
+<meta name="description" content="Share your ideas.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/chrony/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="NTP" />
+<meta property="og:description" content="Share your ideas." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://tecnep.com/chrony/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="og:site_name" content="tecnep.com" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
+
+<meta name="twitter:title" content="NTP"/>
+<meta name="twitter:description" content="Share your ideas."/>
+<meta itemprop="name" content="NTP">
+<meta itemprop="description" content="Share your ideas."></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+<a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
+<p class="description">Share your ideas.</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/">About</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>NTP</h1><p>NTP is an internet protocol that’s used to synchronise the clocks on computer networks to within a few milliseconds of universal coordinated time (UTC).</p>
+<p>Chronyd is a daemon for synchronisation of the system clock. It can synchronise the clock with NTP servers, reference clocks and manual input using wristwatch and keyboard via chronyc. It can also operate as an NTPv4 server andpeer to provide a time service to other computers in the network.</p>
+<p>Install chrony package</p>
+<pre><code>yum install chrony -y
+</code></pre><p>Edit the confiugration file /etc/chrony.conf and add NTP server 10.13.222.1</p>
+<pre><code>vi /etc/chrony.conf
+</code></pre><p>Comment the following line</p>
+<pre><code>#server 0.centos.pool.ntp.org iburst
+#server 1.centos.pool.ntp.org iburst
+#server 2.centos.pool.ntp.org iburst
+#server 3.centos.pool.ntp.org iburst
+</code></pre><p>Add following server host(for Nepal)  or your own NTP, if you have;</p>
+<pre><code>server 0.asia.pool.ntp.org iburst
+server 1.asia.pool.ntp.org iburst
+server 2.asia.pool.ntp.org iburst
+server 3.asia.pool.ntp.org iburst
+</code></pre><blockquote>
+<p>The <strong>iburst</strong> server option is useful to speed up the initial synchronization. If an NTP server is unresponsive, the IBURST mode continues to send frequent queries until the server responds and time synchronization starts. <strong>BURST</strong> sends a burst of eight packets when the server is reachable. IBURST sends a burst of eight packets when the server is unreachable (tries to find out if a host is reachable), and then shorten the time until the first sync.</p>
+</blockquote>
+<p>Start chronyd service</p>
+<pre><code>systemctl start chronyd.service
+</code></pre><p>Enable the service</p>
+<pre><code>systemctl enable chronyd.service
+</code></pre><p>Verify the source of NTP server</p>
+<pre><code>chronyc sources
+</code></pre><p>You will get something like:-</p>
+<pre><code>210 Number of sources = 4
+MS Name/IP address         Stratum Poll Reach LastRx Last sample
+===============================================================================
+#* time.iqnet.com                2   6    35    36    -17ms[  -17ms] +/-  139ms
+^+ undefined.hostname.local&gt;     2   6    17    38    -18ms[  -24ms] +/-  161ms
+^? ntp.gnc.am                    2   6    17    37    +52ms[  +46ms] +/-  196ms
+^- x.ns.gin.ntt.net              2   6    17    38    -24ms[  -30ms] +/-  147ms
+</code></pre><p><code>^</code> means a server</p>
+<p><code>=</code> means a peer and</p>
+<p><code>#</code> indicates a locally connected reference clock.</p>
+<p><code>*</code> indicates the source to which chronyd is current synchronized.</p>
+<p><code>+</code> indicates other acceptable sources.</p>
+<p><code>?</code> indicates sources to which connectivity has been lost.</p>
+<p><code>x</code> indicates a clock which chronyd thinks is a false ticker (i.e. its time is inconsistent with a majority of other sources).</p>
+<p><code>-</code> indicates a source whose time appears to have too much variability. The ~ condition is also shown at start-up, until at least 3 samples have been gathered from it.</p>
+<p>Verify using chronyc tracking for various time parameter</p>
+<pre><code>chronyc tracking
+</code></pre><p>which outputs similar to:-</p>
+<pre><code>Reference ID    : 81FA23FA (x.ns.gin.ntt.net)
+Stratum         : 3
+Ref time (UTC)  : Mon Dec 09 05:32:41 2019
+System time     : 0.010854832 seconds fast of NTP time
+Last offset     : +0.013905714 seconds
+RMS offset      : 0.023641668 seconds
+Frequency       : 44.182 ppm slow
+Residual freq   : -0.804 ppm
+Skew            : 79.175 ppm
+Root delay      : 0.289628744 seconds
+Root dispersion : 0.007535583 seconds
+Update interval : 64.5 seconds
+Leap status     : Normal
+</code></pre><p>Use following command for more detail :</p>
+<pre><code>timedatectl
+</code></pre><p>Output:</p>
+<pre><code>Local time: Mon 2019-12-09 11:19:56 +0545
+Universal time: Mon 2019-12-09 05:34:56 UTC
+RTC time: Mon 2019-12-09 05:34:56
+Time zone: Asia/Kathmandu (+0545, +0545)
+NTP enabled: yes
+NTP synchronized: yes
+RTC in local TZ: no
+DST active: n/a
+</code></pre><h5 id="chrony-as-server">Chrony as server</h5>
+<p>Chronyd also can be configured as NTP server. You can just add &lsquo;allow NETWORK_IP&rsquo; in its configuration file.</p>
+<pre><code>vi /etc/chrony.conf
+</code></pre><pre><code>allow 192.168.219.0/24
+</code></pre><p>This will open <code>udp port 123</code>, which you need to allow through firewall. To add upd port from firewall see <a href="/docs/firewall">firewall</a></p>
+<hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<div class="edit-meta">
+<br>
+<a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/hardening/" title="System Hardening"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - System Hardening</a>
+<a class="nav nav-next" href="https://tecnep.com/redis/" title="Redis">Next - Redis <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer>
+<p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class=""><a href="https://tecnep.com/hardening/">System Hardening</a>
+  
+</li>
+
+<li class="parent active"><a href="https://tecnep.com/chrony/">NTP</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/redis/">Redis</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/mailcleaner/">Mailcleaner<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/mailcleaner/mailcleaner_config/">MailCleaner configurations</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/snmp/">SNMP</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>
+<li class=""><a href="https://tecnep.com/firewall/rich_rule/">Rich rule</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/zimbra/zimbra_tips_tricks/">Zimbra Tips &amp; Tricks</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/glassfish/">Glassfish</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/system_resources/">System Resources<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/system_resources/increase_hd/">Increase hard disk</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/tomcat/">Tomcat</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/dns/">DNS<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/useful_command/">Useful command</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/keepalive/">Keepalive</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ssl/">SSL</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/nas_san/">NAS and SAN</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/haproxy/">Haproxy</a>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

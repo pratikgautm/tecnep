@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>DKIM - Tecnep</title>
+<meta name="description" content="Share your ideas.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/dns/dkim/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="DKIM" />
+<meta property="og:description" content="Domain Key Identified Mail is email authentication technique that allows the receiver to check that an email was indeed sent and authorized by the owner of that domain. It is email security standard designed to make sure message weren&rsquo;t altered in transist between the sending and receipient servers by the use of private and public key cryptography.
+How DKIM works ? a) On sender mail server
+A hash is created from the content of the message headers and signed it with private key." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tecnep.com/dns/dkim/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="og:site_name" content="tecnep.com" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
+
+<meta name="twitter:title" content="DKIM"/>
+<meta name="twitter:description" content="Domain Key Identified Mail is email authentication technique that allows the receiver to check that an email was indeed sent and authorized by the owner of that domain. It is email security standard designed to make sure message weren&rsquo;t altered in transist between the sending and receipient servers by the use of private and public key cryptography.
+How DKIM works ? a) On sender mail server
+A hash is created from the content of the message headers and signed it with private key."/>
+<meta itemprop="name" content="DKIM">
+<meta itemprop="description" content="Domain Key Identified Mail is email authentication technique that allows the receiver to check that an email was indeed sent and authorized by the owner of that domain. It is email security standard designed to make sure message weren&rsquo;t altered in transist between the sending and receipient servers by the use of private and public key cryptography.
+How DKIM works ? a) On sender mail server
+A hash is created from the content of the message headers and signed it with private key.">
+
+<meta itemprop="wordCount" content="338">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+<a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
+<p class="description">Share your ideas.</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/">About</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>DKIM</h1>
+<p>Domain Key Identified Mail is email authentication technique that allows the receiver to check that an email was indeed sent and authorized by the owner of that domain.
+It is email security standard designed to make sure message weren&rsquo;t altered in transist between the sending and receipient servers by the use of private and public key cryptography.</p>
+<h6 id="how-dkim-works-">How DKIM works ?</h6>
+<p>a) On sender mail server</p>
+<p>A hash is created from the content of the message headers and signed it with private key. This generates DKIM signature which carries everything a recipient server needs to validate the message.
+It looks like :-</p>
+<pre><code>DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tecnep.com; s=m1; t=1584422723; i=@tecnep.com; bh=L9MkoPypSddnX8hkMpD9A/AP+phE0qcvS8uV9z0fs40=; h=Content-Type:To:Message-ID:Date:Subject:From;
+b=q3/mxnoKVSieUmkfoJXP+q0P+IZ/LTnEJSNUs3OalsAKdv0rv447Ry/rChZVmteGlPWu4nVI4pMBdXIz9dWEyCUqEx06JsM5i4owDbILDQ4/Aa+Hxjo5axS8LVXAvPb+vFfJQvq4LsTbMtV8r9R90BSX5UBgRHGbQh93d/vKqA0
+</code></pre><p>Where,</p>
+<p><code>DKIM-Signature 		: Is the header registered for DKIM signed messages.</code></p>
+<p><code>V=1 								: Version of DKIM  used by sending server</code></p>
+<p><code>a=rsa-sha256 			: 	Algorithm used to generate the hash for private/public key. Also rsa-sha1 supported.</code></p>
+<p><code>c=relaxed/relaxed 	:		Sets the canonicalization posture for the sending domain. This regulates whitespaces of text wrapping      changes in the messages.</code></p>
+<p><code>d=tecnep.com 			: 	Email domain that signed the message.</code></p>
+<p><code>s=m1 							: 	selector for public DKIM key verification.</code></p>
+<p><code>i=@tecnep.com 			: 	identity of signer email address</code></p>
+<p><code>bh=L9MkoPy...		  : 	Is the value of body hash generated before the message headers are signed.</code></p>
+<p><code>h=Content-Type..  	: 	Is the header used for generating hash.</code></p>
+<p><code>b=q3/mxnoKVS... 		: Is the cryptographic signature of all the preceding information form DKIM signature field.</code></p>
+<p>b) On Receiving side</p>
+<p>The mail server extract DKIM-Signature form email headers <code>(h=Content-Type:To:Message-ID:Date:Subject:From;)</code> Then it fetch DKIM record from DNS using the selector.
+Finally, the message header&rsquo;s hash value is signed with the public key fetched from DNS record. If the both signature are identical, it results DKIM pass result.</p>
+<p>Note : Using DKIM will make sure your message hasn&rsquo;t been altered, but it doesn&rsquo;t encrypt the contents of your message.</p>
+<h6 id="digging-dkim-record">Digging DKIM record</h6>
+<p>Syntax</p>
+<pre><code>dig selector._domainkey.domain.name TXT
+</code></pre><p>Example,</p>
+<pre><code>dig +short m1._domainkey.tecnep.com TXT
+</code></pre><pre><code>&quot;v=DKIM1;k=rsa;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCzy1gD5Q3hnR3FPoSa74nQhAWpxEpHLh06qOg7xuFl94q3PI4oOO+kB5df5agNdDhBGhDAxAiqDEzVLSiT5e9gQ4z3hi9D4rDeJFr2EkzRZcgTkqtxcVq7lX3QzTkhOWUD83p1buIzV/TtY3sDf6X/sdMdOI6opzBJy8av0fdKnQIDAQAB&quot;
+</code></pre><p>where,</p>
+<pre><code>v=DKIM1 is the version
+k=rsa is public key is generating algorithm
+p=MIGfMA0GCSqGSI...... is the actual DKIM public key of 1024 bits
+</code></pre><hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<div class="edit-meta">
+<br>
+<a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/dns/spf/" title="SPF"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - SPF</a>
+<a class="nav nav-next" href="https://tecnep.com/dns/dmarc/" title="DMARC">Next - DMARC <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer>
+<p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class=""><a href="https://tecnep.com/hardening/">System Hardening</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/chrony/">NTP</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/redis/">Redis</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/mailcleaner/">Mailcleaner<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/mailcleaner/mailcleaner_config/">MailCleaner configurations</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/snmp/">SNMP</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>
+<li class=""><a href="https://tecnep.com/firewall/rich_rule/">Rich rule</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/zimbra/zimbra_tips_tricks/">Zimbra Tips &amp; Tricks</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/glassfish/">Glassfish</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/system_resources/">System Resources<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/system_resources/increase_hd/">Increase hard disk</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/tomcat/">Tomcat</a>
+  
+</li>
+
+<li class="parent has-sub-menu"><a href="https://tecnep.com/dns/">DNS<span class="mark opened">-</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
+<li class="active"><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/useful_command/">Useful command</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/keepalive/">Keepalive</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ssl/">SSL</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/nas_san/">NAS and SAN</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/haproxy/">Haproxy</a>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

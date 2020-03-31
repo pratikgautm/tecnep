@@ -3,101 +3,115 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://tecnep.com/docs/hardening/</loc>
+    <loc>https://tecnep.com/</loc>
+    <lastmod>2019-12-09T03:51:55+05:45</lastmod>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/chrony/</loc>
+    <loc>https://tecnep.com/hardening/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/redis/</loc>
+    <loc>https://tecnep.com/chrony/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/redis/</loc>
     <lastmod>2019-12-08T18:29:55+05:45</lastmod>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/mailcleaner_basic/</loc>
+    <loc>https://tecnep.com/mailcleaner/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/mailcleaner_config/</loc>
+    <loc>https://tecnep.com/mailcleaner/mailcleaner_config/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/kaspersky/</loc>
+    <loc>https://tecnep.com/kaspersky/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/snmp/</loc>
+    <loc>https://tecnep.com/snmp/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/spf/</loc>
+    <loc>https://tecnep.com/dns/spf/</loc>
     <lastmod>2019-12-08T18:29:55+05:45</lastmod>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/dkim/</loc>
+    <loc>https://tecnep.com/dns/dkim/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/dmarc/</loc>
+    <loc>https://tecnep.com/dns/dmarc/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/firewall/</loc>
+    <loc>https://tecnep.com/firewall/</loc>
     <lastmod>2019-12-08T13:41:34+05:45</lastmod>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/zimbra-tips-tricks/</loc>
+    <loc>https://tecnep.com/firewall/firewall_keepalive/</loc>
+    <lastmod>2019-12-08T13:41:34+05:45</lastmod>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/glassfish/</loc>
+    <loc>https://tecnep.com/firewall/rich_rule/</loc>
+    <lastmod>2019-12-08T13:41:34+05:45</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/zimbra/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/zimbra/zimbra_tips_tricks/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/glassfish/</loc>
     <lastmod>2019-12-09T03:51:55+05:45</lastmod>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/system_resources/</loc>
+    <loc>https://tecnep.com/system_resources/increase_hd/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/tomcat/</loc>
+    <loc>https://tecnep.com/system_resources/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/dns/</loc>
+    <loc>https://tecnep.com/tomcat/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/useful_command/</loc>
+    <loc>https://tecnep.com/dns/</loc>
+    <lastmod>2019-12-08T18:29:55+05:45</lastmod>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/keepalive/</loc>
+    <loc>https://tecnep.com/useful_command/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/ssl/</loc>
+    <loc>https://tecnep.com/keepalive/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/nas_san/</loc>
+    <loc>https://tecnep.com/ssl/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/haproxy/</loc>
+    <loc>https://tecnep.com/nas_san/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/docs/</loc>
-    <lastmod>2019-12-09T03:51:55+05:45</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tecnep.com/</loc>
-    <lastmod>2019-12-09T03:51:55+05:45</lastmod>
+    <loc>https://tecnep.com/haproxy/</loc>
   </url>
   
   <url>

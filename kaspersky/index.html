@@ -3,11 +3,11 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Tags - Tecnep</title>
+<title>Kaspersky for linux - Tecnep</title>
 <meta name="description" content="Share your ideas.">
 <meta name="generator" content="Hugo 0.68.0" />
 <link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
-<link rel="canonical" href="https://tecnep.com/tags/">
+<link rel="canonical" href="https://tecnep.com/kaspersky/">
 <link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
 <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
@@ -16,18 +16,18 @@
 <script src="https://tecnep.com/js/bundle.js"></script><style>
 :root {--custom-background-color: #52555B;}
 </style>
-<meta property="og:title" content="Tags" />
+<meta property="og:title" content="Kaspersky for linux" />
 <meta property="og:description" content="Share your ideas." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://tecnep.com/tags/" />
+<meta property="og:url" content="https://tecnep.com/kaspersky/" />
 <meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
 <meta property="og:site_name" content="tecnep.com" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
-<meta name="twitter:title" content="Tags"/>
+<meta name="twitter:title" content="Kaspersky for linux"/>
 <meta name="twitter:description" content="Share your ideas."/>
-<meta itemprop="name" content="Tags">
+<meta itemprop="name" content="Kaspersky for linux">
 <meta itemprop="description" content="Share your ideas."></head>
 <body><div class="container"><header>
 <h1>Tecnep</h1>
@@ -43,10 +43,40 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Tags</h1><div class="edit-meta">
+<main><h1>Kaspersky for linux</h1><p>In this tutorial, you will learn how to install Kaspersky in Centos Server and connect to Kaspersky Server.</p>
+<p>Note : First telnet to the Kaspersky server port <code>13000</code> (default), It should <em>success.</em></p>
+<p><code>telnet Kapsersky_server_IP 13000</code></p>
+<h4 id="step-1--install-required-dependencies-">Step 1 : Install Required Dependencies:-</h4>
+<pre><code>yum install 'perl(Data::Dumper)' -y
+yum install perl-Digest-MD5 -y
+yum install glibc -y
+yum install kernel-devel -y
+</code></pre><h4 id="step-2-download-and-install-kaspersky-network-agent-from-its-official-site">Step 2: Download and install Kaspersky Network Agent from its official site</h4>
+<pre><code>rpm -ivh https://products.s.kaspersky-labs.com/endpoints/keslinux10/11.0.0.2706/multilanguage-INT-11.0.1.2706/3239363336377c44454c7c31/klnagent-12.0.1-45.i386.rpm
+</code></pre><p>As it suggest, run postinstall.pl and specify Kaspersky server and other information.</p>
+<h4 id="step-3-install-kaspersky-endpoint-security-application-also-from-our-local-repository-">Step 3: Install Kaspersky endpoint security application also from our local repository:-</h4>
+<pre><code>rpm -ivh https://products.s.kaspersky-labs.com/endpoints/keslinux10/11.0.0.2706/multilanguage-INT-11.0.0.2706/3237363230337c44454c7c31/kesl-11.0.0-2706.i386.rpm
+</code></pre><p>Again, as it suggests, run kesl-setup.pl script and fill the information.</p>
+<p>With this KES and Netagent is installed and running:- Check the status:-</p>
+<pre><code>systemctl status klnagent64
+systemctl status kesl-supervisor
+</code></pre><h5 id="make-it-enable--">Make it enable :-</h5>
+<pre><code>Systemctl enable klnagent64
+Systemctl enable kesl-supervisor
+</code></pre><h4 id="step-4-login-to-kaspersky-server-the-device-appears-in-unassigned-devices">Step 4: Login to Kaspersky server. The device appears in unassigned devices.</h4>
+<p>Now, move it to the particular group to apply the key:-</p>
+<h4 id="step-5-if-you-see-the-status-of-the-device-the-real-time-protection-is-not-enabled">Step 5: IF you see the status of the device, the real time protection is not enabled.</h4>
+<p>To make it effective Right click on the device &gt; All task &gt; Force Synchronization.</p>
+<h4 id="step-6--add-the-key-to-the-server">Step 6 : Add the key to the server.</h4>
+<h4 id="step-7--restart-the-service-if-necessary">step 7 : Restart the service if necessary.</h4>
+<hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<div class="edit-meta">
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
-</div><nav class="pagination"><a class="nav nav-next" href="https://tecnep.com/hardening/" title="System Hardening">Next - System Hardening <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/mailcleaner/mailcleaner_config/" title="MailCleaner configurations"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - MailCleaner configurations</a>
+<a class="nav nav-next" href="https://tecnep.com/snmp/" title="SNMP">Next - SNMP <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>
 <p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
 </footer>
@@ -76,7 +106,7 @@
   
 </li>
 
-<li class=""><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
+<li class="parent active"><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
   
 </li>
 
