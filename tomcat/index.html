@@ -43,9 +43,22 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Tomcat</h1><h5 id="servlet">Servlet</h5>
+<main><h1>Tomcat</h1><p>Tomcat is open source servlet container. Tomcat provides a &ldquo;pure Java&rdquo; HTTP web server environment in which Java code can run. Tomcat is developed and maintained by Apache Software Foundation.</p>
+<h5 id="servlet">Servlet</h5>
+<p>Servlet are Java class which responds to a particular type of network request - commonly HTTP request. It run in a servlet-container which handles the networking side, parsing HTTP request, connection handling etc.</p>
 <h5 id="directive-and-files-of-tomcat">Directive and files of Tomcat</h5>
+<p>The following are the most important folder of Tomcat</p>
+<p><code>bin</code> :  Startup, shutdown and other scripts</p>
+<p><code>conf</code> :  server.xml and other configuration files</p>
+<p><code>logs</code> : All the logs file, catalina.out, access logs</p>
+<p><code>webapps</code> : web applications and .war deployment files</p>
 <h5 id="cgi-and-servlet">CGI and servlet</h5>
+<p><code>CGI</code></p>
+<p>For each request CGI server receive, it creates new operating system process.</p>
+<p><img src="cgi.PNG" alt="image"></p>
+<p><code>Servlet</code></p>
+<p>All the request coming from the client are processed with thread of the OS process.</p>
+<p><img src="servlet.PNG" alt="image"></p>
 <hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
@@ -151,6 +164,10 @@
 </li>
 
 <li class=""><a href="https://tecnep.com/haproxy/">Haproxy</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/php_nginx_mysql/">Php Nginx Mysql</a>
   
 </li>
 </ul>

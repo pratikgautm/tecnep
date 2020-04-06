@@ -58,27 +58,9 @@ Permanent configuration is loaded from XML files in <code>/usr/lib/firewalld</co
 <pre><code>firewall-cmd --reload
 </code></pre><p>Verify using,</p>
 <pre><code>firewall-cmd --list-all
-</code></pre><h5 id="rich-rule">Rich rule</h5>
-<p>With the rich language more complex firewall rules can be created in an easy to understand way. The language uses keywords with values and is an abstract representation of ip*tables rules.</p>
-<p>The rich language extends the current zone elements (service, port, icmp-block, icmp-type, masquerade, forward-port and source-port) with additional source and destination addresses, logging, actions and limits for logs and actions.</p>
-<p>To accept ssh connection form a network only</p>
-<pre><code>firewall-cmd --permanent --zone=public --add-rich-rule='rule family=&quot;ipv4&quot; source address=&quot;10.10.10.0/24&quot;
-port protocol=&quot;tcp&quot; port=&quot;22&quot; accept'
-</code></pre><p>To allow monitoring tool like PRTG, Nagios, Cacti ; Source address is the address of your monitoring tool. SNMP agents listen on UDP port 161</p>
-<pre><code>firewall-cmd --permanent --zone=public --add-rich-rule='rule family=&quot;ipv4&quot; source address=&quot;10.10.13.50&quot; port protocol=&quot;udp&quot; port=&quot;161&quot; accept'
-</code></pre><p>Reload firewall</p>
-<pre><code>firewall-cmd --reload
-</code></pre><p>Verify,</p>
-<pre><code>firewall-cmd --list-all
-</code></pre><h5 id="firewalld-and-keepalived">Firewalld and keepalived</h5>
-<p>Keepalived provides simple and robust facilities for load-balancing and high-availability. The load-balancing framework relies on the well-known and widely used Linux Virtual Server (IPVS) kernel module providing Layer4 load-balancing.</p>
-<p>Keepalived implements a set of checkers to dynamically and adaptively maintain and manage a load-balanced server pool according to their health. Keepalived also implements the VRRPv2 and VRRPv3 protocols to achieve high-availability with director failover.</p>
-<p>You can allow firewall to accept vrrp protocol, which will allow you keepalive work accurately</p>
-<p><code>firewall-cmd --add-rich-rule='rule protocol value=&quot;vrrp&quot; accept' --permanent</code></p>
-<p>Reload firewall to take into effect</p>
-<p><code>firewall-cmd --reload</code></p>
-<p>Verify using ,</p>
-<p><code>firewall-cmd --list-all</code></p>
+</code></pre><hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
 <div class="edit-meta">
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
@@ -181,6 +163,10 @@ port protocol=&quot;tcp&quot; port=&quot;22&quot; accept'
 </li>
 
 <li class=""><a href="https://tecnep.com/haproxy/">Haproxy</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/php_nginx_mysql/">Php Nginx Mysql</a>
   
 </li>
 </ul>

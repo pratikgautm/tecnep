@@ -43,16 +43,75 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>DNS</h1><h5 id="how-dns-work-">How DNS work ?</h5>
+<main><h1>DNS</h1><p>Domain Name system is distributed database of IP address and associated names which resolve domain name to IP address. Before the concept of DNS, one had to download host file containing host names and IP address. DNS record are hierarchical in internet naming structure with the root at the top.</p>
+<p><img src="hierarchical_name_space.PNG" alt="image"></p>
+<h5 id="how-dns-work-">How DNS work ?</h5>
+<p>Following picture describe the working of domain name server.</p>
+<p><img src="how-dns-work.PNG" alt="image"></p>
+<ol>
+<li>Suppose you type <code>tecnep.com</code> in the browser, it send dns query to the ip address set in networking interface. This could be your IPS dns, or resolver set up in your company. Depends on the network setting.</li>
+<li>The resolver find <code>.</code> at the end of any domain say <code>tecnep.com</code> in our example. It forwards the query to root server(Distributed server place at different region of the world).</li>
+<li>The root server identify the domain contain <code>.com</code> which can be resolved in COM servers. So, it sends IP address of <code>.com</code> server to resolver.</li>
+<li>The resolver again send the query to .com server to find where is the name server exactly located.</li>
+<li>The COM has the record of name server of the requested domain. So, it sends the IP address of domain name server. At this IP of name server of <code>tecnep.com</code> is provided to resolver.</li>
+<li>The resolver then sends the query to the name server to find out the A record of the domain <code>tecnep.com</code></li>
+<li>Name server replies the A record of <code>tecnep.com</code>. Now, the resolver put the record in its cache.</li>
+<li>The record is provided to client and browsing start to the hosting server.</li>
+</ol>
 <h5 id="dns-queries">DNS queries</h5>
+<p>a) <code>Recursive Query</code></p>
+<p>Query in which DNS server ask root server, TLD server and authoritative recursively to get IP address is known as recursive query. They are used as caching the records.</p>
+<p>b) <code>Non Recurive </code></p>
+<p>They are also called authoritative query which holds actual IP address and immediately returns the record.</p>
 <h5 id="dns-resource-record-rr">DNS Resource Record (RR)</h5>
+<p>Follow are the basic type of DNS record also called RR.</p>
+<p>a) <code>A</code>   : Host name to ip address.</p>
+<p>b) <code>AAAA</code> : Host name to IPV6 address.</p>
+<p>c) <code>CNAME</code> : Give a single computer multiple name for example ftp, web, www etc.</p>
+<p>d) <code>MX</code> : To specify the email server responsible for a domain name.</p>
+<p>e) <code>NS</code> : Identify the DNS server responsible authoritative for a zone.</p>
+<p>f) <code>PRT</code> : IP address to domain name</p>
+<p>g) <code>TXT</code> : Hold descriptive text such as contact person, details. Also, SPF, DKIM, DMARC, domain verification record are ketp  as TXT record.</p>
+<p>h) <code>SOA</code> : Contain NS, email for admin, Refresh, retry expire, Serial Number value.</p>
 <h5 id="digging-dns-record">Digging DNS Record</h5>
-<h5 id="termonologies">Termonologies</h5>
+<p>syntax</p>
+<pre><code>dig {domain_name} {record_type} @{DNS_server}
+</code></pre><p>Example,</p>
+<pre><code># Ask A record of tecnep.com in the DNS you set in network interface
+dig tecnep.com A
+
+# Ask A record of tecnep.com in the 1.1.1.1 DNS
+dig tecnep.com A @1.1.1.1
+
+# Get TXT record
+dig tecnep.com TXT
+
+# Only show desired output
+dig tecnep.com +short
+
+# All the RR record
+dig tecnep.com ANY
+
+# Find PTR record
+dig -x  
+
+# Trace the record
+dig +trace tecnep.com
+
+</code></pre><h5 id="termonologies">Termonologies</h5>
 <p><code>Zone Transfer</code></p>
+<p>A Primary DNS server has the master copy of a zone and secondary DNS server keep copies of the zone for redundancy. When changes are made to zone data on the primary DNS, these changes must be distributed to secondary DNS server. The process si called zone transfer.</p>
 <p><code>Zone Delegation</code></p>
+<p>The literal meaning of delegation is to give the right to manage the control for some resource or task to other. In case of Domain name server the process is distributed. The resolver ask root , root ask to send to TLD server and finally to the Name server. The process is called zone delegation.</p>
 <p><code>Domain Transfer</code></p>
+<p>Domain transfer or domain name transfer refers to the process of changing the designated registrar of a domain name to another. For example transfering domain from Godaddy to namecheap.</p>
 <p><code>DNS hosting</code></p>
-<h2 id="domain-propagation"><code>Domain Propagation</code></h2>
+<p>Keeping your DNS records or may be registering a domain in domain registrar.</p>
+<p><code>Domain Propagation</code></p>
+<p>The process or updating every server across the web with new information. That&rsquo;s a lot of servers that require updating and such, there&rsquo;s lag between when the changes are made and when all the server have registered it.</p>
+<p><code>Split-Brain DNS</code></p>
+<p>Split-Brain DNS is a DNS in which two zones for the same domain is set, one to be used by the internal network, the other used by the external network. Internal network for the organization and external user - typically users on the Internet. This facility can provide a mechanism for security and privacy management.</p>
+<hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
 <div class="edit-meta">
@@ -157,6 +216,10 @@
 </li>
 
 <li class=""><a href="https://tecnep.com/haproxy/">Haproxy</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/php_nginx_mysql/">Php Nginx Mysql</a>
   
 </li>
 </ul>

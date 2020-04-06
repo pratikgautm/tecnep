@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Php Nginx Mysql - Tecnep</title>
+<meta name="description" content="Share your ideas.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/php_nginx_mysql/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="Php Nginx Mysql" />
+<meta property="og:description" content="Share your ideas." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://tecnep.com/php_nginx_mysql/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="og:site_name" content="tecnep.com" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
+
+<meta name="twitter:title" content="Php Nginx Mysql"/>
+<meta name="twitter:description" content="Share your ideas."/>
+<meta itemprop="name" content="Php Nginx Mysql">
+<meta itemprop="description" content="Share your ideas."></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+<a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
+<p class="description">Share your ideas.</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/">About</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Php Nginx Mysql</h1><h5 id="php">PHP</h5>
+<p>This page shows how to install <code>PHP 7.2</code> , <code>latest Nginx</code>, and <code>Mysql 5.6</code> and how to deploy a sample web page. All the tutorial here is in Centos 7.</p>
+<p>Let&rsquo;s start with installing PHP 7.2.
+PHP is server-side scripting language. It is used for web development and can be embedded into HTML. PHP code is usually processed on a web server by a PHP interpreter implemented as a module, a daemon or as a Common Gateway Interface (CGI) executable.</p>
+<p>Turn on <code>EPEL repo</code> on a CentOS and RHEL 7.x sever by typing the following command.  <code>EPEL repo</code> stands for Extra Packages for Enterprise Linux Repository. It is a free and open source repository project made available to everybody by Fedora.</p>
+<pre><code>yum install epel-release -y
+</code></pre><p>Install <code>remi repo</code>. It is a third-party repository created and maintained by a French guy called Remi. Remi repository is a free repository providing latest versions of software which are not available in CentOS installation and or repository by default. For example, if you want to install latest version of PHP, then you can get it via Remi repo.</p>
+<pre><code>yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
+</code></pre><p>Install <code>yum-utils</code> packages too. <code>Yum-utils</code> is a collection of tools and programs for managing yum repositories, installing debug packages, source packages, extended information from repositories and administration.</p>
+<pre><code>yum install yum-utils -y
+</code></pre><p>Enable remi repo,</p>
+<pre><code>yum-config-manager --enable remi-php72
+</code></pre><p>Install PHP 7.2,</p>
+<pre><code>yum install php72 -y
+</code></pre><p>There are some module which are essential for running PHP. You can install them using following command,</p>
+<pre><code>yum install php72-php-fpm php72-php-gd php72-php-json php72-php-mbstring php72-php-mysqlnd php72-php-xml php72-php-xmlrpc php72-php-opcache php-cli -y
+</code></pre><p>Find PHP version</p>
+<pre><code>php --version
+</code></pre><p>List installed modules</p>
+<pre><code>php72 -m
+</code></pre><p>(Optional) If you found some module are missing, you can install in the same way as below. In our demonstration we are going to connect to mysql database using PDO.</p>
+<pre><code>yum install php-pdo -y
+</code></pre><p>We are going to listen php on default port 9000. Make sure following line is presented in  <code>/etc/opt/remi/php72/php-fpm.d/www.conf</code> and not commented.</p>
+<pre><code>listen = 127.0.0.1:9000
+</code></pre><p>Turn on PHP fpm for Nginx,</p>
+<pre><code>systemctl start php72-php-fpm.service
+systemctl enable php72-php-fpm.service
+</code></pre><p>(FPM) FastCGI Process Manager is a binary protocol for interfacing interactive programs with a web server.
+Verify that port 9000 should be listening by php-fpm,</p>
+<pre><code>ss -tupan | grep 9000
+</code></pre><p>Output should be similar to,</p>
+<p><img src="php-fpm-output.PNG" alt="image"></p>
+<h5 id="mysql">Mysql</h5>
+<p>Now install MySQL Server 5.6 on same server.</p>
+<p>MySQL is an open source relational database management system (RDBMS) based on Structured Query Language (SQL). it can be used in a wide range of web applications and online publishing.</p>
+<p>login with root user in system. Download the rpm package, which will create a yum repo file for MySQL Server installation.</p>
+<pre><code>yum install wget -y
+wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+</code></pre><p>Install mysql-community-release-el7-5.noarch.rpm package. Noarch stands for no architecture. Like fonts, Documentations, also some packages like netconfig etc, which are not based on specific architecture.</p>
+<pre><code>rpm -ivh mysql-community-release-el7-5.noarch.rpm
+</code></pre><p>By using yum command, now we will install MySQL Server 5.6 . All dependencies will be installed itself.</p>
+<pre><code>yum install mysql mysql-server -y
+</code></pre><p>Start and enable the service,</p>
+<pre><code>systemctl start mysqld
+systemctl enable mysqld
+</code></pre><p>On newly installed MySQL Server, we generally recommend to use the command script. You have to just follow the instructions and set root password. The MySQL root user password is blank at initial.</p>
+<pre><code>mysql_secure_installation
+</code></pre><p>login using,</p>
+<pre><code>mysql -u root -p
+</code></pre><h5 id="nginx">Nginx</h5>
+<p>Let&rsquo;s Install Nginx and see a demo page with php content.</p>
+<p>NGINX is open source software for web serving, reverse proxying, caching, load balancing. In addition to its HTTP server capabilities, NGINX can also function as a proxy server for email (IMAP, POP3, and SMTP) and a reverse proxy and load balancer for HTTP, TCP, and UDP servers.</p>
+<p>Install nginx using following command,</p>
+<pre><code>yum install nginx -y
+</code></pre><p>Start and enable the service,</p>
+<pre><code>systemctl start nginx
+systemctl enable nginx
+</code></pre><p>In default it open the port 80 which is configured in its default configuration file <code>/etc/nginx/nginx.conf</code> Comment the following line,</p>
+<pre><code># server {
+   #    listen       80 default_server;
+   #      listen       [::]:80 default_server;
+   #     server_name  _;
+   #     root         /usr/share/nginx/html;
+
+   #     # Load configuration files for the default server block.
+   #     include /etc/nginx/default.d/*.conf;
+
+   #     location / {
+   #     }
+
+   #     error_page 404 /404.html;
+   #         location = /40x.html {
+   #     }
+
+   #     error_page 500 502 503 504 /50x.html;
+   #         location = /50x.html {
+   #     }
+   # }
+
+</code></pre><p>Now, make a configuration file in the path <code>/etc/nginx/conf.d/mydomain.conf</code> You can give file name as your choice with conf extension.</p>
+<pre><code>vi /etc/nginx/conf.d/mydomain.conf
+</code></pre><p>Add the following content. This will listen on port 80 and CGI pass to php listing on localhost port 9000.</p>
+<pre><code>server {
+    listen 80;
+    root /data/mydomain/www/public;
+    index index.php index.html index.htm;
+    server_name mydomain.com;
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    access_log  /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    error_page 404 /404.html;
+    error_page 500 502 503 504 /50x.html;
+
+    location = /50x.html {
+       root /data/mydomain/www/public;
+    }
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    location ~ \.php$ {
+       try_files $uri =404;
+       fastcgi_pass 127.0.0.1:9000;
+       fastcgi_index index.php;
+       fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+       include fastcgi_params;
+    }
+
+}
+
+</code></pre><p>Make directory, <code>mkdir -p /data/mydomain/www/public</code> to keep php code.</p>
+<pre><code>vi /data/mydomain/www/public/index.php
+</code></pre><p>Add following code to see a demo page.</p>
+<pre><code>&lt;?php
+$servername = &quot;localhost&quot;;
+$username = &quot;root&quot;;
+$password = &quot;password&quot;;
+
+try {
+    $conn = new PDO(&quot;mysql:host=$servername;dbname=mysql&quot;, $username, $password);
+    // set the PDO error mode to exception
+    $conn-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo &quot;Connected successfully&quot;;
+    }
+catch(PDOException $e)
+    {
+    echo &quot;Connection failed: &quot; . $e-&gt;getMessage();
+    }
+?&gt;
+
+</code></pre><p>Check nginx configuration using,</p>
+<pre><code>nginx -t
+</code></pre><p>Reload the configuration,</p>
+<pre><code>systemctl reload nginx
+</code></pre><p>Go to your browser and type your ip address. It should show following result.</p>
+<p><img src="php-mysql-browser.PNG" alt="image"></p>
+<hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<div class="edit-meta">
+<br>
+<a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/haproxy/" title="Haproxy"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Haproxy</a>
+<a class="nav nav-next" href="https://tecnep.com/hardening/" title="System Hardening">Next - System Hardening <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer>
+<p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class=""><a href="https://tecnep.com/hardening/">System Hardening</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/chrony/">NTP</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/redis/">Redis</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/mailcleaner/">Mailcleaner<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/mailcleaner/mailcleaner_config/">MailCleaner configurations</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/snmp/">SNMP</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>
+<li class=""><a href="https://tecnep.com/firewall/rich_rule/">Rich rule</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/zimbra/zimbra_tips_tricks/">Zimbra Tips &amp; Tricks</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/glassfish/">Glassfish</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/system_resources/">System Resources<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/system_resources/increase_hd/">Increase hard disk</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/tomcat/">Tomcat</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/dns/">DNS<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/useful_command/">Useful command</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/keepalive/">Keepalive</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ssl/">SSL</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/nas_san/">NAS and SAN</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/haproxy/">Haproxy</a>
+  
+</li>
+
+<li class="parent active"><a href="https://tecnep.com/php_nginx_mysql/">Php Nginx Mysql</a>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>
