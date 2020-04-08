@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Samba - Tecnep</title>
+<meta name="description" content="Share your ideas.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/samba/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="Samba" />
+<meta property="og:description" content="Share your ideas." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://tecnep.com/samba/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="og:site_name" content="tecnep.com" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
+
+<meta name="twitter:title" content="Samba"/>
+<meta name="twitter:description" content="Share your ideas."/>
+<meta itemprop="name" content="Samba">
+<meta itemprop="description" content="Share your ideas."></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+<a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
+<p class="description">Share your ideas.</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/">About</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Samba</h1><p>This tutorial we will be going through setting up SAMBA server with Window/Linux and Linux clients respectively. This article will definitely help you if you are called up for setting up file servers in enterprise environments where we will likely find different type of devices and operating systems.</p>
+<p>Our current testing environment persist of two Centos 7 boxes and one Windows 10 machine.</p>
+<pre><code>SAMBA Server : 192.168.6.232
+SAMBA Client (Linux) : 192.168.6.233
+SAMBA Client (Windows) : 10.10.16.16
+</code></pre><p>Firstly , we will need to install the samba server and samba client in the server side. SMB, which stands for Server Message Block, is a protocol for sharing files, printers, serial ports, and communications</p>
+<pre><code>yum install samba samba-client -y
+</code></pre><p>Start and enable the samba service,</p>
+<pre><code>systemctl start smb
+systemctl enable smb
+</code></pre><p>This will open port 445 and 139. You can verify it using,</p>
+<pre><code>ss -tupan|grep -i smbd
+</code></pre><p>After starting and enabling the service we will need to add the service in the firewall .</p>
+<pre><code>firewall-cmd --add service samba --permanent
+firewall-cmd --reload
+</code></pre><h5 id="configuring-samba-share">CONFIGURING SAMBA SHARE</h5>
+<p>We will need to create a folder which we want to share and also dive into the main configuration file /etc/samba/smb.conf. In this particular example we would like Harry to be given full permission where as the user Andrew to be given Read Only permission.</p>
+<ol>
+<li>CREATE A DIRECTORY YOU WANT TO SHARE</li>
+</ol>
+<pre><code>mkdir /local
+</code></pre><ol start="2">
+<li>CREATE MULTIPLE USER TO READ/WRITE</li>
+</ol>
+<pre><code>useradd harry -s /sbin/nologin
+useradd andrew -s /sbin/nologin
+</code></pre><ol start="3">
+<li>ASSIGN   SMBPASSWD TO THE USERS</li>
+</ol>
+<pre><code>smbpasswd -a harry
+New Smb Password:
+Retype new Smb Password :
+</code></pre><pre><code>smbpasswd -a andrew
+New Smb Password:
+Retype new Smb Password :
+</code></pre><ol start="4">
+<li>CHANGE SELINUX SECURITY CONTEXT TO THE SHARE DIRECTORY (only if selinux is enabled )</li>
+</ol>
+<p>We will either need to disable the selinux or set the correct security context for the file to be shared in proper way otherwise selinux will prevent user from accessing the share file.</p>
+<pre><code>chcon –t samba_share_t /local
+</code></pre><ol start="5">
+<li>CHANGE THE MAIN CONFIGURATION FILE</li>
+</ol>
+<pre><code>vim /etc/samba/smb.conf
+</code></pre><p>Add the following at the end of the file,</p>
+<pre><code>[local]
+comment = my local
+path = /local
+browseable = yes
+write list = harry
+hosts allow = 192.168.6.
+hosts deny = 192.168.6.20
+</code></pre><p>Note: In our example Write List is only given to Harry because the user Harry is only allowed to Read/Write where as for the user Andrew we will keep it as Read Only . 192.168.6. denotes the network address 192.168.6.0/24</p>
+<p>Explanation,</p>
+<pre><code>[ ]           = Share name
+comment       = Brief introduction about the share optional parameter
+path          = It specifies  absolute path of the directory
+browseable    = Either yes or no
+valid users   = To allow access of the given shared directory to the specified users only
+write list    = To allow write privilege to the given user only
+hosts deny    = To deny access of the given folder to the specified host.
+hosts allow   = To allow access of shared directory from the specified host only.
+create mask   = To force files to be created with
+</code></pre><ol start="6">
+<li>SET ACL (for the user Harry)</li>
+</ol>
+<p>We have set ACL permission of rwx to the user harry for  the folder (local) .</p>
+<pre><code>setfacl -m u:harry:rwx /local
+</code></pre><ol start="7">
+<li>VERIFY THE FILE IS BEING SHARED</li>
+</ol>
+<pre><code>smbclient -L localhost
+</code></pre><pre><code>  OR
+</code></pre>
+<pre><code>testparm
+</code></pre><h5 id="sharing-in-linux">SHARING IN LINUX</h5>
+<p>You just need to install the samba-client package</p>
+<pre><code>yum install samba-client -y
+yum install cifs-utils -y
+</code></pre><p>Create user harry and mount in his own home directory,</p>
+<pre><code>useradd harry
+passwd harry
+</code></pre><p>Create file for storing the username and password for samba client <code>/root/pass.txt</code> Or you can create in any path.</p>
+<pre><code># Write the password which you kept in the server side, No Space.
+username=harry
+password=redhat
+</code></pre><p>For permanent mount add following line in <code>/etc/fstab</code></p>
+<pre><code>//192.168.6.232/local        /home/harry/local   cifs    credentials=/root/pass.txt,sec=ntlmssp  0 0
+</code></pre><p>Mount it,</p>
+<pre><code>mount -a
+</code></pre><p>Switch to user harry and add the server,</p>
+<pre><code>su - harry
+cd local
+echo &quot;test&quot; &gt; hello.txt
+</code></pre><p>Then Harry can create a file inside /home/harry/local which is the folder where we have mounted for  sambaserver/local .</p>
+<h5 id="mounting-the-samba-share-in-windows">MOUNTING THE SAMBA SHARE IN WINDOWS</h5>
+<p>The folder can also be shared in windows which we have already discussed about it earlier. In order to mount the folder in Windows PC go to MY PC and the choose Computer then map the network drive .
+<img src="windows_share_step_1.PNG" alt="image"></p>
+<p>After that we will need to assign a letter for the drive to be mapped check the box where it is written &ldquo;Connect using different credentials&rdquo;.
+<img src="windows_share_step_2.PNG" alt="image"></p>
+<p>Give username and password,</p>
+<p><img src="windows_share_step_3.PNG" alt="image"></p>
+<p>Finally you can see a drive is mounted.</p>
+<hr>
+<p>Sushant Joshi</p>
+<div class="edit-meta">
+<br>
+<a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/exchnage/" title="Exchange"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Exchange</a>
+<a class="nav nav-next" href="https://tecnep.com/hardening/" title="System Hardening">Next - System Hardening <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer>
+<p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class=""><a href="https://tecnep.com/hardening/">System Hardening</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/chrony/">NTP</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/redis/">Redis</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/mailcleaner/">Mailcleaner<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/mailcleaner/mailcleaner_config/">MailCleaner configurations</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/snmp/">SNMP</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>
+<li class=""><a href="https://tecnep.com/firewall/rich_rule/">Rich rule</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/zimbra/zimbra_tips_tricks/">Zimbra Tips &amp; Tricks</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/glassfish/">Glassfish</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/system_resources/">System Resources<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/system_resources/increase_hd/">Increase hard disk</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/tomcat/">Tomcat</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/dns/">DNS<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/useful_command/">Useful command</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/keepalive/">Keepalive</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ssl/">SSL</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/nas_san/">NAS and SAN</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/haproxy/">Haproxy</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/php_nginx_mysql/">Php Nginx Mysql</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/exchnage/">Exchange</a>
+  
+</li>
+
+<li class="parent active"><a href="https://tecnep.com/samba/">Samba</a>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

@@ -92,7 +92,13 @@ systemctl enable mysqld
 <pre><code>mysql_secure_installation
 </code></pre><p>login using,</p>
 <pre><code>mysql -u root -p
-</code></pre><h5 id="nginx">Nginx</h5>
+</code></pre><p>In our example, we will create database user &lsquo;priya&rsquo; and assign all privileges to database &lsquo;store&rsquo;.</p>
+<pre><code>create database store;
+CREATE USER 'priya'@'localhost' IDENTIFIED BY 'passwd';
+GRANT ALL PRIVILEGES ON store.* TO 'priya'@'localhost';
+flush privilages;
+</code></pre><p>Type quit to exit.</p>
+<h5 id="nginx">Nginx</h5>
 <p>Let&rsquo;s Install Nginx and see a demo page with php content.</p>
 <p>NGINX is open source software for web serving, reverse proxying, caching, load balancing. In addition to its HTTP server capabilities, NGINX can also function as a proxy server for email (IMAP, POP3, and SMTP) and a reverse proxy and load balancer for HTTP, TCP, and UDP servers.</p>
 <p>Install nginx using following command,</p>
@@ -161,11 +167,11 @@ systemctl enable nginx
 </code></pre><p>Add following code to see a demo page.</p>
 <pre><code>&lt;?php
 $servername = &quot;localhost&quot;;
-$username = &quot;root&quot;;
-$password = &quot;password&quot;;
+$username = &quot;priya&quot;;
+$password = &quot;passwd&quot;;
 
 try {
-    $conn = new PDO(&quot;mysql:host=$servername;dbname=mysql&quot;, $username, $password);
+    $conn = new PDO(&quot;mysql:host=$servername;dbname=store&quot;, $username, $password);
     // set the PDO error mode to exception
     $conn-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo &quot;Connected successfully&quot;;
@@ -189,7 +195,7 @@ catch(PDOException $e)
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
 </div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/haproxy/" title="Haproxy"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Haproxy</a>
-<a class="nav nav-next" href="https://tecnep.com/hardening/" title="System Hardening">Next - System Hardening <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+<a class="nav nav-next" href="https://tecnep.com/exchnage/" title="Exchange">Next - Exchange <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>
 <p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
 </footer>
@@ -291,6 +297,14 @@ catch(PDOException $e)
 </li>
 
 <li class="parent active"><a href="https://tecnep.com/php_nginx_mysql/">Php Nginx Mysql</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/exchnage/">Exchange</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/samba/">Samba</a>
   
 </li>
 </ul>
