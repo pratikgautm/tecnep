@@ -43,19 +43,57 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Exchange</h1><p>Introduction</p>
+<main><h1>Exchange</h1><p>Microsoft Exchange is Microsoft&rsquo;s mail server and calendaring. It runs on Windows Server operating systems and need Active directory domain service, DNS and Internet Information Service. The exchange 2013 is 64bit and comes in two editions. Standard edition which limits to five mounted database where as enterprise enable up to 500 mounted database. Microsoft release cumulative update of exchange server in every three months. Basically, it provides two roles, mail box server and client access server role.</p>
+<p>Let us discuss its important terminologies and their uses.</p>
 <h5 id="mailbox-enabled-user">Mailbox enabled user</h5>
+<p>They are the users having account in Active Directory (AD) and also having mail box who can send and receive email. You can create mailbox user from Exchange control panel (ecp). Goto reception &gt; mailbox &gt; + &gt; user mailbox. Then give user email id, you can add a new user of provide mailbox to existing user from Active directory also.</p>
+<p><img src="mailbox_user.png" alt="image"></p>
 <h5 id="mail-enabled-user">Mail enabled user</h5>
+<p>They are the users only having account in Active Directory (AD) and need external mail box to send and receive email. Such type of user are  created for vender, stake holder of the organization. Goto reception &gt; contacts &gt; + &gt; Mail user. Then give user external email id, you can add a new user of provide mailbox to existing user from Active directory also. But these user will not have storage for email (mailbox) here.</p>
+<p><img src="mail_user.png" alt="image"></p>
 <h5 id="rule-based-access-control">Rule Based access control</h5>
+<p>Rule Based access control (RBAC) are the rules that defines who can access what. Assigning a user to view audit log or generating reports, enabling admin user to create and modify mailbox are the example of rule based access control.</p>
+<p><img src="rbac.png" alt="image"></p>
+<p>Visiting to Permission tab, you can create access control rules. These rules can be applied for admin or users. Select of add rules and configure it. You need to assign roles and members for specific rules set.</p>
 <h5 id="room-mail-box">Room Mail Box</h5>
-<h5 id="mail-flow">Mail flow</h5>
+<p>A room mailbox is a resource mailbox that&rsquo;s assigned to a physical location, such as a conference room, an auditorium, or a training room. With room mailboxes, users can easily reserve these rooms by including room mailboxes in their meeting requests.</p>
+<p><img src="room_mailbox.png" alt="image"></p>
+<p>Goto reception &gt; resources &gt; + &gt; Room mailbox. Give Room name, organizational unit who can book and use the room. Also provide location, phone and capacity of the room.</p>
 <h5 id="journaling">Journaling</h5>
+<p>A method that perform backup and logging of all copies of email sent to or from specific users. Even if a email is deleted, journaling system has access to the original content.</p>
+<p><img src="journal_rules.png" alt="image"></p>
+<p>To set journal rule, you need to go to compliance management and choose journal tab. Put email address in the box <code>send journal report to</code> which you want to receive email. Give a name and specify either to choose a specific group or all the messages. You need premium license to journal all the emails.</p>
 <h5 id="accepted-domain">Accepted Domain</h5>
+<p>Accepted domains is an SMTP namespace that the Exchange organization can send and receive email for.</p>
+<p><img src="accepted_domain.png" alt="image"></p>
+<p>You can see in above description of what authoritative, internal and external relay is for.</p>
 <h5 id="connectors">Connectors</h5>
+<p>Connector is like next hub for email to send from exchange. It is of two types <code>send connector</code> and <code>receive connector</code>. When you first install exchange, you need to configure send connector to send email to the public domain.</p>
+<p>To create send connector, Go to mail flow &gt; send connector &gt; + . Give Suitable name and choose <code>Internet</code>. Click on Next.
+<img src="send_connector.png" alt="image"></p>
+<p>Choose <code>Route mail through smart host</code> and click on Next.</p>
+<p><img src="route_smart_host.png" alt="image"></p>
+<p>Enter <code>*</code> and click on Save.</p>
+<p><img src="smart_host.PNG" alt="image"></p>
 <h5 id="global-catalog-server">Global Catalog Server</h5>
+<p>Global catalog server are important component of Active Directory service. It provides other services like Exchange to search for and locate objects from any domain in the forest. In your domain of servers, first domain controller will be auto assigned as Global Catalog server. At the time of authentication, identify of domain  is provided by GC server. Exchange depends on Catalog server for email lookup and other email data. So, there must be one GC server for the operation of Exchange.</p>
 <h5 id="exchange-active-sync">Exchange Active Sync</h5>
+<p>Exchange ActiveSync is an Exchange synchronization protocol based on HTTP and XML, lets mobile phones access an organization&rsquo;s information on a server that&rsquo;s running Microsoft Exchange. Exchange ActiveSync lets mobile phone users access their email, calendar, contacts, and tasks, and lets them continue to access this information when they&rsquo;re working offline.</p>
 <h5 id="important-command">Important Command</h5>
-<hr>
+<p>Use Exchange Management Shell to execute following commands.</p>
+<p>Get Exchange information</p>
+<pre><code>Get-ExchangeServer | Format-List
+</code></pre><p>Get first 30 mail box which are occupying maximum storage</p>
+<pre><code>Get-Mailbox -ResultSize Unlimited | Get-MailboxStatistics | Sort-Object TotalItemSize -Descending | Select-Object DisplayName,TotalItemSize -First 30
+</code></pre><p>Get internal and external URL</p>
+<pre><code>Get-ECPvirtualDirectory | Format-List Name, InternalURL, ExternalURL
+</code></pre><p>Get server componets states</p>
+<pre><code>Get-ServerComponentState -Identity  MX-04
+</code></pre><p>Restart ImapProxy service / Set the ImapProxy state to active</p>
+<pre><code>Set-ServerComponentState -Identity MX-04 -Component ImapProxy -Requester HealthAPI -State Active
+</code></pre><p>Set the PopProxy state to active / Restart ImapProxy service</p>
+<pre><code>Set-ServerComponentState -Identity MX-04 -Component PopProxy -Requester HealthAPI -State Active
+</code></pre><hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
 <div class="edit-meta">

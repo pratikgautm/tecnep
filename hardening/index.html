@@ -105,8 +105,13 @@ Welcome to TecNep.com
 All connections are monitored and recorded
 Disconnect IMMEDIATELY if you are not an authorized user!            			
 ############################################################
-</code></pre><p>You need to add Banner <code>/etc/issue.net</code> in <code>/etc/ssh/sshd_config</code></p>
-<h4 id="password-policy">Password Policy</h4>
+</code></pre><p>You need to add following line in <code>/etc/ssh/sshd_config</code></p>
+<pre><code>Banner /etc/issue.net
+</code></pre><p>Check sshd configuration, it should say nothing , if everything is correct.</p>
+<pre><code>sshd -t
+</code></pre><p>Restart ssh service</p>
+<pre><code>systemctl restart sshd
+</code></pre><h4 id="password-policy">Password Policy</h4>
 <p><em>Minimum length of a password – 8</em></p>
 <p><em>Require at least one lowercase and one uppercase characters in a password.</em></p>
 <p><em>Require at least one digit in a password.</em></p>
@@ -196,7 +201,7 @@ net.ipv6.conf.default.accept_redirects = 0
 #a list of addresses, that tells a router the path the packet must take. 	
 net.ipv4.conf.all.accept_source_route = 0
 net.ipv4.conf.default.accept_source_route = 0
-et.ipv6.conf.all.accept_source_route = 0
+net.ipv6.conf.all.accept_source_route = 0
 
 # Enable source validation by reversed path
 #Reverse path filtering is a mechanism adopted by the Linux kernel, as well as most of
