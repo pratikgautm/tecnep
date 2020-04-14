@@ -3,11 +3,11 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Tomcat - Tecnep</title>
+<title>Backup - Tecnep</title>
 <meta name="description" content="Share your ideas.">
 <meta name="generator" content="Hugo 0.68.0" />
 <link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
-<link rel="canonical" href="https://tecnep.com/tomcat/">
+<link rel="canonical" href="https://tecnep.com/zimbra/backup/">
 <link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
 <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
@@ -16,19 +16,32 @@
 <script src="https://tecnep.com/js/bundle.js"></script><style>
 :root {--custom-background-color: #52555B;}
 </style>
-<meta property="og:title" content="Tomcat" />
-<meta property="og:description" content="Share your ideas." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://tecnep.com/tomcat/" />
+<meta property="og:title" content="Backup" />
+<meta property="og:description" content="Zimbra mailbox can be backup using command zmmailbox. The script backup mailbox for all accounts.
+#!/bin/bash FILE=/tmp/list_account DATE=$(date &#43;&quot;%a&quot;) ZMBOX=/opt/zimbra/bin/zmmailbox while read account do echo &quot;---Generating files from backup $account ---&quot; $ZMBOX -z -m $account -t 0 getRestURL &quot;//?fmt=zip&quot; &gt; /tmp/$acount.$DATE.zip done &lt; $FILE The script restore mailbox for all accounts
+#!/bin/bash FILE=/tmp/list_account DATE=$(date &#43;&quot;%a&quot;) ZMBOX=/opt/zimbra/bin/zmmailbox while read account do echo &quot;---Restoring files from backup $account---&quot; $ZMBOX -z -m $account -t 0 postRestURL &quot;//?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tecnep.com/zimbra/backup/" />
 <meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
 <meta property="og:site_name" content="tecnep.com" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
-<meta name="twitter:title" content="Tomcat"/>
-<meta name="twitter:description" content="Share your ideas."/>
-<meta itemprop="name" content="Tomcat">
-<meta itemprop="description" content="Share your ideas."></head>
+<meta name="twitter:title" content="Backup"/>
+<meta name="twitter:description" content="Zimbra mailbox can be backup using command zmmailbox. The script backup mailbox for all accounts.
+#!/bin/bash FILE=/tmp/list_account DATE=$(date &#43;&quot;%a&quot;) ZMBOX=/opt/zimbra/bin/zmmailbox while read account do echo &quot;---Generating files from backup $account ---&quot; $ZMBOX -z -m $account -t 0 getRestURL &quot;//?fmt=zip&quot; &gt; /tmp/$acount.$DATE.zip done &lt; $FILE The script restore mailbox for all accounts
+#!/bin/bash FILE=/tmp/list_account DATE=$(date &#43;&quot;%a&quot;) ZMBOX=/opt/zimbra/bin/zmmailbox while read account do echo &quot;---Restoring files from backup $account---&quot; $ZMBOX -z -m $account -t 0 postRestURL &quot;//?"/>
+<meta itemprop="name" content="Backup">
+<meta itemprop="description" content="Zimbra mailbox can be backup using command zmmailbox. The script backup mailbox for all accounts.
+#!/bin/bash FILE=/tmp/list_account DATE=$(date &#43;&quot;%a&quot;) ZMBOX=/opt/zimbra/bin/zmmailbox while read account do echo &quot;---Generating files from backup $account ---&quot; $ZMBOX -z -m $account -t 0 getRestURL &quot;//?fmt=zip&quot; &gt; /tmp/$acount.$DATE.zip done &lt; $FILE The script restore mailbox for all accounts
+#!/bin/bash FILE=/tmp/list_account DATE=$(date &#43;&quot;%a&quot;) ZMBOX=/opt/zimbra/bin/zmmailbox while read account do echo &quot;---Restoring files from backup $account---&quot; $ZMBOX -z -m $account -t 0 postRestURL &quot;//?">
+
+<meta itemprop="wordCount" content="78">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
 <body><div class="container"><header>
 <h1>Tecnep</h1>
 <a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
@@ -43,30 +56,36 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Tomcat</h1><p>Tomcat is open source servlet container. Tomcat provides a &ldquo;pure Java&rdquo; HTTP web server environment in which Java code can run. Tomcat is developed and maintained by Apache Software Foundation.</p>
-<h5 id="servlet">Servlet</h5>
-<p>Servlet are Java class which responds to a particular type of network request - commonly HTTP request. It run in a servlet-container which handles the networking side, parsing HTTP request, connection handling etc.</p>
-<h5 id="directive-and-files-of-tomcat">Directive and files of Tomcat</h5>
-<p>The following are the most important folder of Tomcat</p>
-<p><code>bin</code> :  Startup, shutdown and other scripts</p>
-<p><code>conf</code> :  server.xml and other configuration files</p>
-<p><code>logs</code> : All the logs file, catalina.out, access logs</p>
-<p><code>webapps</code> : web applications and .war deployment files</p>
-<h5 id="cgi-and-servlet">CGI and servlet</h5>
-<p><code>CGI</code></p>
-<p>For each request CGI server receive, it creates new operating system process.</p>
-<p><img src="cgi.PNG" alt="image"></p>
-<p><code>Servlet</code></p>
-<p>All the request coming from the client are processed with thread of the OS process.</p>
-<p><img src="servlet.PNG" alt="image"></p>
-<hr>
-<p>Pratik Gautam
-<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<main><h1>Backup</h1>
+<p>Zimbra mailbox can be backup using command zmmailbox.
+The script backup mailbox for all accounts.</p>
+<pre><code>#!/bin/bash
+FILE=/tmp/list_account
+DATE=$(date +&quot;%a&quot;)
+ZMBOX=/opt/zimbra/bin/zmmailbox
+while read account
+do
+     echo &quot;---Generating files from backup $account ---&quot;
+
+     $ZMBOX -z -m $account -t 0 getRestURL &quot;//?fmt=zip&quot; &gt; /tmp/$acount.$DATE.zip
+
+done &lt; $FILE
+</code></pre><p>The script restore mailbox for all accounts</p>
+<pre><code>#!/bin/bash
+FILE=/tmp/list_account
+DATE=$(date +&quot;%a&quot;)
+ZMBOX=/opt/zimbra/bin/zmmailbox
+while read account
+do
+    echo &quot;---Restoring files from backup $account---&quot;
+    $ZMBOX -z -m $account -t 0 postRestURL &quot;//?fmt=zip&amp;resolve=reset&quot; /tmp/$account.$DATE.zip
+done &lt; $FILE
+</code></pre><hr>
 <div class="edit-meta">
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
-</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/system_resources/increase_hd/" title="Increase hard disk"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Increase hard disk</a>
-<a class="nav nav-next" href="https://tecnep.com/dns/" title="DNS">Next - DNS <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/zimbra/zimbra_tips_tricks/" title="Zimbra Tips &amp; Tricks"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Zimbra Tips &amp; Tricks</a>
+<a class="nav nav-next" href="https://tecnep.com/glassfish/" title="Glassfish">Next - Glassfish <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>
 <p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
 </footer>
@@ -113,11 +132,11 @@
   
 </li>
 
-<li class=" has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark closed">+</span></a>
+<li class="parent has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark opened">-</span></a>
   
 <ul class="sub-menu">
 <li class=""><a href="https://tecnep.com/zimbra/zimbra_tips_tricks/">Zimbra Tips &amp; Tricks</a></li>
-<li class=""><a href="https://tecnep.com/zimbra/backup/">Backup</a></li>
+<li class="active"><a href="https://tecnep.com/zimbra/backup/">Backup</a></li>
 </ul>
   
 </li>
@@ -134,7 +153,7 @@
   
 </li>
 
-<li class="parent active"><a href="https://tecnep.com/tomcat/">Tomcat</a>
+<li class=""><a href="https://tecnep.com/tomcat/">Tomcat</a>
   
 </li>
 
