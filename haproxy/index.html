@@ -43,83 +43,101 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Haproxy</h1><h5 id="introduction">Introduction</h5>
+<main><h1>Haproxy</h1><p>HAProxy is a free, very fast and reliable solution offering high availability, load balancing, and proxying for TCP and HTTP-based applications. It is particularly suited for very high traffic web sites and powers quite a number of the world&rsquo;s most visited ones.
+IT is reverse proxy which can route HTTP request, add modify HTTP headers, block request matching a particular pattern. It provide security to the backend servers.</p>
 <h5 id="tcp-and-http-mode">TCP and HTTP mode</h5>
-<h5 id="supported-algorithm">Supported Algorithm</h5>
-<h5 id="heading"></h5>
-<p>HAproxy
-HAProxy is a free, very fast and reliable solution offering high availability, load balancing, and proxying for TCP and HTTP-based applications. It is particularly suited for very high traffic web sites and powers quite a number of the world&rsquo;s most visited ones.
-IT is reverse proxy which can route HTTP request, add modify HTTP headers, block request matching a particular pattern. It provide security to the backend servers.
-HAproxy TCP and http mode
-HTTP mode : 	- does evaluate http header packet</p>
+<p><strong>HTTP mode</strong> :</p>
 <ul>
+<li>does evaluate http header packet</li>
 <li>for web service use this mode</li>
-<li>this mode parse before forwarding them to the application server
-TCP mode : 	- doesn’t evaluate http header packet
-- for use of mail, redis server load balancing
-- this mode send raw TCP packet from client to application server.
-Algorithm supported
-Round Robin: This algorithm is the most commonly implemented. It works by using each server behind the load balancer in turns, according to their weights. It’s also probably the smoothest and most fair algorithm as the servers’ processing time stays equally distributed. As a dynamic algorithm, Round Robin allows server weights to be adjusted on the go.
-Static Round Robin: Similar to Round Robin, each server is used in turns per their weights. Unlike Round Robin though, changing server weight on the fly is not an option. There are, however, no design limitations as far as the number of servers is concerned. When a server goes up, it will always be immediately reintroduced into the farm once the full map is recomputed.
-Least Connections: With this algorithm, the server with the lowest number of connections receives the connection. This type of load balancing is recommended when very long sessions are expected, such as LDAP, SQL, TSE, etc. It’s not, however, well-suited for protocols using short sessions such as HTTP. This algorithm is also dynamic like Round Robin.
-Source: This algorithm hashes the source IP and divides it by the total weight of running servers. The same client IP always reaches the same server as long as no server goes down or up. If the hash result changes due to the changing number of running servers, clients are directed to a different server. This algorithm is generally used in TCP mode where cookies cannot be inserted. It’s also static by default.
-URI: This algorithm hashes either the left part of the URI, or the whole URI and divides the hash value by the total weight of running servers. The same URI is always directed to the same server as long as no servers go up or down. It’s also a static algorithm and works the same way as the Source algorithm.
-URL Parameter: This static algorithm can only be used on an HTTP backend. The URL parameter that’s specified is looked up in the query string of each HTTP GET request. If the parameter that’s found is followed by an equal sign and value, the value is hashed and divided by the total weight of running servers.</li>
+<li>this mode parse before forwarding them to the application server</li>
 </ul>
-<p>Haproxy  basic configuration for balancing two back end server with round robin</p>
-<p>global
-log 127.0.0.1 local2
-log 127.0.0.1 local1 notice
-chroot /var/lib/haproxy
-user haproxy
-group haproxy
-maxconn 4096
-daemon</p>
-<p>defaults</p>
-<pre><code>    log global
-    mode http
-    option httplog
-    option dontlognull
-    timeout connect 100s
-    timeout client  1
-    timeout server 100s
-</code></pre>
-<p>frontend main
-bind *:80
-default_backend main</p>
-<p>backend main
-balance roundrobin
-mode http</p>
-<pre><code>    server user85 192.168.219.85:8080 check cookie user85
-    server user94 192.168.219.94:8080 check cookie user94
-</code></pre>
-<p>#enabling stat page for graphical view<br>
+<p><strong>TCP mode</strong></p>
+<ul>
+<li>doesn’t evaluate http header packet</li>
+<li>for use of mail, redis server load balancing</li>
+<li>this mode send raw TCP packet from client to application server.</li>
+</ul>
+<h5 id="supported-algorithm">Supported Algorithm</h5>
+<p><em><strong>Round Robin</strong></em>
+This algorithm is the most commonly implemented. It works by using each server behind the load balancer in turns, according to their weights. It’s also probably the smoothest and most fair algorithm as the servers’ processing time stays equally distributed. As a dynamic algorithm, Round Robin allows server weights to be adjusted on the go.</p>
+<p><em><strong>Static Round Robin</strong></em>
+Similar to Round Robin, each server is used in turns per their weights. Unlike Round Robin though, changing server weight on the fly is not an option. There are, however, no design limitations as far as the number of servers is concerned. When a server goes up, it will always be immediately reintroduced into the farm once the full map is recomputed.</p>
+<p><em><strong>Least Connections</strong></em>
+With this algorithm, the server with the lowest number of connections receives the connection. This type of load balancing is recommended when very long sessions are expected, such as LDAP, SQL, TSE, etc. It’s not, however, well-suited for protocols using short sessions such as HTTP. This algorithm is also dynamic like Round Robin.</p>
+<p><em><strong>Source</strong></em>
+This algorithm hashes the source IP and divides it by the total weight of running servers. The same client IP always reaches the same server as long as no server goes down or up. If the hash result changes due to the changing number of running servers, clients are directed to a different server. This algorithm is generally used in TCP mode where cookies cannot be inserted. It’s also static by default.</p>
+<p><em><strong>URI</strong></em>
+This algorithm hashes either the left part of the URI, or the whole URI and divides the hash value by the total weight of running servers. The same URI is always directed to the same server as long as no servers go up or down. It’s also a static algorithm and works the same way as the Source algorithm.</p>
+<p><em><strong>URL Parameter</strong></em>
+This static algorithm can only be used on an HTTP backend. The URL parameter that’s specified is looked up in the query string of each HTTP GET request. If the parameter that’s found is followed by an equal sign and value, the value is hashed and divided by the total weight of running servers.</p>
+<h5 id="installation">Installation</h5>
+<h5 id="configuration">Configuration</h5>
+<p>figure</p>
+<pre><code>global
+        log 127.0.0.1 local2
+        log 127.0.0.1 local1 notice
+        chroot /var/lib/haproxy
+        user haproxy
+        group haproxy
+        maxconn 4096
+        daemon
+
+
+defaults
+
+        log global
+        mode http
+        option httplog
+        option dontlognull
+        timeout connect 100s
+        timeout client  1
+        timeout server 100s
+
+
+frontend main
+        bind *:80
+        default_backend main
+
+
+backend main
+        balance roundrobin
+        mode http
+
+        server user85 192.168.219.85:8080 check cookie user85
+        server user94 192.168.219.94:8080 check cookie user94
+
+
+#enabling stat page for graphical view  
 listen stat
-bind :9000
-stats enable
-stats uri /stats
-stats auth admin:admin</p>
-<p>Login to syslog
-To have these messages end up in - for example - /var/log/haproxy.log you will need to do two things:
-•	configure your syslog to accept network logs - at least on localhost
+        bind :9000
+        stats enable
+        stats uri /stats
+        stats auth admin:admin
+</code></pre><p>Let us overview block one by one. The first block <code>global</code></p>
+<h5 id="login-to-syslog">Login to syslog</h5>
+<p>To see log you need to confure syslog. (Befor Haproxy 2.0)
+Let us configure haproxy log to see in  <code>/var/log/haproxy</code>. Do the following two things:-</p>
+<pre><code>•	configure your syslog to accept network logs - at least on localhost
 •	configure haproxy to send events to 127.0.0.1 on local2/local3 or any such facility
-So, your haproxy.cfgs global section would look something like:
-global
-log         127.0.0.1 local2 notice
-log         127.0.0.1 local3
-While your syslog.conf should look like:
+</code></pre><p>So, your haproxy.cfgs global section would look something like:</p>
+<pre><code>global
+    log         127.0.0.1 local2 notice
+    log         127.0.0.1 local3
+</code></pre><p>While your <code>syslog.conf</code> should look like:</p>
+<pre><code>local2.*        /var/log/haproxy
+local3.*        /var/log/haproxy-access_log
+</code></pre><p>If you use modern distro with rsyslog, then just create a file called <code>/etc/rsyslog.d/haproxy.conf</code> with following contents:</p>
+<pre><code>$ModLoad imudp
+$UDPServerAddress 127.0.0.1
+$UDPServerRun 514
+
 local2.*        /var/log/haproxy
 local3.*        /var/log/haproxy-access_log
-If you use modern distro with rsyslog, then just create a file called
-/etc/rsyslog.d/haproxy.conf
-with following contents:
-$ModLoad imudp
-$UDPServerAddress 127.0.0.1
-$UDPServerRun 514</p>
-<p>local2.*        /var/log/haproxy
-local3.*        /var/log/haproxy-access_log
-And after that restart rsyslogd and haproxy.</p>
-<p>HAproxy ACL
+</code></pre><p>Restart rsyslogd and haproxy</p>
+<pre><code>systemctl restart rsyslogd
+systemctl restart haproxy
+</code></pre><p>HAproxy ACL
 <a href="https://www.haproxy.com/blog/introduction-to-haproxy-acls/">https://www.haproxy.com/blog/introduction-to-haproxy-acls/</a>
 SSL
 <a href="https://serversforhackers.com/c/using-ssl-certificates-with-haproxy">https://serversforhackers.com/c/using-ssl-certificates-with-haproxy</a>
@@ -245,6 +263,10 @@ Cookie in haproxy
 </li>
 
 <li class=""><a href="https://tecnep.com/samba/">Samba</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/vmware/">Vmware</a>
   
 </li>
 </ul>

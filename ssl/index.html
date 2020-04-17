@@ -43,17 +43,58 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>SSL</h1><h5 id="digital-certificates">Digital Certificates</h5>
-<h5 id="cryptographic-hash-function">Cryptographic Hash function</h5>
-<h5 id="symmetric-encryption">Symmetric Encryption</h5>
-<h5 id="asymmetric-encryption">Asymmetric Encryption</h5>
-<h5 id="ssl-certificates">SSL Certificates</h5>
-<h5 id="ssl-certificate-file-types">SSL Certificate file types</h5>
-<h5 id="ssl-certificate-in-nginx">SSL certificate in Nginx</h5>
-<h5 id="ssl-certificate-in-haproxy">SSL certificate in Haproxy</h5>
+<main><h1>SSL</h1><p>An SSL Certificate (Secure Sockets Layer), also called a Digital Certificate, creates a secure link between a website and a visitor&rsquo;s browser. By ensuring that all data passed between the two remains private and secure, SSL encryption prevents hackers from stealing private information such as credit card numbers, names and addresses.</p>
+<h5 id="why-ssl-certificate">Why SSL certificate?</h5>
+<p>•	SSL Encrypts Sensitive Information</p>
+<p>•	SSL Provides Authentication</p>
+<p>•	SSL Provides Trust</p>
+<h5 id="how-ssl-certificate-works">How SSL certificate Works?</h5>
+<p><img src="how_ssl_work.jpg" alt="image"></p>
+<p>•	A browser or server attempts to connect to a website (i.e. a web server) secured with SSL. The browser/server requests that the web server identify itself.</p>
+<p>•	The web server sends the browser/server a copy of its SSL certificate.</p>
+<p>•	The browser/server checks to see whether or not it trusts the SSL certificate. If so, it sends a message to the web server.</p>
+<p>•	The web server sends back a digitally signed acknowledgement to start an SSL encrypted session.</p>
+<p>•	Encrypted data is shared between the browser/server and the web server.</p>
+<h5 id="types-of-ssltls-certificates">Types of SSL/TLS Certificates</h5>
+<p><em><strong>Extended Validation (EV) Certificates</strong></em>
+EV certificates are distinguished with a locked padlock, organization name and sometimes the country ID in the web address bar in most major browsers.</p>
+<p><img src="ev.png" alt="image"></p>
+<p><em><strong>Organization Validated (OV) Certificates</strong></em>
+For OV certificates, in addition to domain ownership, the organization is validated and the certificate details can be viewed on most major web browsers, giving online users the opportunity to determine if the site they’re on is legitimate.</p>
+<p><em><strong>Domain Validated (DV) Certificates</strong></em>
+A website secured with a DV certificate offers only a locked padlock in address bar, but does not show organization details because they do not exist. These certificates validate domain ownership only, can be acquired anonymously, and do not tie a domain to a person, place or entity.</p>
+<p><img src="dv.png" alt="image"></p>
+<h5 id="csr-key">CSR key</h5>
+<p>•	A CSR is a block of encoded text that is given to a Certificate Authority when applying for an SSL Certificate.</p>
+<p>•	It is usually generated on the server where the certificate will be installed and contains information that will be included in the certificate such as the organization name, common name (domain name), locality, and country.</p>
+<p>•	It also contains the public key that will be included in the certificate.</p>
+<p>•	A private key is usually created at the same time that you create the CSR, making a key pair.</p>
+<p><em>What is contained in a CSR</em>?</p>
+<pre><code>Common Name	 
+Organization Name
+Organizational Unit
+City /Locality
+State/ Country
+Email Address
+</code></pre><p><em>How do I generate a CSR and private key?</em></p>
+<p>Use following command using openssl</p>
+<pre><code>openssl req -new -newkey rsa:2048 -nodes -out servername.csr -keyout servername.key
+</code></pre><p><em>What is Private Key in SSL</em>?</p>
+<p>It’s what gives you the power to authenticate your website to internet users, helps to enable encryption and prevents others from impersonating you.</p>
+<p><em>How does a Private Key work with SSL</em>?</p>
+<p>During the handshake process, the private key and its public counterpart are used for authentication. A user’s web browser will use the public key to decrypt the digital signature left by the private key. If it’s readable, the signature is authenticated and secure connection can be negotiated.</p>
+<h5 id="ssl-certificate-extensions">SSL certificate Extensions.</h5>
+<p>.DER = The DER extension is used for binary DER encoded certificates</p>
+<p>.PEM = The PEM extension is used for different types of X.509v3 files which contain ASCII (Base64) armored data</p>
+<p>.RT = The CRT extension is used for certificates. The certificates may be encoded as binary DER or as ASCII PEM</p>
+<p>.CER = alternate form of .crt</p>
+<p>.KEY = The KEY extension is used both for public and private PKCS#8 keys.</p>
+<p><em>What is Bundle</em>?</p>
+<p>•	Bundle is a file that contains root and intermediate certificates.</p>
+<p>•	The chain is required to improve compatibility of the certificates with web browsers and other kind of clients so that browsers recognize your certificate and no security warnings appear.</p>
 <hr>
-<p>Pratik Gautam
-<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<p>Aayush koirala
+<a href="mailto:koiralaaayush20@gmail.com">koiralaaayush20@gmail.com</a></p>
 <div class="edit-meta">
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
@@ -169,6 +210,10 @@
 </li>
 
 <li class=""><a href="https://tecnep.com/samba/">Samba</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/vmware/">Vmware</a>
   
 </li>
 </ul>

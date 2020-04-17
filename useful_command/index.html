@@ -195,7 +195,36 @@ ssh-keygen -R host_ip_address
 r = recursive into directories
 t = preserve modification time
 v = verbose
-</code></pre><hr>
+</code></pre><h5 id="teaming">Teaming</h5>
+<p>[root@node1 ~]# cat /etc/sysconfig/network-scripts/ifcfg-em1
+TYPE=Ethernet
+NAME=em1
+DEVICE=em1
+ONBOOT=yes
+MASTER=bond0
+SLAVE=yes</p>
+<p>[root@node1~]# cat /etc/sysconfig/network-scripts/ifcfg-em2
+TYPE=Ethernet
+NAME=em2
+DEVICE=em2
+ONBOOT=yes
+MASTER=bond0
+SLAVE=yes</p>
+<p>[root@node1]# cat /etc/sysconfig/network-scripts/ifcfg-bond0
+DEVICE=bond0
+BONDING_OPTS=&quot;miimon=1 updelay=0 downdelay=0 mode=active-backup&rdquo; TYPE=Bond
+BONDING_MASTER=yes
+BOOTPROTO=static
+IPADDR=10.20.20.50
+PREFIX=24
+GATEWAY=10.20.20.1
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+NAME=bond0
+ONBOOT=yes
+DNS1=10.10.10.100
+DNS2=10.10.10.101</p>
+<hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
 <div class="edit-meta">
@@ -313,6 +342,10 @@ v = verbose
 </li>
 
 <li class=""><a href="https://tecnep.com/samba/">Samba</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/vmware/">Vmware</a>
   
 </li>
 </ul>

@@ -3,11 +3,11 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Firewall - Tecnep</title>
+<title>vSwitch - Tecnep</title>
 <meta name="description" content="Share your ideas.">
 <meta name="generator" content="Hugo 0.68.0" />
 <link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
-<link rel="canonical" href="https://tecnep.com/firewall/">
+<link rel="canonical" href="https://tecnep.com/vmware/vswitch/">
 <link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
 <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
@@ -16,19 +16,26 @@
 <script src="https://tecnep.com/js/bundle.js"></script><style>
 :root {--custom-background-color: #52555B;}
 </style>
-<meta property="og:title" content="Firewall" />
-<meta property="og:description" content="Share your ideas." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://tecnep.com/firewall/" />
+<meta property="og:title" content="vSwitch" />
+<meta property="og:description" content="Pratik Gautam pratikgautm@gmail.com" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tecnep.com/vmware/vswitch/" />
 <meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
-<meta property="og:updated_time" content="2019-12-08T13:41:34+05:45" /><meta property="og:site_name" content="tecnep.com" />
+<meta property="og:site_name" content="tecnep.com" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
-<meta name="twitter:title" content="Firewall"/>
-<meta name="twitter:description" content="Share your ideas."/>
-<meta itemprop="name" content="Firewall">
-<meta itemprop="description" content="Share your ideas."></head>
+<meta name="twitter:title" content="vSwitch"/>
+<meta name="twitter:description" content="Pratik Gautam pratikgautm@gmail.com"/>
+<meta itemprop="name" content="vSwitch">
+<meta itemprop="description" content="Pratik Gautam pratikgautm@gmail.com">
+
+<meta itemprop="wordCount" content="3">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
 <body><div class="container"><header>
 <h1>Tecnep</h1>
 <a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
@@ -43,29 +50,15 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Firewall</h1><p>Firewalld provides a dynamically managed firewall with support for network/firewall zones to define the trust level of network connections or interfaces.
-firewalld provides support for zones, predefined services and ICMP types and has a separation of runtime and permanent configuration options.
-Permanent configuration is loaded from XML files in <code>/usr/lib/firewalld</code> or <code>/etc/firewalld</code></p>
-<p>Install firewall in centos</p>
-<pre><code>yum install firewalld -y
-</code></pre><p>Start the service</p>
-<pre><code>systemctl start firewalld
-</code></pre><p>Enable the service</p>
-<pre><code>systemctl enable firewalld
-</code></pre><p>Add tcp port 443 to listen https traffic</p>
-<pre><code>firewall-cmd --add-port=443/tcp --permanent
-</code></pre><p>Reload firewall service to take into an effect</p>
-<pre><code>firewall-cmd --reload
-</code></pre><p>Verify using,</p>
-<pre><code>firewall-cmd --list-all
-</code></pre><hr>
+<main><h1>vSwitch</h1>
+<hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
 <div class="edit-meta">
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
-</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/snmp/" title="SNMP"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - SNMP</a>
-<a class="nav nav-next" href="https://tecnep.com/firewall/firewall_keepalive/" title="Firewalld and keepalived">Next - Firewalld and keepalived <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/vmware/install_vcenter/" title="Install vcenter 6.7"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Install vcenter 6.7</a>
+<a class="nav nav-next" href="https://tecnep.com/vmware/install_esxi/" title="Install Esxi 6.7">Next - Install Esxi 6.7 <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>
 <p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
 </footer>
@@ -103,7 +96,7 @@ Permanent configuration is loaded from XML files in <code>/usr/lib/firewalld</co
   
 </li>
 
-<li class="parent active has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark opened">-</span></a>
+<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
   
 <ul class="sub-menu">
 <li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>
@@ -179,7 +172,13 @@ Permanent configuration is loaded from XML files in <code>/usr/lib/firewalld</co
   
 </li>
 
-<li class=""><a href="https://tecnep.com/vmware/">Vmware</a>
+<li class="parent has-sub-menu"><a href="https://tecnep.com/vmware/">Vmware<span class="mark opened">-</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/vmware/install_esxi/">Install Esxi 6.7</a></li>
+<li class=""><a href="https://tecnep.com/vmware/install_vcenter/">Install vcenter 6.7</a></li>
+<li class="active"><a href="https://tecnep.com/vmware/vswitch/">vSwitch</a></li>
+</ul>
   
 </li>
 </ul>

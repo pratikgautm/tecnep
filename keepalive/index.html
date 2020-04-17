@@ -45,6 +45,7 @@
 <div class="content-container">
 <main><h1>Keepalive</h1><p>Keepalived is use to set up a highly available web service by using a floating IP address that can be moved between two capable web servers. The keepalived daemon can be used to monitor services or systems and to automatically failover to a standby if there&rsquo;s any problems occur. If the primary server goes down, the floating IP will be moved to the second server automatically, allowing service to resume by the help of floating IP.</p>
 <p>Keepalive provides frameworks for both load balancing and high availability mechanism. Load balancing framework relies on <code>linux virtual server (LVS)</code> kernel module based on layer 4. High availability is achieved by VRRP (Virtual redundancy routing protocol).</p>
+<p>Figure : virtual ip given to two servers</p>
 <h5 id="installation">Installation</h5>
 <p>Use the following command,</p>
 <pre><code>yum install keepalived -y
@@ -56,9 +57,9 @@ systemctl enable keepalived
 <p>Basic configuration is present in  <code>/etc/keepalived/keepalived.conf</code> . Lets see it and describe it briefly.</p>
 <pre><code>vrrp_instance VI_1 {
   state MASTER
-  interface eth0
+  interface eth0           #your connected interface name
   virtual_router_id 51
-  priority 101
+  priority 101        #High for master and low for backup
   advert_int 1
 
 authentication {
@@ -194,6 +195,10 @@ and &ldquo;BACKUP&rdquo; for secondary node. During the election, the priority o
 </li>
 
 <li class=""><a href="https://tecnep.com/samba/">Samba</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/vmware/">Vmware</a>
   
 </li>
 </ul>
