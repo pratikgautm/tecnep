@@ -107,5 +107,14 @@ firewall-cmd --permanent --zone=public --add-rich-rule=&#39;rule family=&amp;quo
 lsblk See disk path of added disk and note down Make partition and set to linux lvm fdisk /dev/sdb	Enter &amp;ldquo;n&amp;rdquo; for new disk partition and press enter for partitioning full disk in every line Make kernel update for the changes to apply partprobe /dev/sdb Create physical volume of the added disk pvcreate /dev/sdb1 Verify by listing physical volume pvs or pvdisplay Extend existing volume group &amp;ldquo;centos&amp;rdquo; vgextend centos /dev/sdb1 Verify by listing volume groups vgs or vgdisplay List logical volumes lvs Extend existing logical volume &amp;ldquo;root&amp;rdquo; lvextend -l +100%FREE /dev/centos/root Verify by logical volumes lvs or lvdisplay	grow xfs system xfs_growfs /dev/centos/root verify disk space of root df -h  Suresh Saud sureshsaud17@gmail.</description>
     </item>
     
+    <item>
+      <title>Useful command</title>
+      <link>https://tecnep.com/command/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tecnep.com/command/</guid>
+      <description>yum package manager yum provides yum history yum install {package_name} yum remove {package_name} yum update yum whatprovides {package_name} yum list installed yum-config-manager --enable {package_name} yum check-update yum -y install {http .rpm link} yum makecache fast # To exclude list of packages, use the command as follows. yum --exclude=mysql\* --exclude=httpd\* update Static route #Add route for a network route add -net 10.0.0.0/8 gw 192.168.219.1 (This will only add route temporarly, add the command in &#39;/etc/sysconfig/network-scripts/route-eth0&#39; for permanent) #Add route for a host route add host 10.</description>
+    </item>
+    
   </channel>
 </rss>
