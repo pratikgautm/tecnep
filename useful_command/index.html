@@ -17,8 +17,8 @@
 :root {--custom-background-color: #52555B;}
 </style>
 <meta property="og:title" content="Useful command" />
-<meta property="og:description" content="Share your ideas." />
-<meta property="og:type" content="website" />
+<meta property="og:description" content="yum package manager yum provides yum history yum install {package_name} yum remove {package_name} yum update yum whatprovides {package_name} yum list installed yum-config-manager --enable {package_name} yum check-update yum -y install {http .rpm link} yum makecache fast # To exclude list of packages, use the command as follows. yum --exclude=mysql\* --exclude=httpd\* update Static route #Add route for a network route add -net 10.0.0.0/8 gw 192.168.219.1 (This will only add route temporarly, add the command in &#39;/etc/sysconfig/network-scripts/route-eth0&#39; for permanent) #Add route for a host route add host 10." />
+<meta property="og:type" content="article" />
 <meta property="og:url" content="https://tecnep.com/useful_command/" />
 <meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
 <meta property="og:site_name" content="tecnep.com" />
@@ -26,9 +26,16 @@
 <meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
 <meta name="twitter:title" content="Useful command"/>
-<meta name="twitter:description" content="Share your ideas."/>
+<meta name="twitter:description" content="yum package manager yum provides yum history yum install {package_name} yum remove {package_name} yum update yum whatprovides {package_name} yum list installed yum-config-manager --enable {package_name} yum check-update yum -y install {http .rpm link} yum makecache fast # To exclude list of packages, use the command as follows. yum --exclude=mysql\* --exclude=httpd\* update Static route #Add route for a network route add -net 10.0.0.0/8 gw 192.168.219.1 (This will only add route temporarly, add the command in &#39;/etc/sysconfig/network-scripts/route-eth0&#39; for permanent) #Add route for a host route add host 10."/>
 <meta itemprop="name" content="Useful command">
-<meta itemprop="description" content="Share your ideas."></head>
+<meta itemprop="description" content="yum package manager yum provides yum history yum install {package_name} yum remove {package_name} yum update yum whatprovides {package_name} yum list installed yum-config-manager --enable {package_name} yum check-update yum -y install {http .rpm link} yum makecache fast # To exclude list of packages, use the command as follows. yum --exclude=mysql\* --exclude=httpd\* update Static route #Add route for a network route add -net 10.0.0.0/8 gw 192.168.219.1 (This will only add route temporarly, add the command in &#39;/etc/sysconfig/network-scripts/route-eth0&#39; for permanent) #Add route for a host route add host 10.">
+
+<meta itemprop="wordCount" content="444">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
 <body><div class="container"><header>
 <h1>Tecnep</h1>
 <a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
@@ -43,7 +50,8 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Useful command</h1><h5 id="yum-package-manager">yum package manager</h5>
+<main><h1>Useful command</h1>
+<h5 id="yum-package-manager">yum package manager</h5>
 <pre><code>yum provides
 yum history
 yum install {package_name}
@@ -55,45 +63,44 @@ yum-config-manager --enable {package_name}
 yum check-update
 yum -y install {http .rpm link}
 yum makecache fast
-To exclude list of packages, use the command as follows.
+# To exclude list of packages, use the command as follows.
 yum --exclude=mysql\* --exclude=httpd\* update
 
 
 </code></pre><h5 id="static-route">Static route</h5>
-<pre><code>Add route for a network ( This will only add route temporarly, add the command in '/etc/sysconfig/network-scripts/route-eth0' for permanent)
-
+<pre><code>#Add route for a network
 route add -net 10.0.0.0/8 gw 192.168.219.1
+(This will only add route temporarly, add the command in '/etc/sysconfig/network-scripts/route-eth0' for permanent)
 
-route add host 10.10.15.17 gw 192.168.219.2 #Add route for a host
-delete route host
+#Add route for a host
+route add host 10.10.15.17 gw 192.168.219.2
+
+#Delete route host
 route del host 10.10.15.17
 
-ip route # see routing table
+# see routing table
+ip route
 route -n
 
-Add route in windows server (persistent)
+#Add route in windows server (persistent)
 route -p ADD 192.168.35.0 MASK 255.255.255.0 192.168.0.2
 </code></pre><h5 id="networking-in-debian">Networking in debian</h5>
-<pre><code>Change ip address in debian
-
+<pre><code>#Change ip address in debian
 vi /etc/network/interfaces
 
-
-Restart network
-
+#Restart network
 /etc/init.d/networking restart
 
 </code></pre><h5 id="file-transfer-sftp">File transfer (sftp)</h5>
-<pre><code>File transfer in different port
+<pre><code>#File transfer in different port
 sftp -P 8079 username@ipaddress
 
 </code></pre><h5 id="yes--no-to-the-question">yes | no to the question</h5>
-<pre><code>say yes to copy overwrite
+<pre><code>#say yes to copy overwrite
 yes | cp source_file destination_file
 
 </code></pre><h5 id="append">Append</h5>
-<pre><code>Append the following line in the a file
-
+<pre><code>#Append the following line in the a file
 
 cat &lt;&lt;EOF&gt;&gt;/path/to/file
 This line is
@@ -101,33 +108,32 @@ to be
 added as it is
 EOF
 </code></pre><h5 id="user-management">User management</h5>
-<pre><code>Delete user along with home directory
+<pre><code>#Delete user along with home directory
 userdel -r {username}
 
 </code></pre><h5 id="rpm">RPM</h5>
-<pre><code>Query Package
+<pre><code>#Query Package
 rpm -qa package_name
 
-Install Package Name
+#Install Package Name
 rpm -ivh package_name
 
-Delete Package name
+#Delete Package name
 rpm -e package_name
 
-Get time of kernel update
+#Get time of kernel update
 rpm -qa --last |grep kernel
 </code></pre><h5 id="swap-and-buffer-space">Swap and buffer space</h5>
-<pre><code>Clear swap memory
+<pre><code>#Clear swap memory
 swapoff -a
 swapon -a
 
-clear buffer cache
+#clear buffer cache
 sync; echo 1 &gt; /proc/sys/vm/drop_caches
 sync; echo 2 &gt; /proc/sys/vm/drop_caches
 sync; echo 3 &gt; /proc/sys/vm/drop_caches
 </code></pre><h5 id="networking">Networking</h5>
-<pre><code>Disable IPV6
-
+<pre><code>#Disable IPV6 add in /etc/sysctl.conf
 net.ipv6.conf.all.disable_ipv6 = 1
 net.ipv6.conf.default.disable_ipv6 = 1
 
@@ -155,38 +161,14 @@ Stepping:              7
 The total number of logical cores = CPU sockets × physical cores per socket × threads per physical core.
 Therefore, the computer has 4 * 1 * 1 = 4 logical cores in total.
 
-</code></pre><h5 id="mysql-database">MYSQL database</h5>
-<p>Install maridb server</p>
-<p><code>yum -y install mariadb mariadb-server</code></p>
-<p>Once the installation is complete, start the MariaDB service and add it to the startup boot time.</p>
-<p><code>systemctl start mariadb</code>
-<code>systemctl enable mariadb</code></p>
-<p>Next, we&rsquo;re going to configure the root password for the MariaDB using the interactive tool called &lsquo;mysql_secure_installation&rsquo;.</p>
-<p><code>mysql_secure_installation</code></p>
-<p>Login with username root</p>
-<p><code>mysql -u root -p</code></p>
-<p>If Access denied for user &lsquo;root&rsquo;@&lsquo;localhost&rsquo; (using password: YES) is promt , then use following command,</p>
-<p><code>mysqld_safe --skip-grant-tables</code></p>
-<p>Create database</p>
-<p><code>create database [dbname];</code></p>
-<p>Create a user &lsquo;user1&rsquo;, set password, assign it&rsquo;s privileges to database &lsquo;db_name&rsquo; and  flush privileges</p>
-<p><code>grant all privileges on db_name.* to user1@localhost identified by 'your_password';</code>
-<code>flush privileges;</code></p>
-<h5 id="powerdns">Powerdns</h5>
-<p>Check Powerdns Authoritative  server version</p>
-<p><code>pdns_control version</code></p>
-<p>Check powerdns Recursion Version</p>
-<p><code>pdns_recursor version</code></p>
-<h5 id="process-management">Process Management</h5>
-<pre><code>	ps aux
-
+</code></pre><h5 id="process-management">Process Management</h5>
+<pre><code>ps aux
 	a = all users
 	u = list detail information
 	x = include boot process
 </code></pre><h5 id="load-average-calculation">load Average calculation</h5>
 <h5 id="ssh">SSH</h5>
-<pre><code>To remove 'Remote host identification has changed'
-
+<pre><code>#To remove 'Remote host identification has changed'
 ssh-keygen -R host_ip_address
 
 </code></pre><h5 id="rsync">Rsync</h5>
@@ -196,23 +178,25 @@ r = recursive into directories
 t = preserve modification time
 v = verbose
 </code></pre><h5 id="teaming">Teaming</h5>
-<p>[root@node1 ~]# cat /etc/sysconfig/network-scripts/ifcfg-em1
+<pre><code>[root@node1 ~]# cat /etc/sysconfig/network-scripts/ifcfg-em1
 TYPE=Ethernet
 NAME=em1
 DEVICE=em1
 ONBOOT=yes
 MASTER=bond0
-SLAVE=yes</p>
-<p>[root@node1~]# cat /etc/sysconfig/network-scripts/ifcfg-em2
+SLAVE=yes
+
+[root@node1~]# cat /etc/sysconfig/network-scripts/ifcfg-em2
 TYPE=Ethernet
 NAME=em2
 DEVICE=em2
 ONBOOT=yes
 MASTER=bond0
-SLAVE=yes</p>
-<p>[root@node1]# cat /etc/sysconfig/network-scripts/ifcfg-bond0
+SLAVE=yes
+
+[root@node1]# cat /etc/sysconfig/network-scripts/ifcfg-bond0
 DEVICE=bond0
-BONDING_OPTS=&quot;miimon=1 updelay=0 downdelay=0 mode=active-backup&rdquo; TYPE=Bond
+BONDING_OPTS=&quot;miimon=1 updelay=0 downdelay=0 mode=active-backup&quot; TYPE=Bond
 BONDING_MASTER=yes
 BOOTPROTO=static
 IPADDR=10.20.20.50
@@ -223,15 +207,14 @@ IPV4_FAILURE_FATAL=no
 NAME=bond0
 ONBOOT=yes
 DNS1=10.10.10.100
-DNS2=10.10.10.101</p>
-<hr>
+DNS2=10.10.10.101
+</code></pre><hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
 <div class="edit-meta">
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
-</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/dns/dmarc/" title="DMARC"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - DMARC</a>
-<a class="nav nav-next" href="https://tecnep.com/keepalive/" title="Keepalive">Next - Keepalive <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</div><nav class="pagination"><a class="nav nav-next" href="https://tecnep.com/hardening/" title="System Hardening">Next - System Hardening <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>
 <p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
 </footer>
@@ -291,10 +274,17 @@ DNS2=10.10.10.101</p>
   
 </li>
 
-<li class=" has-sub-menu"><a href="https://tecnep.com/system_resources/">System Resources<span class="mark closed">+</span></a>
+<li class=" has-sub-menu"><a href="https://tecnep.com/storage/">Storage<span class="mark closed">+</span></a>
   
 <ul class="sub-menu">
-<li class=""><a href="https://tecnep.com/system_resources/increase_hd/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/storage/lvm/">LVM</a></li>
+<li class=""><a href="https://tecnep.com/storage/raid/">RAID</a></li>
+<li class=""><a href="https://tecnep.com/storage/san_nas/">SAN and NAS</a></li>
+<li class=""><a href="https://tecnep.com/storage/storage_access/">Storage access methods</a></li>
+<li class=""><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
+<li class=""><a href="https://tecnep.com/storage/glusterfs/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/storage/object_storage/">Object storage</a></li>
+<li class=""><a href="https://tecnep.com/storage/increase_hd/">Increase hard disk</a></li>
 </ul>
   
 </li>
@@ -310,10 +300,6 @@ DNS2=10.10.10.101</p>
 <li class=""><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
 <li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
 </ul>
-  
-</li>
-
-<li class="parent active"><a href="https://tecnep.com/useful_command/">Useful command</a>
   
 </li>
 
@@ -346,6 +332,10 @@ DNS2=10.10.10.101</p>
 </li>
 
 <li class=""><a href="https://tecnep.com/vmware/">Vmware</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/mysql/">Mysql/Mariadb</a>
   
 </li>
 </ul>

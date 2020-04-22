@@ -17,7 +17,8 @@
 :root {--custom-background-color: #52555B;}
 </style>
 <meta property="og:title" content="Useful command" />
-<meta property="og:description" content="yum package manager yum provides yum history yum install {package_name} yum remove {package_name} yum update yum whatprovides {package_name} yum list installed yum-config-manager --enable {package_name} yum check-update yum -y install {http .rpm link} yum makecache fast # To exclude list of packages, use the command as follows. yum --exclude=mysql\* --exclude=httpd\* update Static route #Add route for a network route add -net 10.0.0.0/8 gw 192.168.219.1 (This will only add route temporarly, add the command in &#39;/etc/sysconfig/network-scripts/route-eth0&#39; for permanent) #Add route for a host route add host 10." />
+<meta property="og:description" content="iis log
+yum package manager yum provides yum history yum install {package_name} yum remove {package_name} yum update yum whatprovides {package_name} yum list installed yum-config-manager --enable {package_name} yum check-update yum -y install {http .rpm link} yum makecache fast # To exclude list of packages, use the command as follows. yum --exclude=mysql\* --exclude=httpd\* update Static route #Add route for a network route add -net 10.0.0.0/8 gw 192.168.219.1 (This will only add route temporarly, add the command in &#39;/etc/sysconfig/network-scripts/route-eth0&#39; for permanent) #Add route for a host route add host 10." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tecnep.com/command/" />
 <meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
@@ -26,11 +27,13 @@
 <meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
 <meta name="twitter:title" content="Useful command"/>
-<meta name="twitter:description" content="yum package manager yum provides yum history yum install {package_name} yum remove {package_name} yum update yum whatprovides {package_name} yum list installed yum-config-manager --enable {package_name} yum check-update yum -y install {http .rpm link} yum makecache fast # To exclude list of packages, use the command as follows. yum --exclude=mysql\* --exclude=httpd\* update Static route #Add route for a network route add -net 10.0.0.0/8 gw 192.168.219.1 (This will only add route temporarly, add the command in &#39;/etc/sysconfig/network-scripts/route-eth0&#39; for permanent) #Add route for a host route add host 10."/>
+<meta name="twitter:description" content="iis log
+yum package manager yum provides yum history yum install {package_name} yum remove {package_name} yum update yum whatprovides {package_name} yum list installed yum-config-manager --enable {package_name} yum check-update yum -y install {http .rpm link} yum makecache fast # To exclude list of packages, use the command as follows. yum --exclude=mysql\* --exclude=httpd\* update Static route #Add route for a network route add -net 10.0.0.0/8 gw 192.168.219.1 (This will only add route temporarly, add the command in &#39;/etc/sysconfig/network-scripts/route-eth0&#39; for permanent) #Add route for a host route add host 10."/>
 <meta itemprop="name" content="Useful command">
-<meta itemprop="description" content="yum package manager yum provides yum history yum install {package_name} yum remove {package_name} yum update yum whatprovides {package_name} yum list installed yum-config-manager --enable {package_name} yum check-update yum -y install {http .rpm link} yum makecache fast # To exclude list of packages, use the command as follows. yum --exclude=mysql\* --exclude=httpd\* update Static route #Add route for a network route add -net 10.0.0.0/8 gw 192.168.219.1 (This will only add route temporarly, add the command in &#39;/etc/sysconfig/network-scripts/route-eth0&#39; for permanent) #Add route for a host route add host 10.">
+<meta itemprop="description" content="iis log
+yum package manager yum provides yum history yum install {package_name} yum remove {package_name} yum update yum whatprovides {package_name} yum list installed yum-config-manager --enable {package_name} yum check-update yum -y install {http .rpm link} yum makecache fast # To exclude list of packages, use the command as follows. yum --exclude=mysql\* --exclude=httpd\* update Static route #Add route for a network route add -net 10.0.0.0/8 gw 192.168.219.1 (This will only add route temporarly, add the command in &#39;/etc/sysconfig/network-scripts/route-eth0&#39; for permanent) #Add route for a host route add host 10.">
 
-<meta itemprop="wordCount" content="444">
+<meta itemprop="wordCount" content="641">
 <meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
 
 
@@ -51,6 +54,7 @@
 </div>
 <div class="content-container">
 <main><h1>Useful command</h1>
+<p><a href="#iis-log">iis log</a></p>
 <h5 id="yum-package-manager">yum package manager</h5>
 <pre><code>yum provides
 yum history
@@ -209,6 +213,40 @@ ONBOOT=yes
 DNS1=10.10.10.100
 DNS2=10.10.10.101
 </code></pre><hr>
+<h5 id="iis-log-cleaner-method-1">IIS log cleaner (Method 1)</h5>
+<p>a) Download a cleaner file (IISLogCleaner.exe) from</p>
+<pre><code>https://tecnep.com/downloads/iis/IISLogCleaner.exe
+</code></pre><p>b) Run it just by double clicking on it.</p>
+<p>c) When you run it, a file <code>setting.txt</code> appears, which contains path of ISS log and maximum number of days to remove the log. Configure it as per your requirement.</p>
+<p><img src="iis_log_setting.PNG" alt="image"></p>
+<p>d) You can see IIS log cleaner icon in notification bar. Right click on it and click on &lsquo;Clean Now&rsquo;.</p>
+<hr>
+<h5 id="iis-log-clean-method-2">IIS log clean (Method 2)</h5>
+<p>Copy the following script and paste it in path <code>C:\inetpub\logs\delete_iis_log.vbs</code> or the path of your choice. This script delete log of the folder c:\inetpub\logs\LogFiles created before 30 days by IIS system.</p>
+<pre><code>sLogFolder = &quot;c:\inetpub\logs\LogFiles&quot;
+iMaxAge = 30   'in days
+Set objFSO = CreateObject(&quot;Scripting.FileSystemObject&quot;)
+set colFolder = objFSO.GetFolder(sLogFolder)
+For Each colSubfolder in colFolder.SubFolders
+        Set objFolder = objFSO.GetFolder(colSubfolder.Path)
+        Set colFiles = objFolder.Files
+        For Each objFile in colFiles
+                iFileAge = now-objFile.DateCreated
+                if iFileAge &gt; (iMaxAge+1)  then
+                        objFSO.deletefile objFile, True
+                end if
+        Next
+Next
+</code></pre><p>Make this script run daily. Open <code>Task Schedular</code>.</p>
+<p>Create a task and give it a name.</p>
+<p><img src="taskschedular1.png" alt="image"></p>
+<p>Goto to Tigger &gt; New &gt; Set a schedule</p>
+<p><img src="taskschedular2.png" alt="image"></p>
+<p>Goto Actions &gt; New &gt; set script path</p>
+<p><img src="taskschedular3.png" alt="image"></p>
+<p>Run the task for testing.</p>
+<p><img src="taskschedular4.png" alt="image"></p>
+<hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
 <div class="edit-meta">
@@ -274,10 +312,17 @@ DNS2=10.10.10.101
   
 </li>
 
-<li class=" has-sub-menu"><a href="https://tecnep.com/system_resources/">System Resources<span class="mark closed">+</span></a>
+<li class=" has-sub-menu"><a href="https://tecnep.com/storage/">Storage<span class="mark closed">+</span></a>
   
 <ul class="sub-menu">
-<li class=""><a href="https://tecnep.com/system_resources/increase_hd/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/storage/lvm/">LVM</a></li>
+<li class=""><a href="https://tecnep.com/storage/raid/">RAID</a></li>
+<li class=""><a href="https://tecnep.com/storage/san_nas/">SAN and NAS</a></li>
+<li class=""><a href="https://tecnep.com/storage/storage_access/">Storage access methods</a></li>
+<li class=""><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
+<li class=""><a href="https://tecnep.com/storage/glusterfs/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/storage/object_storage/">Object storage</a></li>
+<li class=""><a href="https://tecnep.com/storage/increase_hd/">Increase hard disk</a></li>
 </ul>
   
 </li>

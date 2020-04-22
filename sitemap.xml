@@ -8,6 +8,10 @@
   </url>
   
   <url>
+    <loc>https://tecnep.com/storage/lvm/</loc>
+  </url>
+  
+  <url>
     <loc>https://tecnep.com/hardening/</loc>
   </url>
   
@@ -24,8 +28,24 @@
   </url>
   
   <url>
+    <loc>https://tecnep.com/storage/raid/</loc>
+  </url>
+  
+  <url>
     <loc>https://tecnep.com/redis/</loc>
     <lastmod>2019-12-08T18:29:55+05:45</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/storage/san_nas/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/storage/storage_access/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/storage/drbd/</loc>
   </url>
   
   <url>
@@ -37,7 +57,15 @@
   </url>
   
   <url>
+    <loc>https://tecnep.com/storage/glusterfs/</loc>
+  </url>
+  
+  <url>
     <loc>https://tecnep.com/kaspersky/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/storage/object_storage/</loc>
   </url>
   
   <url>
@@ -82,11 +110,11 @@
   </url>
   
   <url>
-    <loc>https://tecnep.com/system_resources/increase_hd/</loc>
+    <loc>https://tecnep.com/storage/increase_hd/</loc>
   </url>
   
   <url>
-    <loc>https://tecnep.com/system_resources/</loc>
+    <loc>https://tecnep.com/storage/</loc>
   </url>
   
   <url>
@@ -100,6 +128,10 @@
   
   <url>
     <loc>https://tecnep.com/command/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/useful_command/</loc>
   </url>
   
   <url>

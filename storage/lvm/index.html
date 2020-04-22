@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>LVM - Tecnep</title>
+<meta name="description" content="Share your ideas.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/storage/lvm/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="LVM" />
+<meta property="og:description" content="LVM (Logical Volume Management) is a tool for logical volume management which includes allocating disks and resizing logical volumes. Logical Volume Manager allows for a layer of abstraction between your operating system and the disks/partitions it uses. It has its own architecture. They start with physical volumes (PVs), which can be either hard disks, hard disk partitions, or Logical Unit Numbers (LUNs) of an external storage device. The group of physical volumes are combined to a set called volume group, with the exception of the /boot partition." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tecnep.com/storage/lvm/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="og:site_name" content="tecnep.com" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
+
+<meta name="twitter:title" content="LVM"/>
+<meta name="twitter:description" content="LVM (Logical Volume Management) is a tool for logical volume management which includes allocating disks and resizing logical volumes. Logical Volume Manager allows for a layer of abstraction between your operating system and the disks/partitions it uses. It has its own architecture. They start with physical volumes (PVs), which can be either hard disks, hard disk partitions, or Logical Unit Numbers (LUNs) of an external storage device. The group of physical volumes are combined to a set called volume group, with the exception of the /boot partition."/>
+<meta itemprop="name" content="LVM">
+<meta itemprop="description" content="LVM (Logical Volume Management) is a tool for logical volume management which includes allocating disks and resizing logical volumes. Logical Volume Manager allows for a layer of abstraction between your operating system and the disks/partitions it uses. It has its own architecture. They start with physical volumes (PVs), which can be either hard disks, hard disk partitions, or Logical Unit Numbers (LUNs) of an external storage device. The group of physical volumes are combined to a set called volume group, with the exception of the /boot partition.">
+
+<meta itemprop="wordCount" content="397">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+<a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
+<p class="description">Share your ideas.</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/">About</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>LVM</h1>
+<p>LVM (Logical Volume Management) is a tool for logical volume management which includes allocating disks and resizing logical volumes. Logical Volume Manager allows for a layer of abstraction between your operating system and the disks/partitions it uses. It has its own architecture. They start with physical volumes (PVs), which can be either hard disks, hard disk partitions, or Logical Unit Numbers (LUNs) of an external storage device. The group of physical volumes are combined to a set called volume group, with the exception of the /boot partition. The /boot partition cannot be on a logical volume group because the boot loader cannot read it. The volume groups can be divided into logical volumes, which are assigned mount points, such as /home and / and file system types, such as ext2 or ext3.</p>
+<p><img src="layout_example_lvm.PNG" alt="image"></p>
+<h5 id="add-data-with-10gb-of-disk">Add /data with 10Gb of disk</h5>
+<p>We have a linux system. Now we need a new mount point /data with 10GiB of storage. To get this we need to create a PV, VG and LV. Mount LV with /data path. Let&rsquo;s see these step one by one.</p>
+<p>First of all physically add the hard disk. The new disk appear (sdb) as follows.</p>
+<pre><code>lsblk
+</code></pre><p><img src="lsblk.png" alt="image"></p>
+<p>Here in our example we are going to add entire disk which is of 10GiB. Let&rsquo;s create physical volume (PV) as below,</p>
+<pre><code>pvcreate /dev/sdb
+</code></pre><p>Now, create volume group named &lsquo;centos01&rsquo; for the newly create physical volume /dev/sdb</p>
+<pre><code>vgcreate centos01 /dev/sdb
+</code></pre><p>Make logical volume with the VG just created. We are going to create one lV which will use all the space of centos01 VG.</p>
+<pre><code>lvcreate -l 100%FREE centos01
+</code></pre><p>Verify using the command <code>lvs.</code> New logical volume &lsquo;lvol0&rsquo; is created.</p>
+<p><img src="lvs_new_disk.png" alt="image"></p>
+<p>Make the file system using the command mkfs. You can choose filesystem type as your wish.</p>
+<pre><code>mkfs -t ext4 /dev/mapper/centos01-lvol0
+</code></pre><p>Make directory /data to mount the volume.</p>
+<pre><code>mkdir /data
+</code></pre><p>For persistent mounting add following line at the end of /etc/fstab</p>
+<pre><code>/dev/mapper/centos01-lvol0 /data ext4 defaults 0 0
+</code></pre><p>Remount the system, no error should be displayed</p>
+<pre><code>mount -a
+</code></pre><p>At last verify using the command <code>lsblk</code>. You can see 10 GiB is allociated to data. Use it to create, store data or anything you like.</p>
+<p>Following command are used to see/verify the physical volume, volume group, logical volume and in detail</p>
+<pre><code># Physical volume (PV)
+pvdispaly
+pvs
+
+# Volume Group (VG)
+vgdisplay
+vgs
+
+# Logical Volume (LV)
+lvdisplay
+lvs
+
+</code></pre><h5 id="increase-size-of-">Increase size of /</h5>
+<hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<div class="edit-meta">
+<br>
+<a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/storage/" title="Storage"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Storage</a>
+<a class="nav nav-next" href="https://tecnep.com/storage/raid/" title="RAID">Next - RAID <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer>
+<p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class=""><a href="https://tecnep.com/hardening/">System Hardening</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/chrony/">NTP</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/redis/">Redis</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/mailcleaner/">Mailcleaner<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/mailcleaner/mailcleaner_config/">MailCleaner configurations</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/snmp/">SNMP</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>
+<li class=""><a href="https://tecnep.com/firewall/rich_rule/">Rich rule</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/zimbra/zimbra_tips_tricks/">Zimbra Tips &amp; Tricks</a></li>
+<li class=""><a href="https://tecnep.com/zimbra/backup/">Backup</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/glassfish/">Glassfish</a>
+  
+</li>
+
+<li class="parent has-sub-menu"><a href="https://tecnep.com/storage/">Storage<span class="mark opened">-</span></a>
+  
+<ul class="sub-menu">
+<li class="active"><a href="https://tecnep.com/storage/lvm/">LVM</a></li>
+<li class=""><a href="https://tecnep.com/storage/raid/">RAID</a></li>
+<li class=""><a href="https://tecnep.com/storage/san_nas/">SAN and NAS</a></li>
+<li class=""><a href="https://tecnep.com/storage/storage_access/">Storage access methods</a></li>
+<li class=""><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
+<li class=""><a href="https://tecnep.com/storage/glusterfs/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/storage/object_storage/">Object storage</a></li>
+<li class=""><a href="https://tecnep.com/storage/increase_hd/">Increase hard disk</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/tomcat/">Tomcat</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/dns/">DNS<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/keepalive/">Keepalive</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ssl/">SSL</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/nas_san/">NAS and SAN</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/haproxy/">Haproxy</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/php_nginx_mysql/">Php Nginx Mysql</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/exchnage/">Exchange</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/samba/">Samba</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/vmware/">Vmware</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/mysql/">Mysql/Mariadb</a>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>
