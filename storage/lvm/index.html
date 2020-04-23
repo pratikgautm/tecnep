@@ -30,7 +30,7 @@
 <meta itemprop="name" content="LVM">
 <meta itemprop="description" content="LVM (Logical Volume Management) is a tool for logical volume management which includes allocating disks and resizing logical volumes. Logical Volume Manager allows for a layer of abstraction between your operating system and the disks/partitions it uses. It has its own architecture. They start with physical volumes (PVs), which can be either hard disks, hard disk partitions, or Logical Unit Numbers (LUNs) of an external storage device. The group of physical volumes are combined to a set called volume group, with the exception of the /boot partition.">
 
-<meta itemprop="wordCount" content="397">
+<meta itemprop="wordCount" content="559">
 <meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
 
 
@@ -53,6 +53,7 @@
 <main><h1>LVM</h1>
 <p>LVM (Logical Volume Management) is a tool for logical volume management which includes allocating disks and resizing logical volumes. Logical Volume Manager allows for a layer of abstraction between your operating system and the disks/partitions it uses. It has its own architecture. They start with physical volumes (PVs), which can be either hard disks, hard disk partitions, or Logical Unit Numbers (LUNs) of an external storage device. The group of physical volumes are combined to a set called volume group, with the exception of the /boot partition. The /boot partition cannot be on a logical volume group because the boot loader cannot read it. The volume groups can be divided into logical volumes, which are assigned mount points, such as /home and / and file system types, such as ext2 or ext3.</p>
 <p><img src="layout_example_lvm.PNG" alt="image"></p>
+<hr>
 <h5 id="add-data-with-10gb-of-disk">Add /data with 10Gb of disk</h5>
 <p>We have a linux system. Now we need a new mount point /data with 10GiB of storage. To get this we need to create a PV, VG and LV. Mount LV with /data path. Let&rsquo;s see these step one by one.</p>
 <p>First of all physically add the hard disk. The new disk appear (sdb) as follows.</p>
@@ -88,8 +89,33 @@ vgs
 lvdisplay
 lvs
 
-</code></pre><h5 id="increase-size-of-">Increase size of /</h5>
-<hr>
+</code></pre><h5 id="increase-size-of--and-data">Increase size of / and /data</h5>
+<p>We have 20GiB of hard disk(sdc). We are going to add 10GiB of disk to / and 10GiB to /data. Following is the current status of the system.</p>
+<p><img src="lsblk_sdc.PNG" alt="image"></p>
+<p>Let&rsquo;s make two partition of disk.</p>
+<pre><code>fdisk /dev/sdc
+</code></pre><p>Enter <code>n</code> for new partition.
+Choose <code>p</code> for primary partition.
+Enter <code>+10G</code> .
+Type <code>w</code> for writing the changes. This will make <code>/dev/sdc1</code> partition.
+Repeat the process for creating <code>/dev/sdc2</code></p>
+<p>Inform operating system kernel of partition table changes, by requesting that the operating system re-read the partition table.</p>
+<pre><code>partprobe
+</code></pre><p>Make physical volume</p>
+<pre><code>pvcreate /dev/sdc1
+pvcreate /dev/sdc2
+</code></pre><p>Since / is associated with <code>centos</code> volume group and /data is associated with <code>centos01</code>. We&rsquo;ll expand accordingly.</p>
+<pre><code>vgextend centos /dev/sdc1
+vgextend centos01 /dev/sdc2
+</code></pre><p>Extend logical volume centos, and another lV centos1</p>
+<pre><code>lvextend -l +100%FREE /dev/centos/root
+lvextend -l +100%FREE /dev/centos01/lvol0
+</code></pre><p>Grow the file system.  Since / is <code>xfs</code> use xfs_growfs. /data is <code>ext4</code> use <code>resize2fs</code> commands.</p>
+<pre><code>xfs_growfs /dev/mapper/centos-root
+resize2fs /dev/mapper/centos01-lvol0
+</code></pre><p>Verify that the size are increased using,</p>
+<pre><code>df -h
+</code></pre><hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
 <div class="edit-meta">
