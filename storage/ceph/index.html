@@ -3,11 +3,11 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Mysql/Mariadb - Tecnep</title>
+<title>Ceph - Tecnep</title>
 <meta name="description" content="Share your ideas.">
 <meta name="generator" content="Hugo 0.68.0" />
 <link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
-<link rel="canonical" href="https://tecnep.com/mysql/">
+<link rel="canonical" href="https://tecnep.com/storage/ceph/">
 <link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
 <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
@@ -16,19 +16,26 @@
 <script src="https://tecnep.com/js/bundle.js"></script><style>
 :root {--custom-background-color: #52555B;}
 </style>
-<meta property="og:title" content="Mysql/Mariadb" />
-<meta property="og:description" content="Share your ideas." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://tecnep.com/mysql/" />
+<meta property="og:title" content="Ceph" />
+<meta property="og:description" content="a freely available storage platform that implements object storage on a single distributed computer cluster and provides interfaces for object, block and file level storage. aims for completely distributed operation without a single point of failure. manages data replication and is fault-tolerant.   Pratik Gautam pratikgautm@gmail.com" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tecnep.com/storage/ceph/" />
 <meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
 <meta property="og:site_name" content="tecnep.com" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
-<meta name="twitter:title" content="Mysql/Mariadb"/>
-<meta name="twitter:description" content="Share your ideas."/>
-<meta itemprop="name" content="Mysql/Mariadb">
-<meta itemprop="description" content="Share your ideas."></head>
+<meta name="twitter:title" content="Ceph"/>
+<meta name="twitter:description" content="a freely available storage platform that implements object storage on a single distributed computer cluster and provides interfaces for object, block and file level storage. aims for completely distributed operation without a single point of failure. manages data replication and is fault-tolerant.   Pratik Gautam pratikgautm@gmail.com"/>
+<meta itemprop="name" content="Ceph">
+<meta itemprop="description" content="a freely available storage platform that implements object storage on a single distributed computer cluster and provides interfaces for object, block and file level storage. aims for completely distributed operation without a single point of failure. manages data replication and is fault-tolerant.   Pratik Gautam pratikgautm@gmail.com">
+
+<meta itemprop="wordCount" content="45">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
 <body><div class="container"><header>
 <h1>Tecnep</h1>
 <a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
@@ -43,31 +50,21 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Mysql/Mariadb</h1><p>MariaDB Server is one of the most popular open source relational databases. Since MariaDB is a fork of MySQL, the database structure and indexes of MariaDB are the same as MySQL. You can install it in centos 7 from base repo however you need to download repo for mysql. Goto <a href="/php_nginx_mysql">mysql</a>.</p>
-<p>Install maridb server</p>
-<pre><code>yum -y install mariadb mariadb-server
-</code></pre><p>Once the installation is complete, start the MariaDB service and add it to the startup boot time.</p>
-<pre><code>systemctl start mariadb
-systemctl enable mariadb
-</code></pre><p>Next, we&rsquo;re going to configure the root password for the MariaDB using the interactive tool called &lsquo;mysql_secure_installation&rsquo;.</p>
-<pre><code>mysql_secure_installation
-</code></pre><p>Login with username root</p>
-<pre><code>mysql -u root -p
-</code></pre><p>If Access denied for user &lsquo;root&rsquo;@&lsquo;localhost&rsquo; (using password: YES) is promt , then use following command, (you maynot need this for mysql)</p>
-<pre><code>mysqld_safe --skip-grant-tables
-</code></pre><p>Create database</p>
-<pre><code>create database dbname;
-</code></pre><p>Create a user &lsquo;user1&rsquo;, set password, assign it&rsquo;s privileges to database &lsquo;dbname&rsquo; and  flush privileges</p>
-<pre><code>grant all privileges on dbname.* to user1@localhost identified by 'your_password';
-flush privileges;
-</code></pre><hr>
+<main><h1>Ceph</h1>
+<ul>
+<li>a freely available storage platform that implements object storage on a single distributed computer cluster and provides interfaces for <code>object, block and file</code> level storage.</li>
+<li>aims for completely distributed operation without a single point of failure.</li>
+<li>manages data replication and is fault-tolerant.</li>
+</ul>
+<p><img src="architecture.PNG" alt="image"></p>
+<hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
 <div class="edit-meta">
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
-</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/vmware/" title="Vmware"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Vmware</a>
-<a class="nav nav-next" href="https://tecnep.com/hardening/" title="System Hardening">Next - System Hardening <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/storage/object_storage/" title="Object storage"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Object storage</a>
+<a class="nav nav-next" href="https://tecnep.com/tomcat/" title="Tomcat">Next - Tomcat <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>
 <p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
 </footer>
@@ -127,7 +124,7 @@ flush privileges;
   
 </li>
 
-<li class=" has-sub-menu"><a href="https://tecnep.com/storage/">Storage<span class="mark closed">+</span></a>
+<li class="parent has-sub-menu"><a href="https://tecnep.com/storage/">Storage<span class="mark opened">-</span></a>
   
 <ul class="sub-menu">
 <li class=""><a href="https://tecnep.com/storage/lvm/">LVM</a></li>
@@ -135,7 +132,7 @@ flush privileges;
 <li class=""><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
 <li class=""><a href="https://tecnep.com/storage/glusterfs/">Glusterfs</a></li>
 <li class=""><a href="https://tecnep.com/storage/object_storage/">Object storage</a></li>
-<li class=""><a href="https://tecnep.com/storage/ceph/">Ceph</a></li>
+<li class="active"><a href="https://tecnep.com/storage/ceph/">Ceph</a></li>
 </ul>
   
 </li>
@@ -182,7 +179,7 @@ flush privileges;
   
 </li>
 
-<li class="parent active"><a href="https://tecnep.com/mysql/">Mysql/Mariadb</a>
+<li class=""><a href="https://tecnep.com/mysql/">Mysql/Mariadb</a>
   
 </li>
 </ul>

@@ -37,14 +37,6 @@
   </url>
   
   <url>
-    <loc>https://tecnep.com/storage/san_nas/</loc>
-  </url>
-  
-  <url>
-    <loc>https://tecnep.com/storage/storage_access/</loc>
-  </url>
-  
-  <url>
     <loc>https://tecnep.com/storage/drbd/</loc>
   </url>
   
@@ -75,6 +67,10 @@
   <url>
     <loc>https://tecnep.com/dns/spf/</loc>
     <lastmod>2019-12-08T18:29:55+05:45</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/storage/ceph/</loc>
   </url>
   
   <url>
@@ -110,10 +106,6 @@
   </url>
   
   <url>
-    <loc>https://tecnep.com/storage/increase_hd/</loc>
-  </url>
-  
-  <url>
     <loc>https://tecnep.com/storage/</loc>
   </url>
   
@@ -140,10 +132,6 @@
   
   <url>
     <loc>https://tecnep.com/ssl/</loc>
-  </url>
-  
-  <url>
-    <loc>https://tecnep.com/nas_san/</loc>
   </url>
   
   <url>

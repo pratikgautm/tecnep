@@ -17,7 +17,8 @@
 :root {--custom-background-color: #52555B;}
 </style>
 <meta property="og:title" content="RAID" />
-<meta property="og:description" content="Pratik Gautam pratikgautm@gmail.com" />
+<meta property="og:description" content="RAID (Redundant Array of Independent Disks) is a data storage virtualization technology uses multiple disks in order to provide fault tolerance, to improve overall performance. With RAID technology, data can be mirrored on one or more disks in the same array, so that if one disk fails, the data is preserved. RAID should not be confused with data backup.
+RAID Levels Raid-0 &ndash; Striping  Data is striped across multiple disk." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tecnep.com/storage/raid/" />
 <meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
@@ -26,11 +27,13 @@
 <meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
 <meta name="twitter:title" content="RAID"/>
-<meta name="twitter:description" content="Pratik Gautam pratikgautm@gmail.com"/>
+<meta name="twitter:description" content="RAID (Redundant Array of Independent Disks) is a data storage virtualization technology uses multiple disks in order to provide fault tolerance, to improve overall performance. With RAID technology, data can be mirrored on one or more disks in the same array, so that if one disk fails, the data is preserved. RAID should not be confused with data backup.
+RAID Levels Raid-0 &ndash; Striping  Data is striped across multiple disk."/>
 <meta itemprop="name" content="RAID">
-<meta itemprop="description" content="Pratik Gautam pratikgautm@gmail.com">
+<meta itemprop="description" content="RAID (Redundant Array of Independent Disks) is a data storage virtualization technology uses multiple disks in order to provide fault tolerance, to improve overall performance. With RAID technology, data can be mirrored on one or more disks in the same array, so that if one disk fails, the data is preserved. RAID should not be confused with data backup.
+RAID Levels Raid-0 &ndash; Striping  Data is striped across multiple disk.">
 
-<meta itemprop="wordCount" content="3">
+<meta itemprop="wordCount" content="159">
 <meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
 
 
@@ -51,6 +54,36 @@
 </div>
 <div class="content-container">
 <main><h1>RAID</h1>
+<p>RAID (Redundant Array of Independent Disks) is a data storage virtualization technology uses multiple disks in order to provide fault tolerance, to improve overall performance. With RAID technology, data can be mirrored on one or more disks in the same array, so that if one disk fails, the data is preserved. RAID should not be confused with data backup.</p>
+<h5 id="raid-levels">RAID Levels</h5>
+<h6 id="raid-0----striping">Raid-0 &ndash; <code>Striping</code></h6>
+<ul>
+<li>Data is striped across multiple disk.</li>
+<li>It is not fault tolerance.</li>
+<li>Advantage is speed.</li>
+</ul>
+<p><img src="raid0.PNG" alt="image"></p>
+<h6 id="raid-1----mirroring">Raid-1 &ndash; <code>Mirroring</code></h6>
+<ul>
+<li>Data is copied on more than one disk.</li>
+<li>Fault tolerant.</li>
+<li>Can&rsquo;t achieve speed.</li>
+</ul>
+<p><img src="raid1.PNG" alt="image"></p>
+<h6 id="raid-5----striping-with-parity">Raid-5 &ndash; <code>Striping with parity</code></h6>
+<ul>
+<li>Data is striped across multiple disk along with parity.</li>
+<li>Must have at least 3 disk.</li>
+<li>The equivalent of an entire disk is used to store parity.</li>
+</ul>
+<p><img src="raid5.PNG" alt="image"></p>
+<h6 id="raid-10----striping--mirroring">Raid-10 &ndash; <code>Striping + Mirroring</code></h6>
+<ul>
+<li>Combine RAID-0 and RAID-1.</li>
+<li>Benefit from the fault tolerance of RAID 1 and the speed of RAID 0.</li>
+<li>can only use 50% for the data storage.</li>
+</ul>
+<p><img src="raid10.PNG" alt="image"></p>
 <hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
@@ -58,7 +91,7 @@
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
 </div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/storage/lvm/" title="LVM"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - LVM</a>
-<a class="nav nav-next" href="https://tecnep.com/storage/san_nas/" title="SAN and NAS">Next - SAN and NAS <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+<a class="nav nav-next" href="https://tecnep.com/storage/drbd/" title="DRBD">Next - DRBD <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>
 <p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
 </footer>
@@ -123,12 +156,10 @@
 <ul class="sub-menu">
 <li class=""><a href="https://tecnep.com/storage/lvm/">LVM</a></li>
 <li class="active"><a href="https://tecnep.com/storage/raid/">RAID</a></li>
-<li class=""><a href="https://tecnep.com/storage/san_nas/">SAN and NAS</a></li>
-<li class=""><a href="https://tecnep.com/storage/storage_access/">Storage access methods</a></li>
 <li class=""><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
-<li class=""><a href="https://tecnep.com/storage/glusterfs/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/storage/glusterfs/">Glusterfs</a></li>
 <li class=""><a href="https://tecnep.com/storage/object_storage/">Object storage</a></li>
-<li class=""><a href="https://tecnep.com/storage/increase_hd/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/storage/ceph/">Ceph</a></li>
 </ul>
   
 </li>
@@ -152,10 +183,6 @@
 </li>
 
 <li class=""><a href="https://tecnep.com/ssl/">SSL</a>
-  
-</li>
-
-<li class=""><a href="https://tecnep.com/nas_san/">NAS and SAN</a>
   
 </li>
 

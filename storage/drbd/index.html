@@ -17,7 +17,9 @@
 :root {--custom-background-color: #52555B;}
 </style>
 <meta property="og:title" content="DRBD" />
-<meta property="og:description" content="Pratik Gautam pratikgautm@gmail.com" />
+<meta property="og:description" content="DRBD (Distributed Replicated Block Device) is a distributed storage platform. It mirrors the content of block devices such as hard disks, partitions, logical volumes between servers. It consists of a kernel module, several userspace management applications and some shell scripts and is used on high availability clusters.
+In this tutorial we are going to make a DRBD cluster. We&rsquo;ll have following configuration of resources.
+drbd1: IP : 192.168.91.50 cluster disk : /dev/sdb ; 10 GB drbd2 : IP : 192." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tecnep.com/storage/drbd/" />
 <meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
@@ -26,11 +28,15 @@
 <meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
 <meta name="twitter:title" content="DRBD"/>
-<meta name="twitter:description" content="Pratik Gautam pratikgautm@gmail.com"/>
+<meta name="twitter:description" content="DRBD (Distributed Replicated Block Device) is a distributed storage platform. It mirrors the content of block devices such as hard disks, partitions, logical volumes between servers. It consists of a kernel module, several userspace management applications and some shell scripts and is used on high availability clusters.
+In this tutorial we are going to make a DRBD cluster. We&rsquo;ll have following configuration of resources.
+drbd1: IP : 192.168.91.50 cluster disk : /dev/sdb ; 10 GB drbd2 : IP : 192."/>
 <meta itemprop="name" content="DRBD">
-<meta itemprop="description" content="Pratik Gautam pratikgautm@gmail.com">
+<meta itemprop="description" content="DRBD (Distributed Replicated Block Device) is a distributed storage platform. It mirrors the content of block devices such as hard disks, partitions, logical volumes between servers. It consists of a kernel module, several userspace management applications and some shell scripts and is used on high availability clusters.
+In this tutorial we are going to make a DRBD cluster. We&rsquo;ll have following configuration of resources.
+drbd1: IP : 192.168.91.50 cluster disk : /dev/sdb ; 10 GB drbd2 : IP : 192.">
 
-<meta itemprop="wordCount" content="3">
+<meta itemprop="wordCount" content="689">
 <meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
 
 
@@ -51,14 +57,111 @@
 </div>
 <div class="content-container">
 <main><h1>DRBD</h1>
-<hr>
+<p>DRBD (Distributed Replicated Block Device) is a distributed storage platform. It mirrors the content of block devices such as hard disks, partitions, logical volumes between servers. It consists of a kernel module, several userspace management applications and some shell scripts and is used on high availability clusters.</p>
+<p>In this tutorial we are going to make a DRBD cluster. We&rsquo;ll have following configuration of resources.</p>
+<pre><code>drbd1:
+  IP : 192.168.91.50
+  cluster disk : /dev/sdb ; 10 GB
+drbd2 :
+  IP : 192.168.91.51
+  cluster disk : /dev/sdb ; 10 GB
+</code></pre><p>DRBD can be installed from the EPEL repositories. Let’s start by importing the ELRepo package signing key, and enable the repository as shown on both nodes.</p>
+<pre><code>rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+</code></pre><p>Then we can install the DRBD kernel module and utilities on both nodes by running:</p>
+<pre><code>yum install -y kmod-drbd84 drbd84-utils
+</code></pre><p>We have already added 10 GB of disk. You can add if you don&rsquo;t have. And verify using the command <code>lsblk</code> on both the node.</p>
+<p><img src="lsblk_sdb.png" alt="image"></p>
+<p>Now create a partition on disk,</p>
+<pre><code>fdisk /dev/sdb
+</code></pre><p>Create new partition, and make make kernel aware of it <code>partprobe /dev/sdb1</code></p>
+<p>Verify it using <code>lsblk</code> again. It should show similar like this.</p>
+<p><img src="lsblk_sdb1.png" alt="image"></p>
+<p>DRBD’s main configuration file is located at <code>/etc/drbd.conf</code>. To replicate storage, we need to add the necessary configurations in the <code>/etc/drbd.d/global_common.conf</code>. We can define the resource information in <code>.res</code> file.</p>
+<p>First make a backup of the original file on both nodes.</p>
+<pre><code>mv /etc/drbd.d/global_common.conf /etc/drbd.d/global_common.conf.orig
+</code></pre><p>Make a new configuration in,</p>
+<pre><code>vi /etc/drbd.d/global_common.conf
+</code></pre><p>Add the following lines,</p>
+<pre><code>global {
+ usage-count  yes;
+}
+common {
+ net {
+  protocol C;
+ }
+}
+</code></pre><p>Where,</p>
+<ul>
+<li>protocol A: Asynchronous replication protocol; it’s most often used in long distance replication scenarios.</li>
+<li>protocol B: Semi-synchronous replication protocol; Memory synchronous protocol.</li>
+<li>protocol C: commonly used for nodes in short distanced networks;  the most commonly used.</li>
+</ul>
+<p>Now, we define our resource in a file called /etc/drbd.d/cluster.res. It is the file which consists of a particular replicated data set.</p>
+<pre><code>resource cluster {
+        on drbd1 {
+ 		device /dev/drbd0;
+       		disk /dev/sdb1;
+        		meta-disk internal;
+                	address 192.168.91.50:7789;
+        }
+        on drbd2  {
+		device /dev/drbd0;
+        		disk /dev/sdb1;
+        		meta-disk internal;
+                	address 192.168.91.51:7789;
+        }
+}
+</code></pre><p>Where,</p>
+<ul>
+<li>drbd1,drbd2 is hostname of the nodes.</li>
+<li>cluster is the name of the resource.</li>
+<li>device /dev/drbd0 is the name of virtual block managed by DRBD.</li>
+<li>disk /dev/sdb1 is the block for drbd cluster.</li>
+<li>meta-disk is where the DRBD stores its metadata. Using Internal means that DRBD stores its meta data on the same physical lower-level device as the actual production data.</li>
+<li>adress is for actual IP and port for the node.</li>
+</ul>
+<p>Bring up the resource on both nodes,</p>
+<pre><code>drbdadm create-md cluster
+</code></pre><p>Next, we should enable the resource, which will attach the resource with its backing device, then it sets replication parameters, and connects the resource to its peer. Run following command on both the nodes,</p>
+<pre><code>drbdadm up cluster
+</code></pre><p>Now if you run the lsblk command, you will notice that the DRBD device/volume drbd0 is associated with the backing device /dev/sdb1</p>
+<p><img src="lsblk_drbd0.png" alt="image"></p>
+<p>Check the status of DRBD</p>
+<pre><code>drbdadm status cluster
+</code></pre><p>Note that the Inconsistent/Inconsistent disk state is expected at this point on both node.</p>
+<p><img src="inconsistent.PNG" alt="image"></p>
+<p>At this stage, DRBD is now ready for operation. We now need to tell it which node should be used as the source of the initial device synchronization. Run the following command on <code>only one</code> node to start the initial full synchronization:</p>
+<pre><code>drbdadm primary --force cluster
+</code></pre><p>See status on both node. In our case, drbd1 acts as primary while drbd2 as secondary.</p>
+<p><img src="drbd_status_node1.PNG" alt="image"></p>
+<p><img src="drbd_status_node2.PNG" alt="image"></p>
+<p>Create a filesystem on the device which has the resource with primary role.</p>
+<pre><code>mkfs -t ext4 /dev/drbd0
+</code></pre><p>Make a directory for accessing it and mount. Optionally, persistent mount; add it in <code>/etc/fstab</code></p>
+<pre><code>mkdir -p /mnt/drbd1/
+mount /dev/drbd0 /mnt/drbd1/
+</code></pre><p>Add some file to the folder <code>/mnt/drbd1</code>.</p>
+<pre><code>cd /mnt/drbd1/
+echo &quot;This is DRBD setup&quot; &gt; test.txt
+cd
+</code></pre><p>We are going to see if drbd2 has mirror the data or not. For this we need to unmount, assign drbd1 secondary role.</p>
+<pre><code>umount /mnt/drbd1
+drbdadm secondary cluster
+</code></pre><p>Now assign drbd2 primary role, make the directory and mount it. The <code>test.txt</code> file should appear.</p>
+<pre><code>drbdadm primary cluster
+mkdir -p /mnt/drbd2/
+mount /dev/drbd0 /mnt/drbd2/
+cd /mnt/drbd2/
+ls  -l
+</code></pre><hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
 <div class="edit-meta">
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
-</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/storage/storage_access/" title="Storage access methods"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Storage access methods</a>
-<a class="nav nav-next" href="https://tecnep.com/storage/glusterfs/" title="Increase hard disk">Next - Increase hard disk <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/storage/raid/" title="RAID"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - RAID</a>
+<a class="nav nav-next" href="https://tecnep.com/storage/glusterfs/" title="Glusterfs">Next - Glusterfs <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>
 <p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
 </footer>
@@ -123,12 +226,10 @@
 <ul class="sub-menu">
 <li class=""><a href="https://tecnep.com/storage/lvm/">LVM</a></li>
 <li class=""><a href="https://tecnep.com/storage/raid/">RAID</a></li>
-<li class=""><a href="https://tecnep.com/storage/san_nas/">SAN and NAS</a></li>
-<li class=""><a href="https://tecnep.com/storage/storage_access/">Storage access methods</a></li>
 <li class="active"><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
-<li class=""><a href="https://tecnep.com/storage/glusterfs/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/storage/glusterfs/">Glusterfs</a></li>
 <li class=""><a href="https://tecnep.com/storage/object_storage/">Object storage</a></li>
-<li class=""><a href="https://tecnep.com/storage/increase_hd/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/storage/ceph/">Ceph</a></li>
 </ul>
   
 </li>
@@ -152,10 +253,6 @@
 </li>
 
 <li class=""><a href="https://tecnep.com/ssl/">SSL</a>
-  
-</li>
-
-<li class=""><a href="https://tecnep.com/nas_san/">NAS and SAN</a>
   
 </li>
 

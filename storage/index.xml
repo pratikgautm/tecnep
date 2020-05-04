@@ -25,25 +25,8 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://tecnep.com/storage/raid/</guid>
-      <description>Pratik Gautam pratikgautm@gmail.com</description>
-    </item>
-    
-    <item>
-      <title>SAN and NAS</title>
-      <link>https://tecnep.com/storage/san_nas/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://tecnep.com/storage/san_nas/</guid>
-      <description>Pratik Gautam pratikgautm@gmail.com</description>
-    </item>
-    
-    <item>
-      <title>Storage access methods</title>
-      <link>https://tecnep.com/storage/storage_access/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://tecnep.com/storage/storage_access/</guid>
-      <description>NFS Samba iSCSI   Pratik Gautam pratikgautm@gmail.com</description>
+      <description>RAID (Redundant Array of Independent Disks) is a data storage virtualization technology uses multiple disks in order to provide fault tolerance, to improve overall performance. With RAID technology, data can be mirrored on one or more disks in the same array, so that if one disk fails, the data is preserved. RAID should not be confused with data backup.
+RAID Levels Raid-0 &amp;ndash; Striping  Data is striped across multiple disk.</description>
     </item>
     
     <item>
@@ -52,11 +35,13 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://tecnep.com/storage/drbd/</guid>
-      <description>Pratik Gautam pratikgautm@gmail.com</description>
+      <description>DRBD (Distributed Replicated Block Device) is a distributed storage platform. It mirrors the content of block devices such as hard disks, partitions, logical volumes between servers. It consists of a kernel module, several userspace management applications and some shell scripts and is used on high availability clusters.
+In this tutorial we are going to make a DRBD cluster. We&amp;rsquo;ll have following configuration of resources.
+drbd1: IP : 192.168.91.50 cluster disk : /dev/sdb ; 10 GB drbd2 : IP : 192.</description>
     </item>
     
     <item>
-      <title>Increase hard disk</title>
+      <title>Glusterfs</title>
       <link>https://tecnep.com/storage/glusterfs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -74,13 +59,12 @@
     </item>
     
     <item>
-      <title>Increase hard disk</title>
-      <link>https://tecnep.com/storage/increase_hd/</link>
+      <title>Ceph</title>
+      <link>https://tecnep.com/storage/ceph/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/increase_hd/</guid>
-      <description>First, add the disk from vmware exsi or physically add disk. Then, create a new XFS partition.
-lsblk See disk path of added disk and note down Make partition and set to linux lvm fdisk /dev/sdb	Enter &amp;ldquo;n&amp;rdquo; for new disk partition and press enter for partitioning full disk in every line Make kernel update for the changes to apply partprobe /dev/sdb Create physical volume of the added disk pvcreate /dev/sdb1 Verify by listing physical volume pvs or pvdisplay Extend existing volume group &amp;ldquo;centos&amp;rdquo; vgextend centos /dev/sdb1 Verify by listing volume groups vgs or vgdisplay List logical volumes lvs Extend existing logical volume &amp;ldquo;root&amp;rdquo; lvextend -l +100%FREE /dev/centos/root Verify by logical volumes lvs or lvdisplay	grow xfs system xfs_growfs /dev/centos/root verify disk space of root df -h  Suresh Saud sureshsaud17@gmail.</description>
+      <guid>https://tecnep.com/storage/ceph/</guid>
+      <description>a freely available storage platform that implements object storage on a single distributed computer cluster and provides interfaces for object, block and file level storage. aims for completely distributed operation without a single point of failure. manages data replication and is fault-tolerant.   Pratik Gautam pratikgautm@gmail.com</description>
     </item>
     
   </channel>

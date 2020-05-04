@@ -44,11 +44,67 @@
 </div>
 <div class="content-container">
 <main><h1>Storage</h1><h5 id="storage-types">Storage Types</h5>
+<h6 id="1-das">1. DAS</h6>
+<p>Direct-attached storage (DAS) is digital storage directly attached to the computer accessing it. Examples of DAS are hard drives, solid-state drives, optical disc drives. The main protocols used for DAS connections are PATA, SATA, IDE, NVMe, SCSI, SAS, USB.</p>
 <ol>
-<li>DAS</li>
-<li>NAS</li>
-<li>SAN</li>
+<li>
+<p><strong>PATA</strong> : Data is transferred in parallel. They are older technology and slower than SATA. PATA interface doesn&rsquo;t support hot plugging.</p>
+</li>
+<li>
+<p><strong>IDE</strong> : IDE is also called Parallel ATA or PATA.</p>
+</li>
+<li>
+<p><strong>SATA</strong> : Serial Advanced Technology Attachment (SATA) is the newer standard and SATA drives are faster than PATA drives. SATA interface supports hot plugging.</p>
+</li>
+<li>
+<p><strong>SAS</strong> : Serial Attached SCSI is a point-to-point serial protocol that moves data to and from computer-storage devices such as hard drives and tape drives. It is morden SCSI.</p>
+</li>
+<li>
+<p><strong>NVMe</strong> : It is open logical device interface specification for accessing non-volatile storage media attached via PCI Express (PCIe) bus.</p>
+</li>
 </ol>
+<h6 id="2-nas">2. NAS</h6>
+<ul>
+<li>Network-attached storage is a <code>file-level</code> computer data storage server connected to a computer network providing data access to a group of clients.</li>
+<li>It uses TCP/IP networks, commonly ethernet.</li>
+<li>They typically provide access to files using network file sharing protocols such as NFS, SMB.</li>
+<li>Due to the use of ethernet, has lower throughput and higher latency.</li>
+<li>Some large NAS manufacturers like Synology, QNAP.</li>
+</ul>
+<h6 id="3-san">3. SAN</h6>
+<ul>
+<li>A Storage Area Network (SAN) is a specialized, high-speed network that provides <code>block-level</code> network access to storage.</li>
+<li>They uses fiber to transfer data.</li>
+<li>SANs are commonly based on Fibre Channel (FC) technology that utilizes the Fibre Channel Protocol (FCP).</li>
+<li>Also can be implemented using Fibre Channel over Ethernet (FCoE), which are cheaper.</li>
+<li>Due to the use of fiber, has higher throughput and lower latency.</li>
+<li>Some SAN vendors are Dell EMC, HPE, NetApp, IBM</li>
+</ul>
+<hr>
+<h5 id="file-system">File system</h5>
+<p>A file system controls how data is stored and retrieved. Without a file system, there is no way to tell where one piece of data stops and the next begins. There are many different kinds of file systems. Each one has different structure, properties of speed, security, size.
+Some of them are explained below:-</p>
+<p>a) <em>ext4</em></p>
+<ul>
+<li>used by <code>linux system</code>.</li>
+<li>designed to be backwards compatible with ext3, ext2.</li>
+<li>uses <code>hashed B-tree</code> data structure to store and retrieve data.</li>
+<li>maximum Volume size = <code>1 Ebyte</code>, max file size = <code>16 Tbytes</code>.</li>
+</ul>
+<p>b) <em>xfs</em></p>
+<ul>
+<li>default file system in <code>centos 7 and RHEL 7</code>.</li>
+<li>can be enlarged, but not shrunk, on the fly.</li>
+<li>uses <code>B+ tree</code> data structure to store and retrieve data.</li>
+<li>maximum Volume size = <code>8 Ebytes</code>, max file size = <code>8 Ebytes</code>.</li>
+</ul>
+<p>c) <em>NTFS</em></p>
+<ul>
+<li>a high-performance file system proprietary to <code>Microsoft</code>.</li>
+<li>linux have open-source NTFS driver, with both read and write functionality.</li>
+<li>macOS comes with read-only support for NTFS.</li>
+<li>NTFS replaced High-Performance File System (HPFS) and the Windows 95 file allocation table (FAT).</li>
+</ul>
 <hr>
 <p>Pratik Gautam
 <a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
@@ -121,12 +177,10 @@
 <ul class="sub-menu">
 <li class=""><a href="https://tecnep.com/storage/lvm/">LVM</a></li>
 <li class=""><a href="https://tecnep.com/storage/raid/">RAID</a></li>
-<li class=""><a href="https://tecnep.com/storage/san_nas/">SAN and NAS</a></li>
-<li class=""><a href="https://tecnep.com/storage/storage_access/">Storage access methods</a></li>
 <li class=""><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
-<li class=""><a href="https://tecnep.com/storage/glusterfs/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/storage/glusterfs/">Glusterfs</a></li>
 <li class=""><a href="https://tecnep.com/storage/object_storage/">Object storage</a></li>
-<li class=""><a href="https://tecnep.com/storage/increase_hd/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/storage/ceph/">Ceph</a></li>
 </ul>
   
 </li>
@@ -150,10 +204,6 @@
 </li>
 
 <li class=""><a href="https://tecnep.com/ssl/">SSL</a>
-  
-</li>
-
-<li class=""><a href="https://tecnep.com/nas_san/">NAS and SAN</a>
   
 </li>
 

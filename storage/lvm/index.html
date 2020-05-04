@@ -89,9 +89,10 @@ vgs
 lvdisplay
 lvs
 
-</code></pre><h5 id="increase-size-of--and-data">Increase size of / and /data</h5>
+</code></pre><hr>
+<h5 id="increase-size-of--and-data">Increase size of / and /data</h5>
 <p>We have 20GiB of hard disk(sdc). We are going to add 10GiB of disk to / and 10GiB to /data. Following is the current status of the system.</p>
-<p><img src="lsblk_sdc.PNG" alt="image"></p>
+<p><img src="lsblk_sdc.png" alt="image"></p>
 <p>Let&rsquo;s make two partition of disk.</p>
 <pre><code>fdisk /dev/sdc
 </code></pre><p>Enter <code>n</code> for new partition.
@@ -187,12 +188,10 @@ resize2fs /dev/mapper/centos01-lvol0
 <ul class="sub-menu">
 <li class="active"><a href="https://tecnep.com/storage/lvm/">LVM</a></li>
 <li class=""><a href="https://tecnep.com/storage/raid/">RAID</a></li>
-<li class=""><a href="https://tecnep.com/storage/san_nas/">SAN and NAS</a></li>
-<li class=""><a href="https://tecnep.com/storage/storage_access/">Storage access methods</a></li>
 <li class=""><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
-<li class=""><a href="https://tecnep.com/storage/glusterfs/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/storage/glusterfs/">Glusterfs</a></li>
 <li class=""><a href="https://tecnep.com/storage/object_storage/">Object storage</a></li>
-<li class=""><a href="https://tecnep.com/storage/increase_hd/">Increase hard disk</a></li>
+<li class=""><a href="https://tecnep.com/storage/ceph/">Ceph</a></li>
 </ul>
   
 </li>
@@ -216,10 +215,6 @@ resize2fs /dev/mapper/centos01-lvol0
 </li>
 
 <li class=""><a href="https://tecnep.com/ssl/">SSL</a>
-  
-</li>
-
-<li class=""><a href="https://tecnep.com/nas_san/">NAS and SAN</a>
   
 </li>
 
