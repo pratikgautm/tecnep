@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>DKIM - Tecnep</title>
-<meta name="description" content="Share your ideas.">
+<meta name="description" content="Share your notes.">
 <meta name="generator" content="Hugo 0.68.0" />
 <link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
 <link rel="canonical" href="https://tecnep.com/dns/dkim/">
@@ -14,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
 <script src="https://tecnep.com/js/bundle.js"></script><style>
-:root {--custom-background-color: #52555B;}
+:root {--custom-font-color: #edfaf1;--custom-background-color: #52555B;}
 </style>
 <meta property="og:title" content="DKIM" />
 <meta property="og:description" content="Domain Key Identified Mail is email authentication technique that allows the receiver to check that an email was indeed sent and authorized by the owner of that domain. It is email security standard designed to make sure message weren&rsquo;t altered in transist between the sending and receipient servers by the use of private and public key cryptography.
@@ -44,15 +44,15 @@ A hash is created from the content of the message headers and signed it with pri
 <meta itemprop="keywords" content="" /></head>
 <body><div class="container"><header>
 <h1>Tecnep</h1>
-<a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
-<p class="description">Share your ideas.</p>
+
+<p class="description">Share your notes.</p>
 
 </header>
 <div class="global-menu">
 <nav>
 <ul>
 <li><a href="/">Home</a></li>
-<li><a href="/">About</a></li></ul>
+<li><a href="/"></a></li></ul>
 </nav>
 </div>
 <div class="content-container">
@@ -164,7 +164,7 @@ p=MIGfMA0GCSqGSI...... is the actual DKIM public key of 1024 bits
 <li class=""><a href="https://tecnep.com/storage/raid/">RAID</a></li>
 <li class=""><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
 <li class=""><a href="https://tecnep.com/storage/glusterfs/">Glusterfs</a></li>
-<li class=""><a href="https://tecnep.com/storage/object_storage/">Object storage</a></li>
+<li class=""><a href="https://tecnep.com/storage/minio/">Minio</a></li>
 <li class=""><a href="https://tecnep.com/storage/ceph/">Ceph</a></li>
 </ul>
   
@@ -180,6 +180,7 @@ p=MIGfMA0GCSqGSI...... is the actual DKIM public key of 1024 bits
 <li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
 <li class="active"><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
 <li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+<li class=""><a href="https://tecnep.com/dns/unbound/">Unbound</a></li>
 </ul>
   
 </li>
@@ -192,7 +193,12 @@ p=MIGfMA0GCSqGSI...... is the actual DKIM public key of 1024 bits
   
 </li>
 
-<li class=""><a href="https://tecnep.com/haproxy/">Haproxy</a>
+<li class=" has-sub-menu"><a href="https://tecnep.com/haproxy/">Haproxy<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/haproxy/installation/">Installation</a></li>
+<li class=""><a href="https://tecnep.com/haproxy/configuration/">Configuration</a></li>
+</ul>
   
 </li>
 
@@ -213,6 +219,18 @@ p=MIGfMA0GCSqGSI...... is the actual DKIM public key of 1024 bits
 </li>
 
 <li class=""><a href="https://tecnep.com/mysql/">Mysql/Mariadb</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ansible/">Ansible</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/docker/">Docker</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/wazuh/">Wazuh</a>
   
 </li>
 </ul>

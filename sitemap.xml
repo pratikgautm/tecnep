@@ -8,6 +8,15 @@
   </url>
   
   <url>
+    <loc>https://tecnep.com/dns/spf/</loc>
+    <lastmod>2019-12-08T18:29:55+05:45</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/haproxy/installation/</loc>
+  </url>
+  
+  <url>
     <loc>https://tecnep.com/storage/lvm/</loc>
   </url>
   
@@ -24,6 +33,14 @@
   </url>
   
   <url>
+    <loc>https://tecnep.com/haproxy/configuration/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/dns/dkim/</loc>
+  </url>
+  
+  <url>
     <loc>https://tecnep.com/chrony/</loc>
   </url>
   
@@ -34,6 +51,14 @@
   <url>
     <loc>https://tecnep.com/redis/</loc>
     <lastmod>2019-12-08T18:29:55+05:45</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/dns/dmarc/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/dns/unbound/</loc>
   </url>
   
   <url>
@@ -57,7 +82,7 @@
   </url>
   
   <url>
-    <loc>https://tecnep.com/storage/object_storage/</loc>
+    <loc>https://tecnep.com/storage/minio/</loc>
   </url>
   
   <url>
@@ -65,20 +90,7 @@
   </url>
   
   <url>
-    <loc>https://tecnep.com/dns/spf/</loc>
-    <lastmod>2019-12-08T18:29:55+05:45</lastmod>
-  </url>
-  
-  <url>
     <loc>https://tecnep.com/storage/ceph/</loc>
-  </url>
-  
-  <url>
-    <loc>https://tecnep.com/dns/dkim/</loc>
-  </url>
-  
-  <url>
-    <loc>https://tecnep.com/dns/dmarc/</loc>
   </url>
   
   <url>
@@ -156,6 +168,18 @@
   
   <url>
     <loc>https://tecnep.com/mysql/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/ansible/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/docker/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tecnep.com/wazuh/</loc>
   </url>
   
   <url>

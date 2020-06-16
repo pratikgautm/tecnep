@@ -41,5 +41,17 @@ A hash is created from the content of the message headers and signed it with pri
       <description>Domain-based Message Authentication Reporting and conformance (DMARC) is designed to protect your company&amp;rsquo;s email domain for being used for email spoofing, phishing scans. It is enhancement to existing email authentication technologies. DMARC uses existing two protocols SPF and DKIM and applies the policy for receiving email. Record is published in DNS record to specify which mechanism (DKIM, SPF or both) is employed when sending email from that domain, how to check &amp;lsquo;From:&amp;rsquo; field of the sender email.</description>
     </item>
     
+    <item>
+      <title>Unbound</title>
+      <link>https://tecnep.com/dns/unbound/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tecnep.com/dns/unbound/</guid>
+      <description>Unbound is a recursive, and caching DNS server. Caching name servers store DNS query results for a period of time determined in the configuration (time-to-live) of the domain name record in question.
+Here in this article, we are going to use ‘unbound‘ caching software to install and configure a DNS Server in CentOS 7 systems.
+Install it
+yum install unbound -y Make a copy of the unbound configuration file before making any changes to original file.</description>
+    </item>
+    
   </channel>
 </rss>

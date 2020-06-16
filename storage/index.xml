@@ -50,12 +50,13 @@ drbd1: IP : 192.168.91.50 cluster disk : /dev/sdb ; 10 GB drbd2 : IP : 192.</des
     </item>
     
     <item>
-      <title>Object storage</title>
-      <link>https://tecnep.com/storage/object_storage/</link>
+      <title>Minio</title>
+      <link>https://tecnep.com/storage/minio/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/object_storage/</guid>
-      <description>Minio  Pratik Gautam pratikgautm@gmail.com</description>
+      <guid>https://tecnep.com/storage/minio/</guid>
+      <description>Minio is a self-hosted AWS S3-compatible, object storage server written in Go. It can be used to store objects such as photos, videos, log files, backups, etc.
+Objects are discrete units of data that are stored in a structurally flat data environment. There are no folders, directories, or complex hierarchies as in a file-based system. Each object is a simple, self-contained repository that includes the data, metadata (descriptive information associated with an object), and a unique identifying ID number (instead of a file name and file path).</description>
     </item>
     
     <item>

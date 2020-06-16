@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Installation - Tecnep</title>
+<meta name="description" content="Share your notes.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/haproxy/installation/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-font-color: #edfaf1;--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="Installation" />
+<meta property="og:description" content="Following steps shows haproxy to install from source. Up to Haproxy version 1.x, is avaliable from centos base repo. For haproxy 2.X you should download, complie and install from source.
+First, Install dependencies needed to build HAProxy
+yum install -y make gcc gcc-c&#43;&#43; pcre-devel openssl-devel readline-devel systemd-devel zlib-devel wget HAProxy embeds the scripting language Lua. Lua is a rapid, lightweight, embeddable scripting language. It supports procedural, object-oriented, functional and data-driven programming." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tecnep.com/haproxy/installation/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="og:site_name" content="tecnep.com" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
+
+<meta name="twitter:title" content="Installation"/>
+<meta name="twitter:description" content="Following steps shows haproxy to install from source. Up to Haproxy version 1.x, is avaliable from centos base repo. For haproxy 2.X you should download, complie and install from source.
+First, Install dependencies needed to build HAProxy
+yum install -y make gcc gcc-c&#43;&#43; pcre-devel openssl-devel readline-devel systemd-devel zlib-devel wget HAProxy embeds the scripting language Lua. Lua is a rapid, lightweight, embeddable scripting language. It supports procedural, object-oriented, functional and data-driven programming."/>
+<meta itemprop="name" content="Installation">
+<meta itemprop="description" content="Following steps shows haproxy to install from source. Up to Haproxy version 1.x, is avaliable from centos base repo. For haproxy 2.X you should download, complie and install from source.
+First, Install dependencies needed to build HAProxy
+yum install -y make gcc gcc-c&#43;&#43; pcre-devel openssl-devel readline-devel systemd-devel zlib-devel wget HAProxy embeds the scripting language Lua. Lua is a rapid, lightweight, embeddable scripting language. It supports procedural, object-oriented, functional and data-driven programming.">
+
+<meta itemprop="wordCount" content="274">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+
+<p class="description">Share your notes.</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/"></a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Installation</h1>
+<p>Following steps shows haproxy to install from source. Up to Haproxy version 1.x, is avaliable from centos base repo. For haproxy 2.X you should download, complie and install from source.</p>
+<p>First, Install dependencies needed to build HAProxy</p>
+<pre><code>yum install -y make gcc gcc-c++ pcre-devel openssl-devel readline-devel systemd-devel zlib-devel wget
+</code></pre><p>HAProxy embeds the scripting language Lua. Lua is a rapid, lightweight, embeddable scripting language. It supports procedural, object-oriented, functional and data-driven programming. Download Lua source code and then Install Lua.</p>
+<pre><code>curl -R -O http://www.lua.org/ftp/lua-5.3.5.tar.gz
+
+tar zxf lua-5.3.5.tar.gz
+
+cd lua-5.3.5
+
+make linux test
+
+make linux install
+
+cd ..
+
+</code></pre><p>HAProxy is compiled with OpenSSL, which allows it to encrypt and decrypt traffic as it passes. Download OpenSSL source code and then Install OpenSSL.</p>
+<pre><code>curl -R -O https://www.openssl.org/source/openssl-1.1.1c.tar.gz
+
+tar xvzf openssl-1.1.1c.tar.gz
+
+cd openssl-1.1.1c
+
+./config --prefix=/usr/local/openssl-1.1.1c shared
+
+make
+
+make install
+
+</code></pre><p>Download HAProxy source code and then Install HAProxy.</p>
+<pre><code>curl -R -O https://www.haproxy.org/download/2.0/src/haproxy-2.0.14.tar.gz
+
+tar -xzf haproxy-2.0.7.tar.gz
+
+cd haproxy-2.0.7
+
+make -j $(nproc) TARGET=linux-glibc USE_OPENSSL=1 SSL_LIB=/usr/local/openssl-1.1.1c/lib SSL_INC=/usr/local/openssl-1.1.1c/include USE_ZLIB=1 USE_LUA=1 LUA_LIB=/usr/local/lib/ LUA_INC=/usr/local/include/ USE_PCRE=1 USE_SYSTEMD=1 EXTRA_OBJS=&quot;contrib/prometheus-exporter/service-prometheus.o&quot;
+
+make install
+
+cp /usr/local/sbin/haproxy /usr/sbin/haproxy
+
+useradd -M -r -s /sbin/nologin haproxy
+
+</code></pre><p>Add Service for HAProxy in <code>/etc/systemd/system/haproy.service</code></p>
+<pre><code>[Unit]
+Description=HAProxy Load Balancer
+After=network.target
+[Service]
+Environment=LD_LIBRARY_PATH=/usr/local/openssl-1.1.1c/lib/
+Environment=&quot;CONFIG=/etc/haproxy/haproxy.cfg&quot; &quot;PIDFILE=/run/haproxy.pid&quot; &quot;EXTRAOPTS=-S /run/haproxy-master.sock&quot;
+ExecStartPre=/usr/local/sbin/haproxy -f $CONFIG -c -q $EXTRAOPTS
+ExecStart=/usr/local/sbin/haproxy -Ws -f $CONFIG -p $PIDFILE $EXTRAOPTS
+ExecReload=/usr/local/sbin/haproxy -f $CONFIG -c -q $EXTRAOPTS
+ExecReload=/bin/kill -USR2 $MAINPID
+KillMode=mixed
+Restart=always
+SuccessExitStatus=143
+Type=notify
+[Install]
+WantedBy=multi-user.target
+</code></pre><p>Reload daemon and the directory for configuration file.</p>
+<pre><code>systemctl daemon-reload
+
+mkdir -p /etc/haproxy
+</code></pre><p>Add the configuration in the file <code>/etc/haproy/haproxy.cfg</code> <a href="/haproxy/multithreading">see here</a></p>
+<p>Start and enable the service.</p>
+<pre><code>systemctl start haproxy
+systemctl enable haproxy
+</code></pre><p>Useful command</p>
+<pre><code># Check version
+haproxy -v
+
+# Check configuration command
+haproxy -c -V -f /etc/haproxy/haproxy.cfg
+</code></pre><hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<div class="edit-meta">
+<br>
+<a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/haproxy/" title="Haproxy"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Haproxy</a>
+<a class="nav nav-next" href="https://tecnep.com/haproxy/configuration/" title="Configuration">Next - Configuration <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer>
+<p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class=""><a href="https://tecnep.com/hardening/">System Hardening</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/chrony/">NTP</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/redis/">Redis</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/mailcleaner/">Mailcleaner<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/mailcleaner/mailcleaner_config/">MailCleaner configurations</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/snmp/">SNMP</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>
+<li class=""><a href="https://tecnep.com/firewall/rich_rule/">Rich rule</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/zimbra/zimbra_tips_tricks/">Zimbra Tips &amp; Tricks</a></li>
+<li class=""><a href="https://tecnep.com/zimbra/backup/">Backup</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/glassfish/">Glassfish</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/storage/">Storage<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/storage/lvm/">LVM</a></li>
+<li class=""><a href="https://tecnep.com/storage/raid/">RAID</a></li>
+<li class=""><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
+<li class=""><a href="https://tecnep.com/storage/glusterfs/">Glusterfs</a></li>
+<li class=""><a href="https://tecnep.com/storage/minio/">Minio</a></li>
+<li class=""><a href="https://tecnep.com/storage/ceph/">Ceph</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/tomcat/">Tomcat</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/dns/">DNS<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+<li class=""><a href="https://tecnep.com/dns/unbound/">Unbound</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/keepalive/">Keepalive</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ssl/">SSL</a>
+  
+</li>
+
+<li class="parent has-sub-menu"><a href="https://tecnep.com/haproxy/">Haproxy<span class="mark opened">-</span></a>
+  
+<ul class="sub-menu">
+<li class="active"><a href="https://tecnep.com/haproxy/installation/">Installation</a></li>
+<li class=""><a href="https://tecnep.com/haproxy/configuration/">Configuration</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/php_nginx_mysql/">Php Nginx Mysql</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/exchnage/">Exchange</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/samba/">Samba</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/vmware/">Vmware</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/mysql/">Mysql/Mariadb</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ansible/">Ansible</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/docker/">Docker</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/wazuh/">Wazuh</a>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

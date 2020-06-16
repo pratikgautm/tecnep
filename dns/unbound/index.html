@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Unbound - Tecnep</title>
+<meta name="description" content="Share your notes.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/dns/unbound/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-font-color: #edfaf1;--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="Unbound" />
+<meta property="og:description" content="Unbound is a recursive, and caching DNS server. Caching name servers store DNS query results for a period of time determined in the configuration (time-to-live) of the domain name record in question.
+Here in this article, we are going to use ‘unbound‘ caching software to install and configure a DNS Server in CentOS 7 systems.
+Install it
+yum install unbound -y Make a copy of the unbound configuration file before making any changes to original file." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tecnep.com/dns/unbound/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="og:site_name" content="tecnep.com" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
+
+<meta name="twitter:title" content="Unbound"/>
+<meta name="twitter:description" content="Unbound is a recursive, and caching DNS server. Caching name servers store DNS query results for a period of time determined in the configuration (time-to-live) of the domain name record in question.
+Here in this article, we are going to use ‘unbound‘ caching software to install and configure a DNS Server in CentOS 7 systems.
+Install it
+yum install unbound -y Make a copy of the unbound configuration file before making any changes to original file."/>
+<meta itemprop="name" content="Unbound">
+<meta itemprop="description" content="Unbound is a recursive, and caching DNS server. Caching name servers store DNS query results for a period of time determined in the configuration (time-to-live) of the domain name record in question.
+Here in this article, we are going to use ‘unbound‘ caching software to install and configure a DNS Server in CentOS 7 systems.
+Install it
+yum install unbound -y Make a copy of the unbound configuration file before making any changes to original file.">
+
+<meta itemprop="wordCount" content="188">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+
+<p class="description">Share your notes.</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/"></a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Unbound</h1>
+<p>Unbound is a recursive, and caching DNS server. Caching name servers store DNS query results for a period of time determined in the configuration (time-to-live) of the domain name record in question.</p>
+<p>Here in this article, we are going to use ‘unbound‘ caching software to install and configure a DNS Server in CentOS 7 systems.</p>
+<p>Install it</p>
+<pre><code>yum install unbound -y
+</code></pre><p>Make a copy of the unbound configuration file before making any changes to original file.</p>
+<pre><code>mv /etc/unbound/unbound.conf /etc/unbound/unbound.conf.original
+</code></pre><p>Add the following parameters in config file <code>/etc/unbound/unbound.conf</code></p>
+<pre><code>server:
+  access-control: 192.168.222.0/24 allow_snoop   # to allow query
+  cache-max-ttl: 14400                        # maximum time to live cache
+  cache-min-ttl: 900                          # minimum time to live cache
+  hide-identity: yes
+  num-threads: 2
+  do-ip6: no
+  hide-version: yes
+  interface: 192.168.222.10               # interface ip
+  interface: 127.0.0.1
+  minimal-responses: yes
+  log-servfail: yes
+  jostle-timeout: 4000
+  msg-cache-slabs: 4
+  module-config: &quot;validator iterator&quot;
+  auto-trust-anchor-file: &quot;root.key&quot;
+  directory: &quot;/etc/unbound&quot;
+  delay-close: 10000
+  infra-host-ttl: 60
+  infra-cache-min-rtt:5000
+  rrset-roundrobin: yes
+  log-queries: yes
+  logfile: &quot;/log/unbound.log&quot;             # log file
+  chroot: &quot;/etc/unbound&quot;
+  verbosity: 1
+  root-hints: root.hints
+remote-control:
+  control-enable: yes
+</code></pre><p>Start and enable the service</p>
+<pre><code>systemctl start unbound &amp;&amp; systemctl enable unbound
+</code></pre><p>Verify using,</p>
+<pre><code>unbound-control status
+</code></pre><p>See the statics,</p>
+<pre><code>unbound-control stats
+</code></pre><hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<div class="edit-meta">
+<br>
+<a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/dns/dmarc/" title="DMARC"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - DMARC</a>
+<a class="nav nav-next" href="https://tecnep.com/keepalive/" title="Keepalive">Next - Keepalive <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer>
+<p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class=""><a href="https://tecnep.com/hardening/">System Hardening</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/chrony/">NTP</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/redis/">Redis</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/mailcleaner/">Mailcleaner<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/mailcleaner/mailcleaner_config/">MailCleaner configurations</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/snmp/">SNMP</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>
+<li class=""><a href="https://tecnep.com/firewall/rich_rule/">Rich rule</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/zimbra/zimbra_tips_tricks/">Zimbra Tips &amp; Tricks</a></li>
+<li class=""><a href="https://tecnep.com/zimbra/backup/">Backup</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/glassfish/">Glassfish</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/storage/">Storage<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/storage/lvm/">LVM</a></li>
+<li class=""><a href="https://tecnep.com/storage/raid/">RAID</a></li>
+<li class=""><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
+<li class=""><a href="https://tecnep.com/storage/glusterfs/">Glusterfs</a></li>
+<li class=""><a href="https://tecnep.com/storage/minio/">Minio</a></li>
+<li class=""><a href="https://tecnep.com/storage/ceph/">Ceph</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/tomcat/">Tomcat</a>
+  
+</li>
+
+<li class="parent has-sub-menu"><a href="https://tecnep.com/dns/">DNS<span class="mark opened">-</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+<li class="active"><a href="https://tecnep.com/dns/unbound/">Unbound</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/keepalive/">Keepalive</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ssl/">SSL</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/haproxy/">Haproxy<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/haproxy/installation/">Installation</a></li>
+<li class=""><a href="https://tecnep.com/haproxy/configuration/">Configuration</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/php_nginx_mysql/">Php Nginx Mysql</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/exchnage/">Exchange</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/samba/">Samba</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/vmware/">Vmware</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/mysql/">Mysql/Mariadb</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ansible/">Ansible</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/docker/">Docker</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/wazuh/">Wazuh</a>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

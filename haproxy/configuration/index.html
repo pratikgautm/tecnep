@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Configuration - Tecnep</title>
+<meta name="description" content="Share your notes.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/haproxy/configuration/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-font-color: #edfaf1;--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="Configuration" />
+<meta property="og:description" content="Now let&rsquo;s configure haproxy in /etc/haproxy/haproxy.cfg The configurate is as shown in the following diagram. We have all together five backend server and one proxy server. This configuration has covered optimal feature provided in open source version of haproxy.
+The configuration is divided into four groups. Haproxy version 2.X doesn&rsquo;t have defaults section, which was mandatory in previous version. Let&rsquo;s discuss individual section one by one.
+a) Global section b) frontend section c) backend section d) Statistics a) Global section" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tecnep.com/haproxy/configuration/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="og:site_name" content="tecnep.com" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
+
+<meta name="twitter:title" content="Configuration"/>
+<meta name="twitter:description" content="Now let&rsquo;s configure haproxy in /etc/haproxy/haproxy.cfg The configurate is as shown in the following diagram. We have all together five backend server and one proxy server. This configuration has covered optimal feature provided in open source version of haproxy.
+The configuration is divided into four groups. Haproxy version 2.X doesn&rsquo;t have defaults section, which was mandatory in previous version. Let&rsquo;s discuss individual section one by one.
+a) Global section b) frontend section c) backend section d) Statistics a) Global section"/>
+<meta itemprop="name" content="Configuration">
+<meta itemprop="description" content="Now let&rsquo;s configure haproxy in /etc/haproxy/haproxy.cfg The configurate is as shown in the following diagram. We have all together five backend server and one proxy server. This configuration has covered optimal feature provided in open source version of haproxy.
+The configuration is divided into four groups. Haproxy version 2.X doesn&rsquo;t have defaults section, which was mandatory in previous version. Let&rsquo;s discuss individual section one by one.
+a) Global section b) frontend section c) backend section d) Statistics a) Global section">
+
+<meta itemprop="wordCount" content="705">
+<meta itemprop="image" content="https://tecnep.com/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+
+<p class="description">Share your notes.</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/"></a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Configuration</h1>
+<p>Now let&rsquo;s configure haproxy in <code>/etc/haproxy/haproxy.cfg</code>
+The configurate is as shown in the following diagram. We have all together five backend server and one proxy server. This configuration has covered optimal feature provided in open source version of haproxy.</p>
+<p><img src="configuration.PNG" alt="image"></p>
+<p>The configuration is divided into four groups. Haproxy version 2.X doesn&rsquo;t have <code>defaults</code> section, which was mandatory in previous version. Let&rsquo;s discuss individual section one by one.</p>
+<pre><code>a) Global section
+b) frontend section
+c) backend section
+d) Statistics
+</code></pre><p><strong>a) Global section</strong></p>
+<p>The glboal section contains global parameter to be applied for all the settings. Maximum number of connection, log, socket, chroot, user, group are defined here. SSL cipher and its lifetime should also be defined here. The processing nature of proxy can either be multithreading or multiprocessing, which is also defined here.</p>
+<pre><code>#-------Global configuration--------------------------
+global
+    maxconn         50000
+    stats socket    /var/run/haproxy.stat mode 600 level admin
+    log             127.0.0.1:514 local2
+    chroot          /var/empty
+    pidfile         /var/run/haproxy.pid
+    user            haproxy
+    group           haproxy
+    daemon
+
+    # To enable multithreading with four thread
+    nbthread 4     
+
+    tune.ssl.default-dh-param 2048
+    tune.ssl.lifetime 3600
+    ssl-default-bind-options no-sslv3
+    ssl-default-bind-ciphers ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:DHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES128-SHA
+    ssl-default-server-options no-sslv3
+    ssl-default-server-ciphers ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:DHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES128-SHA
+    cache cacher1
+    total-max-size 10
+    max-age 300
+</code></pre><p><strong>b) Frontend section</strong></p>
+<p>The frontend section define which port to listen from the client/browser. It&rsquo;s mode of operation should either be layer 7 http or layer 4 TCP. Forwarding to https , writing acls, context switching and adding security header for the defined port is also written here. Since, it is a frontend you can restrict certain page or path to your backend server.</p>
+<pre><code>#------------Frontend default port------------------------------
+
+frontend public
+    bind            *:80
+    bind            *:443 ssl crt /path/to/certficate.pem
+    mode            http
+    log             global
+    option          httplog
+    option          dontlognull
+    monitor-uri     /monitoruri
+    maxconn         50000
+    timeout client  30s
+
+    http-request cache-use cacher1
+    http-response cache-store cacher1
+
+    #------Forward http to https---------------------------------
+
+    http-request add-header X-Forwarded-Proto https if { ssl_fc }
+    http-request set-header X-Forwarded-Port %[dst_port]
+    redirect scheme https if !{ ssl_fc }
+
+    #--------Forward .well-known to wellknown_server----------------
+
+    acl known_path path_beg /.well-known
+    use_backend wellknow_server if known_path
+
+    #----------Forward to backend according to domain name
+
+    use_backend landpage if { ssl_fc_sni tecnep.com } # content switching based on SNI
+    use_backend linux if { ssl_fc_sni linux.tecnep.com } # content switching based on SNI
+
+
+    #-----------Security Headers-------------------#
+
+    http-response set-header Strict-Transport-Security max-age=31536000;\ includeSubDomains;\ preload;
+    http-response set-header X-Frame-Options SAMEORIGIN
+    http-response set-header X-Content-Type-Options nosniff
+    http-response set-header X-XSS-Protection &quot;1; mode=block&quot;
+    http-response replace-header Set-Cookie (.*) \1;\ Secure
+    option forwardfor
+    option http-server-close
+
+    #------------Restrict some page or path
+
+    acl network_allowed src 1.1.1.1
+    acl restricted_page path_reg /api/test/*
+    acl restricted_page path_reg swagger-ui.html
+    http-request deny if restricted_page !network_allowed
+    errorfile 400 /etc/haproxy/error-page/error.http
+</code></pre><p><strong>c) Backend section</strong></p>
+<p>The backend server mode is defined as in the frontend with the supported load balancing <a href="/haproxy">algorithm</a>. You can forward source ip to backend server using <code>X-Forward-For</code> and <code>X-Client-IP</code>. Security policy for specific backend may also apply. Compression is also supported by haproxy.</p>
+<pre><code>#-----Backend server--------------------------------------------#
+
+backend subdomain
+    mode http
+    option httpchk GET /echo HTTP/1.0
+    balance     leastconn
+    option prefer-last-server
+    retries         2
+    option redispatch
+    timeout connect 10s
+    timeout server  60s
+    cookie JSESSIONID prefix
+    server subdomain01 192.168.85.73:8080 cookie subdomain01 check inter 2000
+    server subdomain02 192.168.85.74:8080 cookie subdomain02 check inter 2000
+
+
+#--------Backend landpage-------------------------------#
+
+backend landpage
+    mode http
+    option forwardfor
+    compression algo gzip
+    compression type text/css text/html text/javascript application/javascript text/plain text/xml application/json image/svg+xml
+    http-request add-header X-Forwarded-For %[src]
+    http-request add-header X-Client-IP %[src]
+
+    #----------Security Policy for landpage--------------#
+
+    http-response set-header Strict-Transport-Security max-age=31536000;\ includeSubDomains;\ preload;
+    http-response set-header X-Frame-Options SAMEORIGIN
+    http-response set-header X-Content-Type-Options nosniff
+    http-response set-header X-XSS-Protection &quot;1; mode=block&quot;
+
+    option httpchk GET /echo HTTP/1.0
+    balance     leastconn
+    option prefer-last-server
+    retries         2
+    option redispatch
+    timeout connect 10s
+    timeout server  60s
+    cookie JSESSIONID prefix
+    server land01 192.168.85.70:8000 cookie land01 check inter 2000
+    server land02 192.168.85.71:8000 cookie land02 check inter 2000
+
+#--------Backend wellknown_server-------------------------------#
+
+backend wellknow_server
+    mode http
+    option prefer-last-server
+    retries         2
+    option redispatch
+    timeout connect 10s
+    timeout server  60s
+    server wellknown01 192.168.85.60:5000
+
+
+</code></pre><p><strong>d) Statistics section</strong></p>
+<p><code>listen stats</code> section enables haproxy to listen a port and visualize the all activity data. Here, you can define path, authentication and a port. As, it is a webpage, it must be in <code>mode http</code>. You can view <code>http://Haproxy_IP:8484</code> from your browser.</p>
+<pre><code>#------------Enabling stat page for graphical view  
+
+listen stats
+    bind *:8484
+    option prefer-last-server
+    retries         2
+    option redispatch
+    timeout connect 10s
+    timeout client  30s
+    timeout server  60s
+    mode http
+    stats enable
+    stats hide-version
+    stats realm Haproxy\ Statistics
+    stats uri /stats
+    stats auth admin:password
+</code></pre><p>You can download/copy full configuration from <a href="haproxy.txt">here</a> and customize as per your need.</p>
+<hr>
+<p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<div class="edit-meta">
+<br>
+<a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/haproxy/installation/" title="Installation"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Installation</a>
+<a class="nav nav-next" href="https://tecnep.com/php_nginx_mysql/" title="Php Nginx Mysql">Next - Php Nginx Mysql <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer>
+<p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class=""><a href="https://tecnep.com/hardening/">System Hardening</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/chrony/">NTP</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/redis/">Redis</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/mailcleaner/">Mailcleaner<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/mailcleaner/mailcleaner_config/">MailCleaner configurations</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/snmp/">SNMP</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>
+<li class=""><a href="https://tecnep.com/firewall/rich_rule/">Rich rule</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/zimbra/zimbra_tips_tricks/">Zimbra Tips &amp; Tricks</a></li>
+<li class=""><a href="https://tecnep.com/zimbra/backup/">Backup</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/glassfish/">Glassfish</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/storage/">Storage<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/storage/lvm/">LVM</a></li>
+<li class=""><a href="https://tecnep.com/storage/raid/">RAID</a></li>
+<li class=""><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
+<li class=""><a href="https://tecnep.com/storage/glusterfs/">Glusterfs</a></li>
+<li class=""><a href="https://tecnep.com/storage/minio/">Minio</a></li>
+<li class=""><a href="https://tecnep.com/storage/ceph/">Ceph</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/tomcat/">Tomcat</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/dns/">DNS<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+<li class=""><a href="https://tecnep.com/dns/unbound/">Unbound</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/keepalive/">Keepalive</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ssl/">SSL</a>
+  
+</li>
+
+<li class="parent has-sub-menu"><a href="https://tecnep.com/haproxy/">Haproxy<span class="mark opened">-</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/haproxy/installation/">Installation</a></li>
+<li class="active"><a href="https://tecnep.com/haproxy/configuration/">Configuration</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/php_nginx_mysql/">Php Nginx Mysql</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/exchnage/">Exchange</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/samba/">Samba</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/vmware/">Vmware</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/mysql/">Mysql/Mariadb</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ansible/">Ansible</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/docker/">Docker</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/wazuh/">Wazuh</a>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

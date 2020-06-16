@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Wazuh - Tecnep</title>
+<meta name="description" content="Share your notes.">
+<meta name="generator" content="Hugo 0.68.0" />
+<link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://tecnep.com/wazuh/">
+<link rel="stylesheet" href="https://tecnep.com/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://tecnep.com/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://tecnep.com/js/bundle.js"></script><style>
+:root {--custom-font-color: #edfaf1;--custom-background-color: #52555B;}
+</style>
+<meta property="og:title" content="Wazuh" />
+<meta property="og:description" content="Share your notes." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://tecnep.com/wazuh/" />
+<meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
+<meta property="og:site_name" content="tecnep.com" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
+
+<meta name="twitter:title" content="Wazuh"/>
+<meta name="twitter:description" content="Share your notes."/>
+<meta itemprop="name" content="Wazuh">
+<meta itemprop="description" content="Share your notes."></head>
+<body><div class="container"><header>
+<h1>Tecnep</h1>
+
+<p class="description">Share your notes.</p>
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/"></a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Wazuh</h1><p>Wazuh is a free, open-source, and enterprise-ready security monitoring solution for threat detection, integrity monitoring, incident response, and compliance. The project was born as a fork of OSSEC HIDS.</p>
+<h5 id="architecture">Architecture</h5>
+<p><img src="wazuh_architecture.PNG" alt="image"></p>
+<p><em>Note: For small scale (agent &lt;50 ), Elastic stack and wazuh server can be installed and configure in a single node.</em></p>
+<h6 id="wazuh-manager">Wazuh Manager</h6>
+<p>The Wazuh Manager receives and analyzes data from the agents using decoders and rules that have been created to trigger security alerts. The manager is also used to distribute configuration files to the agents, to monitor their status and to send control messages to trigger automatic actions at the agent level.</p>
+<h6 id="wazuh-api">Wazuh-API</h6>
+<p>The RESTful API provides an interface to manage and monitor the configuration of the manager and agents. It can be used to register agents, inspect the manager log messages, decoders and rules and provide useful information related to the agents, including their status, operating system details, and alerts related to file integrity monitoring and root checks.</p>
+<h6 id="filebeat">filebeat</h6>
+<p>Filebeat is used in distributed architectures (where the Wazuh server and Elastic Stack live in different systems) to forward alerts data to Logstash.</p>
+<hr>
+<h6 id="elasticsearch">Elasticsearch</h6>
+<p><code>Wazuh app</code> is a Kibana plugin designed to display Wazuh related information providing a RESTful API web interface.</p>
+<p><code>Elasticsearch</code> is a highly scalable full-text search and analytics engine. It is used to index alerts data and historical agents status information.</p>
+<p><code>Kibana</code> is a flexible and intuitive web interface for mining, analyzing, and visualizing data.</p>
+<h6 id="wazuh-agents">Wazuh agents</h6>
+<p>The Wazuh agent runs on monitored systems and is in charge of collecting log and event data, performing policy monitoring scans, detecting malware and rootkits and triggering alerts when monitored files are modified.</p>
+<p><code>Rootcheck</code> performs rootkit and malware detection on every system where the agent is installed.</p>
+<p><code>Log monitoring/analysis</code> collects and analyzes system logs looking for any suspicious activity.</p>
+<p><code>Syscheck</code> runs periodically to check for changes to any configured file (or registry entry on Windows).</p>
+<p><code>OpenSCAP</code> is designed to check for weak and vulnerable applications and configurations.</p>
+<h6 id="services-check-for-troubleshooting">Services check for troubleshooting</h6>
+<pre><code>systemctl status wazuh-manager
+systemctl status wazuh-api
+systemctl status filebeat
+
+systemctl staus elasticsearch
+systemctl status kibana
+
+/var/ossec/bin/ossec-control status
+
+systemctl status wazuh-agent
+</code></pre><h5 id="default-configuration-file">Default configuration file</h5>
+<pre><code>node -v                                     # Node version
+/var/ossec/api/configuration/auth           # To set password for wazuh api user
+/var/ossec/api/configuration/config.js      # Wazuh-api configuration  
+
+/etc/filebeat/wazuh-template.json           # Alerts template for Elasticsearch:
+/usr/share/filebeat/module                  # Wazuh module for Filebeat
+/etc/filebeat/filebeat.yml                  # Filebeat configuration file for Wazuh alerts to forward to Elasticsearch
+
+/etc/elasticsearch/jvm.options              # Heap memory (Xms1g, Xmx1g); set 50% of your total RAM
+/etc/elasticsearch/elasticsearch.yml        # Elasticsearch configuration
+/var/log/elasticsearch/elasticsearch.log    # log file for elastic search
+
+/etc/kibana/kibana.yml                      # Kibana configuration file
+/usr/share/kibana/plugins/wazuh/wazuh.yml   # Adding API to kibana (host, username, password)
+
+ /var/ossec/etc/ossec.conf                  # Configuration for wazuh-agent
+
+</code></pre><h5 id="default-ports">Default ports</h5>
+<pre><code>wazuh api : 55000/tcp
+filebeat : 9200/tcp
+elasticsearch : 9300/tcp
+kibana : 5601/tcp
+</code></pre><pre><code>You need to make sure that the version of Wazuh App for Kibana matches the version of Wazuh APi and Manager.
+</code></pre><p>Pratik Gautam
+<a href="mailto:pratikgautm@gmail.com">pratikgautm@gmail.com</a></p>
+<div class="edit-meta">
+<br>
+<a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/docker/" title="Docker"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Docker</a>
+<a class="nav nav-next" href="https://tecnep.com/hardening/" title="System Hardening">Next - System Hardening <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer>
+<p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="https://tecnep.com">Home</a></li>
+
+<li class=""><a href="https://tecnep.com/hardening/">System Hardening</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/chrony/">NTP</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/redis/">Redis</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/mailcleaner/">Mailcleaner<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/mailcleaner/mailcleaner_config/">MailCleaner configurations</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/kaspersky/">Kaspersky for linux</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/snmp/">SNMP</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/firewall/">Firewall<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/firewall/firewall_keepalive/">Firewalld and keepalived</a></li>
+<li class=""><a href="https://tecnep.com/firewall/rich_rule/">Rich rule</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/zimbra/">Zimbra<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/zimbra/zimbra_tips_tricks/">Zimbra Tips &amp; Tricks</a></li>
+<li class=""><a href="https://tecnep.com/zimbra/backup/">Backup</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/glassfish/">Glassfish</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/storage/">Storage<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/storage/lvm/">LVM</a></li>
+<li class=""><a href="https://tecnep.com/storage/raid/">RAID</a></li>
+<li class=""><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
+<li class=""><a href="https://tecnep.com/storage/glusterfs/">Glusterfs</a></li>
+<li class=""><a href="https://tecnep.com/storage/minio/">Minio</a></li>
+<li class=""><a href="https://tecnep.com/storage/ceph/">Ceph</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/tomcat/">Tomcat</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/dns/">DNS<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
+<li class=""><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
+<li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+<li class=""><a href="https://tecnep.com/dns/unbound/">Unbound</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/keepalive/">Keepalive</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ssl/">SSL</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="https://tecnep.com/haproxy/">Haproxy<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/haproxy/installation/">Installation</a></li>
+<li class=""><a href="https://tecnep.com/haproxy/configuration/">Configuration</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/php_nginx_mysql/">Php Nginx Mysql</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/exchnage/">Exchange</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/samba/">Samba</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/vmware/">Vmware</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/mysql/">Mysql/Mariadb</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ansible/">Ansible</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/docker/">Docker</a>
+  
+</li>
+
+<li class="parent active"><a href="https://tecnep.com/wazuh/">Wazuh</a>
+  
+</li>
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

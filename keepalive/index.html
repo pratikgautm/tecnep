@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Keepalive - Tecnep</title>
-<meta name="description" content="Share your ideas.">
+<meta name="description" content="Share your notes.">
 <meta name="generator" content="Hugo 0.68.0" />
 <link href="https://tecnep.comindex.xml" rel="alternate" type="application/rss+xml">
 <link rel="canonical" href="https://tecnep.com/keepalive/">
@@ -14,10 +14,10 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
 <script src="https://tecnep.com/js/bundle.js"></script><style>
-:root {--custom-background-color: #52555B;}
+:root {--custom-font-color: #edfaf1;--custom-background-color: #52555B;}
 </style>
 <meta property="og:title" content="Keepalive" />
-<meta property="og:description" content="Share your ideas." />
+<meta property="og:description" content="Share your notes." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://tecnep.com/keepalive/" />
 <meta property="og:image" content="https://tecnep.com/images/og-image.png"/>
@@ -26,20 +26,20 @@
 <meta name="twitter:image" content="https://tecnep.com/images/og-image.png"/>
 
 <meta name="twitter:title" content="Keepalive"/>
-<meta name="twitter:description" content="Share your ideas."/>
+<meta name="twitter:description" content="Share your notes."/>
 <meta itemprop="name" content="Keepalive">
-<meta itemprop="description" content="Share your ideas."></head>
+<meta itemprop="description" content="Share your notes."></head>
 <body><div class="container"><header>
 <h1>Tecnep</h1>
-<a href="https://github.com/pratikgautm/tecnep" class="github"><i class="fab fa-github"></i></a>
-<p class="description">Share your ideas.</p>
+
+<p class="description">Share your notes.</p>
 
 </header>
 <div class="global-menu">
 <nav>
 <ul>
 <li><a href="/">Home</a></li>
-<li><a href="/">About</a></li></ul>
+<li><a href="/"></a></li></ul>
 </nav>
 </div>
 <div class="content-container">
@@ -82,7 +82,7 @@ and &ldquo;BACKUP&rdquo; for secondary node. During the election, the priority o
 <div class="edit-meta">
 <br>
 <a href="https://github.com/pratikgautm/tecnep" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a>
-</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/dns/dmarc/" title="DMARC"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - DMARC</a>
+</div><nav class="pagination"><a class="nav nav-prev" href="https://tecnep.com/dns/unbound/" title="Unbound"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Unbound</a>
 <a class="nav nav-next" href="https://tecnep.com/ssl/" title="SSL">Next - SSL <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer>
 <p class="powered"> Developers <a href="https://tecnep.com"> tecnep.com </a> </p>
@@ -150,7 +150,7 @@ and &ldquo;BACKUP&rdquo; for secondary node. During the election, the priority o
 <li class=""><a href="https://tecnep.com/storage/raid/">RAID</a></li>
 <li class=""><a href="https://tecnep.com/storage/drbd/">DRBD</a></li>
 <li class=""><a href="https://tecnep.com/storage/glusterfs/">Glusterfs</a></li>
-<li class=""><a href="https://tecnep.com/storage/object_storage/">Object storage</a></li>
+<li class=""><a href="https://tecnep.com/storage/minio/">Minio</a></li>
 <li class=""><a href="https://tecnep.com/storage/ceph/">Ceph</a></li>
 </ul>
   
@@ -166,6 +166,7 @@ and &ldquo;BACKUP&rdquo; for secondary node. During the election, the priority o
 <li class=""><a href="https://tecnep.com/dns/spf/">SPF</a></li>
 <li class=""><a href="https://tecnep.com/dns/dkim/">DKIM</a></li>
 <li class=""><a href="https://tecnep.com/dns/dmarc/">DMARC</a></li>
+<li class=""><a href="https://tecnep.com/dns/unbound/">Unbound</a></li>
 </ul>
   
 </li>
@@ -178,7 +179,12 @@ and &ldquo;BACKUP&rdquo; for secondary node. During the election, the priority o
   
 </li>
 
-<li class=""><a href="https://tecnep.com/haproxy/">Haproxy</a>
+<li class=" has-sub-menu"><a href="https://tecnep.com/haproxy/">Haproxy<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="https://tecnep.com/haproxy/installation/">Installation</a></li>
+<li class=""><a href="https://tecnep.com/haproxy/configuration/">Configuration</a></li>
+</ul>
   
 </li>
 
@@ -199,6 +205,18 @@ and &ldquo;BACKUP&rdquo; for secondary node. During the election, the priority o
 </li>
 
 <li class=""><a href="https://tecnep.com/mysql/">Mysql/Mariadb</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/ansible/">Ansible</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/docker/">Docker</a>
+  
+</li>
+
+<li class=""><a href="https://tecnep.com/wazuh/">Wazuh</a>
   
 </li>
 </ul>

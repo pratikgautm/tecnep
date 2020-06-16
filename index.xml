@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Welcome on Tecnep</title>
+    <title>Tecnep</title>
     <link>https://tecnep.com/</link>
-    <description>Recent content in Welcome on Tecnep</description>
+    <description>Recent content on Tecnep</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 09 Dec 2019 03:51:55 +0545</lastBuildDate>
     
 	<atom:link href="https://tecnep.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SPF</title>
+      <link>https://tecnep.com/dns/spf/</link>
+      <pubDate>Sun, 08 Dec 2019 18:29:55 +0545</pubDate>
+      
+      <guid>https://tecnep.com/dns/spf/</guid>
+      <description>Sender Policy Framework (SPF) is authentication protocol used to indicate to mail exchanges which hosts are authorized to send mail for a domain. It is defined using TXT record type, also has SPF record type. If you send email from xyz.com to tecnep.com, tecnep.com mail server will check if xyz.com is authorized for sending email or not. SPF record actually prevent email spoofing with spf records.
+For example if tecnep.com has TXT record of :-</description>
+    </item>
+    
+    <item>
+      <title>Installation</title>
+      <link>https://tecnep.com/haproxy/installation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tecnep.com/haproxy/installation/</guid>
+      <description>Following steps shows haproxy to install from source. Up to Haproxy version 1.x, is avaliable from centos base repo. For haproxy 2.X you should download, complie and install from source.
+First, Install dependencies needed to build HAProxy
+yum install -y make gcc gcc-c++ pcre-devel openssl-devel readline-devel systemd-devel zlib-devel wget HAProxy embeds the scripting language Lua. Lua is a rapid, lightweight, embeddable scripting language. It supports procedural, object-oriented, functional and data-driven programming.</description>
+    </item>
     
     <item>
       <title>LVM</title>
@@ -43,6 +64,28 @@ Copy the following script to any file memorytuning.sh
     </item>
     
     <item>
+      <title>Configuration</title>
+      <link>https://tecnep.com/haproxy/configuration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tecnep.com/haproxy/configuration/</guid>
+      <description>Now let&amp;rsquo;s configure haproxy in /etc/haproxy/haproxy.cfg The configurate is as shown in the following diagram. We have all together five backend server and one proxy server. This configuration has covered optimal feature provided in open source version of haproxy.
+The configuration is divided into four groups. Haproxy version 2.X doesn&amp;rsquo;t have defaults section, which was mandatory in previous version. Let&amp;rsquo;s discuss individual section one by one.
+a) Global section b) frontend section c) backend section d) Statistics a) Global section</description>
+    </item>
+    
+    <item>
+      <title>DKIM</title>
+      <link>https://tecnep.com/dns/dkim/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tecnep.com/dns/dkim/</guid>
+      <description>Domain Key Identified Mail is email authentication technique that allows the receiver to check that an email was indeed sent and authorized by the owner of that domain. It is email security standard designed to make sure message weren&amp;rsquo;t altered in transist between the sending and receipient servers by the use of private and public key cryptography.
+How DKIM works ? a) On sender mail server
+A hash is created from the content of the message headers and signed it with private key.</description>
+    </item>
+    
+    <item>
       <title>RAID</title>
       <link>https://tecnep.com/storage/raid/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -50,6 +93,27 @@ Copy the following script to any file memorytuning.sh
       <guid>https://tecnep.com/storage/raid/</guid>
       <description>RAID (Redundant Array of Independent Disks) is a data storage virtualization technology uses multiple disks in order to provide fault tolerance, to improve overall performance. With RAID technology, data can be mirrored on one or more disks in the same array, so that if one disk fails, the data is preserved. RAID should not be confused with data backup.
 RAID Levels Raid-0 &amp;ndash; Striping  Data is striped across multiple disk.</description>
+    </item>
+    
+    <item>
+      <title>DMARC</title>
+      <link>https://tecnep.com/dns/dmarc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tecnep.com/dns/dmarc/</guid>
+      <description>Domain-based Message Authentication Reporting and conformance (DMARC) is designed to protect your company&amp;rsquo;s email domain for being used for email spoofing, phishing scans. It is enhancement to existing email authentication technologies. DMARC uses existing two protocols SPF and DKIM and applies the policy for receiving email. Record is published in DNS record to specify which mechanism (DKIM, SPF or both) is employed when sending email from that domain, how to check &amp;lsquo;From:&amp;rsquo; field of the sender email.</description>
+    </item>
+    
+    <item>
+      <title>Unbound</title>
+      <link>https://tecnep.com/dns/unbound/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tecnep.com/dns/unbound/</guid>
+      <description>Unbound is a recursive, and caching DNS server. Caching name servers store DNS query results for a period of time determined in the configuration (time-to-live) of the domain name record in question.
+Here in this article, we are going to use ‘unbound‘ caching software to install and configure a DNS Server in CentOS 7 systems.
+Install it
+yum install unbound -y Make a copy of the unbound configuration file before making any changes to original file.</description>
     </item>
     
     <item>
@@ -84,22 +148,13 @@ Requirements and planning Make sure that your hardware or Virtual Machine meets 
     </item>
     
     <item>
-      <title>Object storage</title>
-      <link>https://tecnep.com/storage/object_storage/</link>
+      <title>Minio</title>
+      <link>https://tecnep.com/storage/minio/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/object_storage/</guid>
-      <description>Minio  Pratik Gautam pratikgautm@gmail.com</description>
-    </item>
-    
-    <item>
-      <title>SPF</title>
-      <link>https://tecnep.com/dns/spf/</link>
-      <pubDate>Sun, 08 Dec 2019 18:29:55 +0545</pubDate>
-      
-      <guid>https://tecnep.com/dns/spf/</guid>
-      <description>Sender Policy Framework (SPF) is authentication protocol used to indicate to mail exchanges which hosts are authorized to send mail for a domain. It is defined using TXT record type, also has SPF record type. If you send email from xyz.com to tecnep.com, tecnep.com mail server will check if xyz.com is authorized for sending email or not. SPF record actually prevent email spoofing with spf records.
-For example if tecnep.com has TXT record of :-</description>
+      <guid>https://tecnep.com/storage/minio/</guid>
+      <description>Minio is a self-hosted AWS S3-compatible, object storage server written in Go. It can be used to store objects such as photos, videos, log files, backups, etc.
+Objects are discrete units of data that are stored in a structurally flat data environment. There are no folders, directories, or complex hierarchies as in a file-based system. Each object is a simple, self-contained repository that includes the data, metadata (descriptive information associated with an object), and a unique identifying ID number (instead of a file name and file path).</description>
     </item>
     
     <item>
@@ -109,26 +164,6 @@ For example if tecnep.com has TXT record of :-</description>
       
       <guid>https://tecnep.com/storage/ceph/</guid>
       <description>a freely available storage platform that implements object storage on a single distributed computer cluster and provides interfaces for object, block and file level storage. aims for completely distributed operation without a single point of failure. manages data replication and is fault-tolerant.   Pratik Gautam pratikgautm@gmail.com</description>
-    </item>
-    
-    <item>
-      <title>DKIM</title>
-      <link>https://tecnep.com/dns/dkim/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://tecnep.com/dns/dkim/</guid>
-      <description>Domain Key Identified Mail is email authentication technique that allows the receiver to check that an email was indeed sent and authorized by the owner of that domain. It is email security standard designed to make sure message weren&amp;rsquo;t altered in transist between the sending and receipient servers by the use of private and public key cryptography.
-How DKIM works ? a) On sender mail server
-A hash is created from the content of the message headers and signed it with private key.</description>
-    </item>
-    
-    <item>
-      <title>DMARC</title>
-      <link>https://tecnep.com/dns/dmarc/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://tecnep.com/dns/dmarc/</guid>
-      <description>Domain-based Message Authentication Reporting and conformance (DMARC) is designed to protect your company&amp;rsquo;s email domain for being used for email spoofing, phishing scans. It is enhancement to existing email authentication technologies. DMARC uses existing two protocols SPF and DKIM and applies the policy for receiving email. Record is published in DNS record to specify which mechanism (DKIM, SPF or both) is employed when sending email from that domain, how to check &amp;lsquo;From:&amp;rsquo; field of the sender email.</description>
     </item>
     
     <item>

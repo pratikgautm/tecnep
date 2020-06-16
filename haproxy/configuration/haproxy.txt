@@ -1,0 +1,146 @@
+#-------Global configuration--------------------------
+global
+    maxconn         50000
+    stats socket    /var/run/haproxy.stat mode 600 level admin
+    log             127.0.0.1:514 local2
+    chroot          /var/empty
+    pidfile         /var/run/haproxy.pid
+    user            haproxy
+    group           haproxy
+    daemon
+    
+    # To enable multithreading with four thread
+    nbthread 4
+
+    tune.ssl.default-dh-param 2048
+    tune.ssl.lifetime 3600
+    ssl-default-bind-options no-sslv3
+    ssl-default-bind-ciphers ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:DHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES128-SHA
+    ssl-default-server-options no-sslv3
+    ssl-default-server-ciphers ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:DHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES128-SHA
+    cache cacher1
+    total-max-size 10
+    max-age 300
+	
+#------------Frontend default port------------------------------
+
+frontend public
+    bind            *:80
+    bind            *:443 ssl crt /path/to/certficate.pem
+    mode            http
+    log             global
+    option          httplog
+    option          dontlognull
+    monitor-uri     /monitoruri
+    maxconn         50000
+    timeout client  30s
+
+    http-request cache-use cacher1
+    http-response cache-store cacher1
+
+    #------Forward http to https---------------------------------
+
+    http-request add-header X-Forwarded-Proto https if { ssl_fc }
+    http-request set-header X-Forwarded-Port %[dst_port]
+    redirect scheme https if !{ ssl_fc }
+
+    #--------Forward .well-known to wellknown_server----------------
+
+    acl known_path path_beg /.well-known
+    use_backend wellknow_server if known_path
+
+    #----------Forward to backend according to domain name
+
+    use_backend landpage if { ssl_fc_sni tecnep.com } # content switching based on SNI
+    use_backend linux if { ssl_fc_sni linux.tecnep.com } # content switching based on SNI
+
+
+    #-----------Security Headers-------------------#
+
+    http-response set-header Strict-Transport-Security max-age=31536000;\ includeSubDomains;\ preload;
+    http-response set-header X-Frame-Options SAMEORIGIN
+    http-response set-header X-Content-Type-Options nosniff
+    http-response set-header X-XSS-Protection "1; mode=block"
+    http-response replace-header Set-Cookie (.*) \1;\ Secure
+    option forwardfor
+    option http-server-close
+
+    #------------Restrict some page or path
+
+    acl network_allowed src 1.1.1.1
+    acl restricted_page path_reg /api/test/*
+    acl restricted_page path_reg swagger-ui.html
+    http-request deny if restricted_page !network_allowed
+    errorfile 400 /etc/haproxy/error-page/error.http
+	
+#-----Backend server--------------------------------------------#
+
+backend subdomain
+    mode http
+    option httpchk GET /echo HTTP/1.0
+    balance     leastconn
+    option prefer-last-server
+    retries         2
+    option redispatch
+    timeout connect 10s
+    timeout server  60s
+    cookie JSESSIONID prefix
+    server subdomain01 192.168.85.73:8080 cookie subdomain01 check inter 2000
+    server subdomain02 192.168.85.74:8080 cookie subdomain02 check inter 2000
+
+
+#--------Backend landpage-------------------------------#
+
+backend landpage
+    mode http
+    option forwardfor
+    compression algo gzip
+    compression type text/css text/html text/javascript application/javascript text/plain text/xml application/json image/svg+xml
+    http-request add-header X-Forwarded-For %[src]
+    http-request add-header X-Client-IP %[src]
+
+    #----------Security Policy for landpage--------------#
+
+    http-response set-header Strict-Transport-Security max-age=31536000;\ includeSubDomains;\ preload;
+    http-response set-header X-Frame-Options SAMEORIGIN
+    http-response set-header X-Content-Type-Options nosniff
+    http-response set-header X-XSS-Protection "1; mode=block"
+
+    option httpchk GET /echo HTTP/1.0
+    balance     leastconn
+    option prefer-last-server
+    retries         2
+    option redispatch
+    timeout connect 10s
+    timeout server  60s
+    cookie JSESSIONID prefix
+    server land01 192.168.85.70:8000 cookie land01 check inter 2000
+    server land02 192.168.85.71:8000 cookie land02 check inter 2000
+
+#--------Backend wellknown_server-------------------------------#
+
+backend wellknow_server
+    mode http
+    option prefer-last-server
+    retries         2
+    option redispatch
+    timeout connect 10s
+    timeout server  60s
+    server wellknown01 192.168.85.60:5000
+	
+#------------Enabling stat page for graphical view  
+
+listen stats
+    bind *:8484
+    option prefer-last-server
+    retries         2
+    option redispatch
+    timeout connect 10s
+    timeout client  30s
+    timeout server  60s
+    mode http
+    stats enable
+    stats hide-version
+    stats realm Haproxy\ Statistics
+    stats uri /stats
+    stats auth admin:password
