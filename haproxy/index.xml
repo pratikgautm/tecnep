@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Haproxy on Tecnep</title>
-    <link>https://tecnep.com/haproxy/</link>
+    <link>https://linux.tecnep.com/haproxy/</link>
     <description>Recent content in Haproxy on Tecnep</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="https://tecnep.com/haproxy/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://linux.tecnep.com/haproxy/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Installation</title>
-      <link>https://tecnep.com/haproxy/installation/</link>
+      <link>https://linux.tecnep.com/haproxy/installation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/haproxy/installation/</guid>
+      <guid>https://linux.tecnep.com/haproxy/installation/</guid>
       <description>Following steps shows haproxy to install from source. Up to Haproxy version 1.x, is avaliable from centos base repo. For haproxy 2.X you should download, complie and install from source.
 First, Install dependencies needed to build HAProxy
 yum install -y make gcc gcc-c++ pcre-devel openssl-devel readline-devel systemd-devel zlib-devel wget HAProxy embeds the scripting language Lua. Lua is a rapid, lightweight, embeddable scripting language. It supports procedural, object-oriented, functional and data-driven programming.</description>
@@ -23,10 +23,10 @@ yum install -y make gcc gcc-c++ pcre-devel openssl-devel readline-devel systemd-
     
     <item>
       <title>Configuration</title>
-      <link>https://tecnep.com/haproxy/configuration/</link>
+      <link>https://linux.tecnep.com/haproxy/configuration/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/haproxy/configuration/</guid>
+      <guid>https://linux.tecnep.com/haproxy/configuration/</guid>
       <description>Now let&amp;rsquo;s configure haproxy in /etc/haproxy/haproxy.cfg The configurate is as shown in the following diagram. We have all together five backend server and one proxy server. This configuration has covered optimal feature provided in open source version of haproxy.
 The configuration is divided into four groups. Haproxy version 2.X doesn&amp;rsquo;t have defaults section, which was mandatory in previous version. Let&amp;rsquo;s discuss individual section one by one.
 a) Global section b) frontend section c) backend section d) Statistics a) Global section</description>

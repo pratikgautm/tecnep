@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Storage on Tecnep</title>
-    <link>https://tecnep.com/storage/</link>
+    <link>https://linux.tecnep.com/storage/</link>
     <description>Recent content in Storage on Tecnep</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="https://tecnep.com/storage/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://linux.tecnep.com/storage/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>LVM</title>
-      <link>https://tecnep.com/storage/lvm/</link>
+      <link>https://linux.tecnep.com/storage/lvm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/lvm/</guid>
+      <guid>https://linux.tecnep.com/storage/lvm/</guid>
       <description>LVM (Logical Volume Management) is a tool for logical volume management which includes allocating disks and resizing logical volumes. Logical Volume Manager allows for a layer of abstraction between your operating system and the disks/partitions it uses. It has its own architecture. They start with physical volumes (PVs), which can be either hard disks, hard disk partitions, or Logical Unit Numbers (LUNs) of an external storage device. The group of physical volumes are combined to a set called volume group, with the exception of the /boot partition.</description>
     </item>
     
     <item>
       <title>RAID</title>
-      <link>https://tecnep.com/storage/raid/</link>
+      <link>https://linux.tecnep.com/storage/raid/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/raid/</guid>
+      <guid>https://linux.tecnep.com/storage/raid/</guid>
       <description>RAID (Redundant Array of Independent Disks) is a data storage virtualization technology uses multiple disks in order to provide fault tolerance, to improve overall performance. With RAID technology, data can be mirrored on one or more disks in the same array, so that if one disk fails, the data is preserved. RAID should not be confused with data backup.
 RAID Levels Raid-0 &amp;ndash; Striping  Data is striped across multiple disk.</description>
     </item>
     
     <item>
       <title>DRBD</title>
-      <link>https://tecnep.com/storage/drbd/</link>
+      <link>https://linux.tecnep.com/storage/drbd/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/drbd/</guid>
+      <guid>https://linux.tecnep.com/storage/drbd/</guid>
       <description>DRBD (Distributed Replicated Block Device) is a distributed storage platform. It mirrors the content of block devices such as hard disks, partitions, logical volumes between servers. It consists of a kernel module, several userspace management applications and some shell scripts and is used on high availability clusters.
 In this tutorial we are going to make a DRBD cluster. We&amp;rsquo;ll have following configuration of resources.
 drbd1: IP : 192.168.91.50 cluster disk : /dev/sdb ; 10 GB drbd2 : IP : 192.</description>
@@ -42,29 +42,29 @@ drbd1: IP : 192.168.91.50 cluster disk : /dev/sdb ; 10 GB drbd2 : IP : 192.</des
     
     <item>
       <title>Glusterfs</title>
-      <link>https://tecnep.com/storage/glusterfs/</link>
+      <link>https://linux.tecnep.com/storage/glusterfs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/glusterfs/</guid>
+      <guid>https://linux.tecnep.com/storage/glusterfs/</guid>
       <description>Pratik Gautam pratikgautm@gmail.com</description>
     </item>
     
     <item>
       <title>Minio</title>
-      <link>https://tecnep.com/storage/minio/</link>
+      <link>https://linux.tecnep.com/storage/minio/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/minio/</guid>
+      <guid>https://linux.tecnep.com/storage/minio/</guid>
       <description>Minio is a self-hosted AWS S3-compatible, object storage server written in Go. It can be used to store objects such as photos, videos, log files, backups, etc.
 Objects are discrete units of data that are stored in a structurally flat data environment. There are no folders, directories, or complex hierarchies as in a file-based system. Each object is a simple, self-contained repository that includes the data, metadata (descriptive information associated with an object), and a unique identifying ID number (instead of a file name and file path).</description>
     </item>
     
     <item>
       <title>Ceph</title>
-      <link>https://tecnep.com/storage/ceph/</link>
+      <link>https://linux.tecnep.com/storage/ceph/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/ceph/</guid>
+      <guid>https://linux.tecnep.com/storage/ceph/</guid>
       <description>a freely available storage platform that implements object storage on a single distributed computer cluster and provides interfaces for object, block and file level storage. aims for completely distributed operation without a single point of failure. manages data replication and is fault-tolerant.   Pratik Gautam pratikgautm@gmail.com</description>
     </item>
     

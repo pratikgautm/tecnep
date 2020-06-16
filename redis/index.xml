@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Redis on Tecnep</title>
-    <link>https://tecnep.com/redis/</link>
+    <link>https://linux.tecnep.com/redis/</link>
     <description>Recent content in Redis on Tecnep</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 08 Dec 2019 18:29:55 +0545</lastBuildDate>
     
-	<atom:link href="https://tecnep.com/redis/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://linux.tecnep.com/redis/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

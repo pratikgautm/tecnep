@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Glassfish on Tecnep</title>
-    <link>https://tecnep.com/glassfish/</link>
+    <link>https://linux.tecnep.com/glassfish/</link>
     <description>Recent content in Glassfish on Tecnep</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 09 Dec 2019 03:51:55 +0545</lastBuildDate>
     
-	<atom:link href="https://tecnep.com/glassfish/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://linux.tecnep.com/glassfish/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

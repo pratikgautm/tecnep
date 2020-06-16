@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SNMP on Tecnep</title>
-    <link>https://tecnep.com/snmp/</link>
+    <link>https://linux.tecnep.com/snmp/</link>
     <description>Recent content in SNMP on Tecnep</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="https://tecnep.com/snmp/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://linux.tecnep.com/snmp/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

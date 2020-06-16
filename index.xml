@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tecnep</title>
-    <link>https://tecnep.com/</link>
+    <link>https://linux.tecnep.com/</link>
     <description>Recent content on Tecnep</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 09 Dec 2019 03:51:55 +0545</lastBuildDate>
     
-	<atom:link href="https://tecnep.com/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://linux.tecnep.com/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>SPF</title>
-      <link>https://tecnep.com/dns/spf/</link>
+      <link>https://linux.tecnep.com/dns/spf/</link>
       <pubDate>Sun, 08 Dec 2019 18:29:55 +0545</pubDate>
       
-      <guid>https://tecnep.com/dns/spf/</guid>
+      <guid>https://linux.tecnep.com/dns/spf/</guid>
       <description>Sender Policy Framework (SPF) is authentication protocol used to indicate to mail exchanges which hosts are authorized to send mail for a domain. It is defined using TXT record type, also has SPF record type. If you send email from xyz.com to tecnep.com, tecnep.com mail server will check if xyz.com is authorized for sending email or not. SPF record actually prevent email spoofing with spf records.
 For example if tecnep.com has TXT record of :-</description>
     </item>
     
     <item>
       <title>Installation</title>
-      <link>https://tecnep.com/haproxy/installation/</link>
+      <link>https://linux.tecnep.com/haproxy/installation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/haproxy/installation/</guid>
+      <guid>https://linux.tecnep.com/haproxy/installation/</guid>
       <description>Following steps shows haproxy to install from source. Up to Haproxy version 1.x, is avaliable from centos base repo. For haproxy 2.X you should download, complie and install from source.
 First, Install dependencies needed to build HAProxy
 yum install -y make gcc gcc-c++ pcre-devel openssl-devel readline-devel systemd-devel zlib-devel wget HAProxy embeds the scripting language Lua. Lua is a rapid, lightweight, embeddable scripting language. It supports procedural, object-oriented, functional and data-driven programming.</description>
@@ -34,19 +34,19 @@ yum install -y make gcc gcc-c++ pcre-devel openssl-devel readline-devel systemd-
     
     <item>
       <title>LVM</title>
-      <link>https://tecnep.com/storage/lvm/</link>
+      <link>https://linux.tecnep.com/storage/lvm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/lvm/</guid>
+      <guid>https://linux.tecnep.com/storage/lvm/</guid>
       <description>LVM (Logical Volume Management) is a tool for logical volume management which includes allocating disks and resizing logical volumes. Logical Volume Manager allows for a layer of abstraction between your operating system and the disks/partitions it uses. It has its own architecture. They start with physical volumes (PVs), which can be either hard disks, hard disk partitions, or Logical Unit Numbers (LUNs) of an external storage device. The group of physical volumes are combined to a set called volume group, with the exception of the /boot partition.</description>
     </item>
     
     <item>
       <title>Zimbra Tips &amp; Tricks</title>
-      <link>https://tecnep.com/zimbra/zimbra_tips_tricks/</link>
+      <link>https://linux.tecnep.com/zimbra/zimbra_tips_tricks/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/zimbra/zimbra_tips_tricks/</guid>
+      <guid>https://linux.tecnep.com/zimbra/zimbra_tips_tricks/</guid>
       <description>Zimbra Mail server Memory Tuning This utility will detect the amount of RAM in this system and make suggestions on the size of your java heap as well as the size of your innodb buffer pool. If you choose, it will also make these changes to your zimbra install. NOTE: For the changes to be effective, a mailboxd restart is required.
 Copy the following script to any file memorytuning.sh
 #!/bin/bash function ask_yes_or_no() { read -p &amp;quot;$1 ([y]es or [N]o): &amp;quot; case $(echo $REPLY | tr &#39;[A-Z]&#39; &#39;[a-z]&#39;) in y|yes) echo &amp;quot;yes&amp;quot; ;; *) echo &amp;quot;no&amp;quot; ;; esac } echo &amp;quot;Checking total available ram&amp;quot; #echo free human readable cat /proc/meminfo |grep MemTotal #get memory total in bytes for calculation: MEMTOT=`cat /proc/meminfo |grep MemTotal |awk &#39;{print $2}&#39; 2&amp;gt;&amp;amp;1` #memingig MEMGB=`expr $MEMTOT / 1048576` #echo &amp;quot;memeory total = &amp;quot;$MEMTOT #echo &amp;quot;mem total gb = &amp;quot;$MEMGB ##From the wiki: # On a &amp;lt;8GB system, set Java heap size percent to 20 and mysql innodb buffer pool to 20% of system memory.</description>
@@ -54,10 +54,10 @@ Copy the following script to any file memorytuning.sh
     
     <item>
       <title>Backup</title>
-      <link>https://tecnep.com/zimbra/backup/</link>
+      <link>https://linux.tecnep.com/zimbra/backup/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/zimbra/backup/</guid>
+      <guid>https://linux.tecnep.com/zimbra/backup/</guid>
       <description>Zimbra mailbox can be backup using command zmmailbox. The script backup mailbox for all accounts.
 #!/bin/bash FILE=/tmp/list_account DATE=$(date +&amp;quot;%a&amp;quot;) ZMBOX=/opt/zimbra/bin/zmmailbox while read account do echo &amp;quot;---Generating files from backup $account ---&amp;quot; $ZMBOX -z -m $account -t 0 getRestURL &amp;quot;//?fmt=zip&amp;quot; &amp;gt; /tmp/$acount.$DATE.zip done &amp;lt; $FILE The script restore mailbox for all accounts
 #!/bin/bash FILE=/tmp/list_account DATE=$(date +&amp;quot;%a&amp;quot;) ZMBOX=/opt/zimbra/bin/zmmailbox while read account do echo &amp;quot;---Restoring files from backup $account---&amp;quot; $ZMBOX -z -m $account -t 0 postRestURL &amp;quot;//?</description>
@@ -65,10 +65,10 @@ Copy the following script to any file memorytuning.sh
     
     <item>
       <title>Configuration</title>
-      <link>https://tecnep.com/haproxy/configuration/</link>
+      <link>https://linux.tecnep.com/haproxy/configuration/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/haproxy/configuration/</guid>
+      <guid>https://linux.tecnep.com/haproxy/configuration/</guid>
       <description>Now let&amp;rsquo;s configure haproxy in /etc/haproxy/haproxy.cfg The configurate is as shown in the following diagram. We have all together five backend server and one proxy server. This configuration has covered optimal feature provided in open source version of haproxy.
 The configuration is divided into four groups. Haproxy version 2.X doesn&amp;rsquo;t have defaults section, which was mandatory in previous version. Let&amp;rsquo;s discuss individual section one by one.
 a) Global section b) frontend section c) backend section d) Statistics a) Global section</description>
@@ -76,10 +76,10 @@ a) Global section b) frontend section c) backend section d) Statistics a) Global
     
     <item>
       <title>DKIM</title>
-      <link>https://tecnep.com/dns/dkim/</link>
+      <link>https://linux.tecnep.com/dns/dkim/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/dns/dkim/</guid>
+      <guid>https://linux.tecnep.com/dns/dkim/</guid>
       <description>Domain Key Identified Mail is email authentication technique that allows the receiver to check that an email was indeed sent and authorized by the owner of that domain. It is email security standard designed to make sure message weren&amp;rsquo;t altered in transist between the sending and receipient servers by the use of private and public key cryptography.
 How DKIM works ? a) On sender mail server
 A hash is created from the content of the message headers and signed it with private key.</description>
@@ -87,29 +87,29 @@ A hash is created from the content of the message headers and signed it with pri
     
     <item>
       <title>RAID</title>
-      <link>https://tecnep.com/storage/raid/</link>
+      <link>https://linux.tecnep.com/storage/raid/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/raid/</guid>
+      <guid>https://linux.tecnep.com/storage/raid/</guid>
       <description>RAID (Redundant Array of Independent Disks) is a data storage virtualization technology uses multiple disks in order to provide fault tolerance, to improve overall performance. With RAID technology, data can be mirrored on one or more disks in the same array, so that if one disk fails, the data is preserved. RAID should not be confused with data backup.
 RAID Levels Raid-0 &amp;ndash; Striping  Data is striped across multiple disk.</description>
     </item>
     
     <item>
       <title>DMARC</title>
-      <link>https://tecnep.com/dns/dmarc/</link>
+      <link>https://linux.tecnep.com/dns/dmarc/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/dns/dmarc/</guid>
+      <guid>https://linux.tecnep.com/dns/dmarc/</guid>
       <description>Domain-based Message Authentication Reporting and conformance (DMARC) is designed to protect your company&amp;rsquo;s email domain for being used for email spoofing, phishing scans. It is enhancement to existing email authentication technologies. DMARC uses existing two protocols SPF and DKIM and applies the policy for receiving email. Record is published in DNS record to specify which mechanism (DKIM, SPF or both) is employed when sending email from that domain, how to check &amp;lsquo;From:&amp;rsquo; field of the sender email.</description>
     </item>
     
     <item>
       <title>Unbound</title>
-      <link>https://tecnep.com/dns/unbound/</link>
+      <link>https://linux.tecnep.com/dns/unbound/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/dns/unbound/</guid>
+      <guid>https://linux.tecnep.com/dns/unbound/</guid>
       <description>Unbound is a recursive, and caching DNS server. Caching name servers store DNS query results for a period of time determined in the configuration (time-to-live) of the domain name record in question.
 Here in this article, we are going to use ‘unbound‘ caching software to install and configure a DNS Server in CentOS 7 systems.
 Install it
@@ -118,10 +118,10 @@ yum install unbound -y Make a copy of the unbound configuration file before maki
     
     <item>
       <title>DRBD</title>
-      <link>https://tecnep.com/storage/drbd/</link>
+      <link>https://linux.tecnep.com/storage/drbd/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/drbd/</guid>
+      <guid>https://linux.tecnep.com/storage/drbd/</guid>
       <description>DRBD (Distributed Replicated Block Device) is a distributed storage platform. It mirrors the content of block devices such as hard disks, partitions, logical volumes between servers. It consists of a kernel module, several userspace management applications and some shell scripts and is used on high availability clusters.
 In this tutorial we are going to make a DRBD cluster. We&amp;rsquo;ll have following configuration of resources.
 drbd1: IP : 192.168.91.50 cluster disk : /dev/sdb ; 10 GB drbd2 : IP : 192.</description>
@@ -129,10 +129,10 @@ drbd1: IP : 192.168.91.50 cluster disk : /dev/sdb ; 10 GB drbd2 : IP : 192.</des
     
     <item>
       <title>MailCleaner configurations</title>
-      <link>https://tecnep.com/mailcleaner/mailcleaner_config/</link>
+      <link>https://linux.tecnep.com/mailcleaner/mailcleaner_config/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/mailcleaner/mailcleaner_config/</guid>
+      <guid>https://linux.tecnep.com/mailcleaner/mailcleaner_config/</guid>
       <description>MailCleaner is a business anti spam gateway installed between your mail infrastructure and the Internet. It offers professional protection against viruses and eliminates up to 99% of spam.
 Requirements and planning Make sure that your hardware or Virtual Machine meets the minimum requirements:
 ▪ 2 CPU, 4 GB RAM ▪ 60 GB HDD ▪ 100 Mbps network card ▪ 2 Mbps network connectivity Virtual Machine Download &amp;amp; Installation: Download the latest MailCleaner Virtual Machine corresponding to your virtualization environment here:https://www.</description>
@@ -140,38 +140,38 @@ Requirements and planning Make sure that your hardware or Virtual Machine meets 
     
     <item>
       <title>Glusterfs</title>
-      <link>https://tecnep.com/storage/glusterfs/</link>
+      <link>https://linux.tecnep.com/storage/glusterfs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/glusterfs/</guid>
+      <guid>https://linux.tecnep.com/storage/glusterfs/</guid>
       <description>Pratik Gautam pratikgautm@gmail.com</description>
     </item>
     
     <item>
       <title>Minio</title>
-      <link>https://tecnep.com/storage/minio/</link>
+      <link>https://linux.tecnep.com/storage/minio/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/minio/</guid>
+      <guid>https://linux.tecnep.com/storage/minio/</guid>
       <description>Minio is a self-hosted AWS S3-compatible, object storage server written in Go. It can be used to store objects such as photos, videos, log files, backups, etc.
 Objects are discrete units of data that are stored in a structurally flat data environment. There are no folders, directories, or complex hierarchies as in a file-based system. Each object is a simple, self-contained repository that includes the data, metadata (descriptive information associated with an object), and a unique identifying ID number (instead of a file name and file path).</description>
     </item>
     
     <item>
       <title>Ceph</title>
-      <link>https://tecnep.com/storage/ceph/</link>
+      <link>https://linux.tecnep.com/storage/ceph/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/storage/ceph/</guid>
+      <guid>https://linux.tecnep.com/storage/ceph/</guid>
       <description>a freely available storage platform that implements object storage on a single distributed computer cluster and provides interfaces for object, block and file level storage. aims for completely distributed operation without a single point of failure. manages data replication and is fault-tolerant.   Pratik Gautam pratikgautm@gmail.com</description>
     </item>
     
     <item>
       <title>Firewalld and keepalived</title>
-      <link>https://tecnep.com/firewall/firewall_keepalive/</link>
+      <link>https://linux.tecnep.com/firewall/firewall_keepalive/</link>
       <pubDate>Sun, 08 Dec 2019 13:41:34 +0545</pubDate>
       
-      <guid>https://tecnep.com/firewall/firewall_keepalive/</guid>
+      <guid>https://linux.tecnep.com/firewall/firewall_keepalive/</guid>
       <description>Keepalived provides simple and robust facilities for load-balancing and high-availability. The load-balancing framework relies on the well-known and widely used Linux Virtual Server (IPVS) kernel module providing Layer4 load-balancing.
 Keepalived implements a set of checkers to dynamically and adaptively maintain and manage a load-balanced server pool according to their health. Keepalived also implements the VRRPv2 and VRRPv3 protocols to achieve high-availability with director failover.
 You can allow firewall to accept vrrp protocol, which will allow you keepalive work accurately</description>
@@ -179,10 +179,10 @@ You can allow firewall to accept vrrp protocol, which will allow you keepalive w
     
     <item>
       <title>Rich rule</title>
-      <link>https://tecnep.com/firewall/rich_rule/</link>
+      <link>https://linux.tecnep.com/firewall/rich_rule/</link>
       <pubDate>Sun, 08 Dec 2019 13:41:34 +0545</pubDate>
       
-      <guid>https://tecnep.com/firewall/rich_rule/</guid>
+      <guid>https://linux.tecnep.com/firewall/rich_rule/</guid>
       <description>With the rich language more complex firewall rules can be created in an easy to understand way. The language uses keywords with values and is an abstract representation of ip*tables rules.
 The rich language extends the current zone elements (service, port, icmp-block, icmp-type, masquerade, forward-port and source-port) with additional source and destination addresses, logging, actions and limits for logs and actions.
 To accept ssh connection form a network only
@@ -191,20 +191,20 @@ firewall-cmd --permanent --zone=public --add-rich-rule=&#39;rule family=&amp;quo
     
     <item>
       <title>Useful command</title>
-      <link>https://tecnep.com/command/</link>
+      <link>https://linux.tecnep.com/command/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/command/</guid>
+      <guid>https://linux.tecnep.com/command/</guid>
       <description>iis log
 yum package manager yum provides yum history yum install {package_name} yum remove {package_name} yum update yum whatprovides {package_name} yum list installed yum-config-manager --enable {package_name} yum check-update yum -y install {http .rpm link} yum makecache fast # To exclude list of packages, use the command as follows. yum --exclude=mysql\* --exclude=httpd\* update Static route #Add route for a network route add -net 10.0.0.0/8 gw 192.168.219.1 (This will only add route temporarly, add the command in &#39;/etc/sysconfig/network-scripts/route-eth0&#39; for permanent) #Add route for a host route add host 10.</description>
     </item>
     
     <item>
       <title>Useful command</title>
-      <link>https://tecnep.com/useful_command/</link>
+      <link>https://linux.tecnep.com/useful_command/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/useful_command/</guid>
+      <guid>https://linux.tecnep.com/useful_command/</guid>
       <description>yum package manager yum provides yum history yum install {package_name} yum remove {package_name} yum update yum whatprovides {package_name} yum list installed yum-config-manager --enable {package_name} yum check-update yum -y install {http .rpm link} yum makecache fast # To exclude list of packages, use the command as follows. yum --exclude=mysql\* --exclude=httpd\* update Static route #Add route for a network route add -net 10.0.0.0/8 gw 192.168.219.1 (This will only add route temporarly, add the command in &#39;/etc/sysconfig/network-scripts/route-eth0&#39; for permanent) #Add route for a host route add host 10.</description>
     </item>
     

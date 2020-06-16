@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zimbra on Tecnep</title>
-    <link>https://tecnep.com/zimbra/</link>
+    <link>https://linux.tecnep.com/zimbra/</link>
     <description>Recent content in Zimbra on Tecnep</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="https://tecnep.com/zimbra/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://linux.tecnep.com/zimbra/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Zimbra Tips &amp; Tricks</title>
-      <link>https://tecnep.com/zimbra/zimbra_tips_tricks/</link>
+      <link>https://linux.tecnep.com/zimbra/zimbra_tips_tricks/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/zimbra/zimbra_tips_tricks/</guid>
+      <guid>https://linux.tecnep.com/zimbra/zimbra_tips_tricks/</guid>
       <description>Zimbra Mail server Memory Tuning This utility will detect the amount of RAM in this system and make suggestions on the size of your java heap as well as the size of your innodb buffer pool. If you choose, it will also make these changes to your zimbra install. NOTE: For the changes to be effective, a mailboxd restart is required.
 Copy the following script to any file memorytuning.sh
 #!/bin/bash function ask_yes_or_no() { read -p &amp;quot;$1 ([y]es or [N]o): &amp;quot; case $(echo $REPLY | tr &#39;[A-Z]&#39; &#39;[a-z]&#39;) in y|yes) echo &amp;quot;yes&amp;quot; ;; *) echo &amp;quot;no&amp;quot; ;; esac } echo &amp;quot;Checking total available ram&amp;quot; #echo free human readable cat /proc/meminfo |grep MemTotal #get memory total in bytes for calculation: MEMTOT=`cat /proc/meminfo |grep MemTotal |awk &#39;{print $2}&#39; 2&amp;gt;&amp;amp;1` #memingig MEMGB=`expr $MEMTOT / 1048576` #echo &amp;quot;memeory total = &amp;quot;$MEMTOT #echo &amp;quot;mem total gb = &amp;quot;$MEMGB ##From the wiki: # On a &amp;lt;8GB system, set Java heap size percent to 20 and mysql innodb buffer pool to 20% of system memory.</description>
@@ -23,10 +23,10 @@ Copy the following script to any file memorytuning.sh
     
     <item>
       <title>Backup</title>
-      <link>https://tecnep.com/zimbra/backup/</link>
+      <link>https://linux.tecnep.com/zimbra/backup/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://tecnep.com/zimbra/backup/</guid>
+      <guid>https://linux.tecnep.com/zimbra/backup/</guid>
       <description>Zimbra mailbox can be backup using command zmmailbox. The script backup mailbox for all accounts.
 #!/bin/bash FILE=/tmp/list_account DATE=$(date +&amp;quot;%a&amp;quot;) ZMBOX=/opt/zimbra/bin/zmmailbox while read account do echo &amp;quot;---Generating files from backup $account ---&amp;quot; $ZMBOX -z -m $account -t 0 getRestURL &amp;quot;//?fmt=zip&amp;quot; &amp;gt; /tmp/$acount.$DATE.zip done &amp;lt; $FILE The script restore mailbox for all accounts
 #!/bin/bash FILE=/tmp/list_account DATE=$(date +&amp;quot;%a&amp;quot;) ZMBOX=/opt/zimbra/bin/zmmailbox while read account do echo &amp;quot;---Restoring files from backup $account---&amp;quot; $ZMBOX -z -m $account -t 0 postRestURL &amp;quot;//?</description>
