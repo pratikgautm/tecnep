@@ -23,3 +23,6 @@ b) Public cloud
 c) Hybird cloud ( public + private, private use and public for backup)
 d) Multicloud ( AWS, GCP, alibaba)
 ~~~
+
+[image](cloud-vs-onpremise.png)
+
